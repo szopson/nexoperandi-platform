@@ -1,0 +1,40 @@
+{
+  "name": "nexoperandi-platform",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AI Agent Platform with n8n Integration - Marketing Website & Admin Dashboard",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.0.0",
+    "turbo": "^2.0.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szopson/nexoperandi-platform.git"
+  },
+  "keywords": [
+    "ai-agents",
+    "n8n",
+    "automation",
+    "voice-agents",
+    "monorepo",
+    "next.js"
+  ],
+  "author": "NexOperandi",
+  "license": "ISC"
+}
