@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "n8n-mcp-production": {
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "mcp-remote",
+        "http://piotr108.mikrus.xyz:40233/mcp",
+        "--allow-http",
+        "--header",
+        "Authorization: Bearer axAdPXneRcdnWENjgYyhzTMYpfTs+i9zm4h2mv9zv3k="
+      ]
+    },
+    "context7 Docs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/upstash/context7"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "n8n-workflows Docs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/Zie619/n8n-workflows"]
+    },
+    "n8n-mcp Docs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/czlonkowski/n8n-mcp"]
+    }
+  }
+}

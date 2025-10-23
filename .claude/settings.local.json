@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add .claude_approve.md SETUP_GITHUB.md)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Claude auto-approve configuration and GitHub setup documentation\n\n- Add .claude_approve.md for autonomous Claude operations\n- Add SETUP_GITHUB.md with repository setup instructions\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push -u origin main)",
+      "Bash(node --version)",
+      "Bash(curl -s http://piotr108.mikrus.xyz:40233/health)",
+      "Bash(curl -s -X POST http://piotr108.mikrus.xyz:40233/mcp -H \"Authorization: Bearer axAdPXneRcdnWENjgYyhzTMYpfTs+i9zm4h2mv9zv3k=\" -H \"Content-Type: application/json\" -d \"{\"\"jsonrpc\"\":\"\"2.0\"\",\"\"method\"\":\"\"initialize\"\",\"\"params\"\":{},\"\"id\"\":1}\")",
+      "Bash(dir /b \".claude\")",
+      "Bash(test:*)",
+      "Bash(pnpm --version:*)",
+      "Bash(npm install:*)",
+      "Bash(pnpm install:*)",
+      "Read(//c/Users/Jakub Baranowski/AAA-website/**)",
+      "Bash(pnpm --filter website dev:*)",
+      "Bash(pnpm --filter website build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

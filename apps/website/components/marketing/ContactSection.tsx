@@ -16,16 +16,14 @@ export default function ContactSection() {
     try {
       const formData = new FormData(e.currentTarget);
       const data = {
-        "What is your name?": formData.get("What is your name?"),
-        "What is your email?": formData.get("What is your email?"),
-        "What is your company website?": formData.get("What is your company website?"),
-        "What can we help you with?": formData.get("What can we help you with?"),
+        name: formData.get("What is your name?"),
+        email: formData.get("What is your email?"),
+        website: formData.get("What is your company website?"),
+        message: formData.get("What can we help you with?"),
       };
 
-      // TODO: Replace with your actual n8n webhook URL
-      const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "YOUR_N8N_WEBHOOK_URL_HERE";
-
-      const response = await fetch(webhookUrl, {
+      // Call our API route instead of directly calling the webhook
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
