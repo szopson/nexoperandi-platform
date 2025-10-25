@@ -1,0 +1,354 @@
+{
+  "name": "Visitor Intelligence Agent - Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "visitor-intel",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 400],
+      "webhookId": "visitor-intel-webhook"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Extract webhook data\nconst data = $input.first().json.body;\n\n// Validate input\nif (!data || !data.url) {\n  return [{\n    json: {\n      error: \"Missing required field: url\",\n      score: 0,\n      category: \"Invalid\"\n    }\n  }];\n}\n\n// Calculate time score (1pt per 10 seconds, max 30)\nconst timeScore = Math.min(Math.floor((data.timeOnPage || 0) / 10), 30);\n\n// Calculate page score (5pts per page, max 25)\nconst pageScore = Math.min((data.pagesViewed || 1) * 5, 25);\n\n// High-value page bonus\nconst highValuePage = /pricing|demo|contact|enterprise|solutions/.test(data.url.toLowerCase()) ? 20 : 0;\n\n// Total score calculation\nconst totalScore = 10 + timeScore + pageScore + highValuePage;\n\n// Categorize lead\nlet category, action;\nif (totalScore < 30) {\n  category = \"Cold\";\n  action = \"monitor\";\n} else if (totalScore < 60) {\n  category = \"Warm\";\n  action = \"engage_email\";\n} else {\n  category = \"Hot\";\n  action = \"trigger_chat\";\n}\n\n// Return enriched data\nreturn [{\n  json: {\n    // Original data\n    visitor_id: data.visitorId || 'anonymous',\n    session_id: data.sessionId || 'session-' + Date.now(),\n    url: data.url,\n    page_title: data.pageTitle || '',\n    time_on_page: data.timeOnPage || 0,\n    pages_viewed: data.pagesViewed || 1,\n    scroll_depth: data.scrollDepth || 0,\n    \n    // Technical data\n    device: data.device || 'unknown',\n    browser: data.browser || '',\n    os: data.os || '',\n    referrer: data.referrer || 'direct',\n    \n    // UTM parameters\n    utm_source: data.utmSource || '',\n    utm_medium: data.utmMedium || '',\n    utm_campaign: data.utmCampaign || '',\n    \n    // Contact info (if provided)\n    email: data.email || '',\n    name: data.name || '',\n    company: data.company || '',\n    \n    // Calculated scoring\n    lead_score: totalScore,\n    category: category,\n    action: action,\n    \n    // Timestamp\n    timestamp: new Date().toISOString(),\n    date: new Date().toISOString().split('T')[0],\n    time: new Date().toTimeString().split(' ')[0]\n  }\n}];"
+      },
+      "id": "calculate-score",
+      "name": "Calculate Lead Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-3-5-haiku-20241022",
+          "mode": "list",
+          "cachedResultName": "Claude 3.5 Haiku(20241022)"
+        },
+        "options": {
+          "maxTokens": 150,
+          "temperature": 0.3
+        },
+        "text": "=Analyze this visitor behavior and provide ONE concise sentence describing their intent level:\n\n**Visitor Data:**\n- Page: {{ $json.url }}\n- Time on page: {{ $json.time_on_page }} seconds\n- Total pages viewed: {{ $json.pages_viewed }}\n- Device: {{ $json.device }}\n- Referrer: {{ $json.referrer }}\n- Lead Score: {{ $json.lead_score }}/85 ({{ $json.category }})\n\nProvide a specific, actionable insight about their buying intent. Be direct and helpful."
+      },
+      "id": "ai-insights",
+      "name": "AI Behavioral Insights",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [680, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-credentials",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultName": "Sheet1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('Calculate Lead Score').item.json.timestamp }}",
+            "Date": "={{ $('Calculate Lead Score').item.json.date }}",
+            "Time": "={{ $('Calculate Lead Score').item.json.time }}",
+            "Session ID": "={{ $('Calculate Lead Score').item.json.session_id }}",
+            "Visitor ID": "={{ $('Calculate Lead Score').item.json.visitor_id }}",
+            "URL": "={{ $('Calculate Lead Score').item.json.url }}",
+            "Page Title": "={{ $('Calculate Lead Score').item.json.page_title }}",
+            "Time on Page": "={{ $('Calculate Lead Score').item.json.time_on_page }}",
+            "Pages Viewed": "={{ $('Calculate Lead Score').item.json.pages_viewed }}",
+            "Scroll Depth": "={{ $('Calculate Lead Score').item.json.scroll_depth }}",
+            "Device": "={{ $('Calculate Lead Score').item.json.device }}",
+            "Browser": "={{ $('Calculate Lead Score').item.json.browser }}",
+            "OS": "={{ $('Calculate Lead Score').item.json.os }}",
+            "Referrer": "={{ $('Calculate Lead Score').item.json.referrer }}",
+            "UTM Source": "={{ $('Calculate Lead Score').item.json.utm_source }}",
+            "UTM Medium": "={{ $('Calculate Lead Score').item.json.utm_medium }}",
+            "UTM Campaign": "={{ $('Calculate Lead Score').item.json.utm_campaign }}",
+            "Lead Score": "={{ $('Calculate Lead Score').item.json.lead_score }}",
+            "Category": "={{ $('Calculate Lead Score').item.json.category }}",
+            "Action": "={{ $('Calculate Lead Score').item.json.action }}",
+            "AI Insight": "={{ $json.response }}",
+            "Email": "={{ $('Calculate Lead Score').item.json.email }}",
+            "Name": "={{ $('Calculate Lead Score').item.json.name }}",
+            "Company": "={{ $('Calculate Lead Score').item.json.company }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "save-to-sheets",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [900, 400],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-oauth",
+          "name": "Google Sheets OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-hot-lead",
+              "leftValue": "={{ $('Calculate Lead Score').item.json.category }}",
+              "rightValue": "Hot",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-hot-lead",
+      "name": "Check if Hot Lead",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1120, 400]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=1",
+          "cachedResultName": "Hot Leads"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('Calculate Lead Score').item.json.timestamp }}",
+            "Date": "={{ $('Calculate Lead Score').item.json.date }}",
+            "Session ID": "={{ $('Calculate Lead Score').item.json.session_id }}",
+            "URL": "={{ $('Calculate Lead Score').item.json.url }}",
+            "Lead Score": "={{ $('Calculate Lead Score').item.json.lead_score }}",
+            "AI Insight": "={{ $('AI Behavioral Insights').item.json.response }}",
+            "Device": "={{ $('Calculate Lead Score').item.json.device }}",
+            "Referrer": "={{ $('Calculate Lead Score').item.json.referrer }}",
+            "Email": "={{ $('Calculate Lead Score').item.json.email }}",
+            "Name": "={{ $('Calculate Lead Score').item.json.name }}",
+            "Company": "={{ $('Calculate Lead Score').item.json.company }}",
+            "Status": "New",
+            "Contacted": "",
+            "Notes": ""
+          }
+        },
+        "options": {}
+      },
+      "id": "save-hot-lead",
+      "name": "Save to Hot Leads Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1340, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-oauth",
+          "name": "Google Sheets OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "final_response",
+              "name": "response",
+              "value": "={{ {\n  success: true,\n  visitor: {\n    session_id: $('Calculate Lead Score').item.json.session_id,\n    url: $('Calculate Lead Score').item.json.url,\n    timeOnPage: $('Calculate Lead Score').item.json.time_on_page,\n    pagesViewed: $('Calculate Lead Score').item.json.pages_viewed,\n    device: $('Calculate Lead Score').item.json.device,\n    referrer: $('Calculate Lead Score').item.json.referrer\n  },\n  intelligence: {\n    score: $('Calculate Lead Score').item.json.lead_score,\n    category: $('Calculate Lead Score').item.json.category,\n    action: $('Calculate Lead Score').item.json.action,\n    insight: $('AI Behavioral Insights').item.json.response || 'Analysis complete'\n  },\n  saved: {\n    google_sheets: true,\n    hot_lead: $('Calculate Lead Score').item.json.category === 'Hot'\n  },\n  timestamp: $('Calculate Lead Score').item.json.timestamp\n} }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-response",
+      "name": "Prepare Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1340, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [1560, 400]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Calculate Lead Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Lead Score": {
+      "main": [
+        [
+          {
+            "node": "AI Behavioral Insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Behavioral Insights": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Check if Hot Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Hot Lead": {
+      "main": [
+        [
+          {
+            "node": "Save to Hot Leads Sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Hot Leads Sheet": {
+      "main": [
+        [
+          {
+            "node": "Prepare Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Response": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "id": "visitor-intelligence",
+      "name": "Visitor Intelligence"
+    },
+    {
+      "id": "google-sheets",
+      "name": "Google Sheets"
+    }
+  ]
+}
