@@ -1,0 +1,342 @@
+{
+  "name": "AI Customer Service Agent - NexOperandi Platform",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "customer-support",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Customer Message Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "customer-support-webhook"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "customerId",
+              "name": "customerId",
+              "type": "string",
+              "value": "={{ $json.body?.customerId || $json.body?.email || 'anonymous-' + Date.now() }}"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "type": "string",
+              "value": "={{ $json.body?.message || '' }}"
+            },
+            {
+              "id": "channel",
+              "name": "channel",
+              "type": "string",
+              "value": "={{ $json.body?.channel || 'web' }}"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "type": "string",
+              "value": "={{ new Date().toISOString() }}"
+            },
+            {
+              "id": "sessionId",
+              "name": "sessionId",
+              "type": "string",
+              "value": "={{ $json.body?.sessionId || 'session-' + Date.now() }}"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $json.body?.email || '' }}"
+            },
+            {
+              "id": "name",
+              "name": "name",
+              "type": "string",
+              "value": "={{ $json.body?.name || '' }}"
+            }
+          ]
+        }
+      },
+      "id": "set-1",
+      "name": "Process Customer Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Analyze the sentiment and urgency of this customer message. Return JSON with: {\\\"sentiment\\\": \\\"positive/neutral/negative\\\", \\\"urgency\\\": \\\"high/medium/low\\\", \\\"category\\\": \\\"billing/technical/general/complaint\\\", \\\"needs_human\\\": true/false}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Process Customer Message').item.json.message }}\"\n    }\n  ],\n  \"temperature\": 0.3,\n  \"response_format\": { \"type\": \"json_object\" }\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "http-1",
+      "name": "Analyze Sentiment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "// Knowledge Base for NexOperandi AI Customer Service\nconst message = $input.item.json.message.toLowerCase();\nlet relevantInfo = [];\n\nconst knowledgeBase = {\n  pricing: {\n    keywords: ['price', 'cost', 'pricing', 'plan', 'subscription', 'payment', 'how much'],\n    info: 'NexOperandi Pricing: Starter Plan $500-2,000/month (small businesses 10-50 employees), Growth Plan $2,000-8,000/month (mid-market 50-500 employees), Enterprise Plan $8,000-50,000/month (500+ employees with custom features). All plans include 24/7 AI support, multi-channel integration, and 90-day ROI guarantee.'\n  },\n  features: {\n    keywords: ['feature', 'capability', 'function', 'what can', 'how does', 'do you offer'],\n    info: 'Our AI platform offers: 24/7 customer support automation, multi-channel integration (WhatsApp, Telegram, Slack, Email), sentiment analysis with smart escalation, 70% cost reduction, response time under 3 seconds, unlimited concurrent conversations, and support for 50+ languages.'\n  },\n  support: {\n    keywords: ['help', 'support', 'issue', 'problem', 'not working', 'contact', 'reach'],\n    info: 'For support: Email support@nexoperandi.ai (24/7 response), call 1-800-NEXOP-AI (business hours), or use our live chat. Premium support with 1-hour SLA available for Enterprise clients.'\n  },\n  billing: {\n    keywords: ['invoice', 'payment', 'bill', 'charge', 'refund', 'billing cycle'],\n    info: 'Billing: Monthly or annual subscriptions available (20% discount on annual). Access your billing dashboard at portal.nexoperandi.ai. For billing inquiries, email billing@nexoperandi.ai. We accept all major credit cards and wire transfers for Enterprise.'\n  },\n  integration: {\n    keywords: ['integrate', 'connect', 'api', 'webhook', 'setup', 'installation'],\n    info: 'Integration: Setup takes 15-30 minutes. We support REST API, webhooks, and native integrations with Slack, Teams, WhatsApp Business, Telegram, and 100+ other platforms via Zapier. Full API documentation at docs.nexoperandi.ai.'\n  },\n  performance: {\n    keywords: ['performance', 'speed', 'uptime', 'reliability', 'sla'],\n    info: 'Performance: 99.9% uptime SLA, <3 second response time, handles 50,000+ interactions/month per agent, automatic scaling, redundant infrastructure across multiple regions.'\n  },\n  roi: {\n    keywords: ['roi', 'return', 'savings', 'value', 'worth it'],\n    info: 'ROI: Average 3.5x return in 90 days, 70% cost reduction vs human agents ($0.02 per interaction vs $5-10), potential savings $249,000-499,000/month for high-volume operations. We offer a 90-day money-back guarantee.'\n  },\n  trial: {\n    keywords: ['trial', 'demo', 'test', 'try', 'free'],\n    info: 'Free Trial: 14-day free trial available with full features (up to 1,000 interactions). Book a personalized demo at nexoperandi.ai/demo. No credit card required for trial.'\n  }\n};\n\n// Search for relevant information\nfor (const [category, data] of Object.entries(knowledgeBase)) {\n  const hasKeyword = data.keywords.some(keyword => message.includes(keyword));\n  if (hasKeyword) {\n    relevantInfo.push(data.info);\n  }\n}\n\n// If no specific match, provide general info\nif (relevantInfo.length === 0) {\n  relevantInfo.push('NexOperandi provides AI automation agents for businesses. We offer customer service automation, lead generation, and workflow automation with proven 3.5x ROI in 90 days.');\n}\n\nreturn {\n  relevantInfo: relevantInfo,\n  searchResults: relevantInfo.length,\n  category: relevantInfo.length > 0 ? 'found' : 'general'\n};"
+      },
+      "id": "code-1",
+      "name": "Search Knowledge Base",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional AI customer service representative for NexOperandi.ai, an AI automation agency. Be helpful, empathetic, and professional. Use this context to answer: {{ $('Search Knowledge Base').item.json.relevantInfo.join(' ') }}\\n\\nAlways:\\n- Be conversational and friendly\\n- Provide specific information when available\\n- Offer to help further\\n- If you don't know something, offer to connect them with a human agent\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $('Process Customer Message').item.json.message }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 400\n}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "http-2",
+      "name": "AI Response Generator",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "sentiment-negative",
+              "leftValue": "={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).sentiment }}",
+              "rightValue": "negative",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "urgency-high",
+              "leftValue": "={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).urgency }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "needs-human",
+              "leftValue": "={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).needs_human }}",
+              "rightValue": "={{ true }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "if-1",
+      "name": "Check Escalation",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"text\": \"🚨 Customer Support Escalation Required\",\n  \"blocks\": [\n    {\n      \"type\": \"header\",\n      \"text\": {\n        \"type\": \"plain_text\",\n        \"text\": \"⚠️ Urgent Customer Support Request\"\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"fields\": [\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Customer ID:*\\n{{ $('Process Customer Message').item.json.customerId }}\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Channel:*\\n{{ $('Process Customer Message').item.json.channel }}\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Sentiment:*\\n{{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).sentiment }}\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Urgency:*\\n{{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).urgency }}\"\n        }\n      ]\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"*Customer Message:*\\n{{ $('Process Customer Message').item.json.message }}\"\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"*AI Response Prepared:*\\n{{ $('AI Response Generator').item.json.choices[0].message.content }}\"\n      }\n    },\n    {\n      \"type\": \"actions\",\n      \"elements\": [\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Take Over Conversation\"\n          },\n          \"style\": \"primary\",\n          \"url\": \"https://nexoperandi.ai/admin/support/{{ $('Process Customer Message').item.json.sessionId }}\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "http-3",
+      "name": "Notify Human Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "customer_interactions",
+        "columns": "timestamp,customer_id,session_id,channel,message,response,sentiment,urgency,category,escalated,response_time_ms",
+        "values": "={{ $('Process Customer Message').item.json.timestamp }},={{ $('Process Customer Message').item.json.customerId }},={{ $('Process Customer Message').item.json.sessionId }},={{ $('Process Customer Message').item.json.channel }},={{ $('Process Customer Message').item.json.message }},={{ $('AI Response Generator').item.json.choices[0].message.content }},={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).sentiment }},={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).urgency }},={{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).category }},={{ $node['Check Escalation'].json.escalated || false }},={{ Date.now() - new Date($('Process Customer Message').item.json.timestamp).getTime() }}",
+        "options": {}
+      },
+      "id": "postgres-1",
+      "name": "Log to Database",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1250, 400]
+    },
+    {
+      "parameters": {
+        "responseCode": 200,
+        "responseHeaders": {
+          "entries": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ]
+        },
+        "responseData": "={\n  \"success\": true,\n  \"response\": \"{{ $('AI Response Generator').item.json.choices[0].message.content }}\",\n  \"sessionId\": \"{{ $('Process Customer Message').item.json.sessionId }}\",\n  \"timestamp\": \"{{ new Date().toISOString() }}\",\n  \"sentiment\": \"{{ JSON.parse($('Analyze Sentiment').item.json.choices[0].message.content).sentiment }}\",\n  \"escalated\": {{ $node['Check Escalation'].json.escalated || false }},\n  \"responseTimeMs\": {{ Date.now() - new Date($('Process Customer Message').item.json.timestamp).getTime() }}\n}",
+        "options": {}
+      },
+      "id": "respond-1",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "Customer Message Webhook": {
+      "main": [
+        [
+          {
+            "node": "Process Customer Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Customer Message": {
+      "main": [
+        [
+          {
+            "node": "Analyze Sentiment",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Search Knowledge Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Sentiment": {
+      "main": [
+        [
+          {
+            "node": "AI Response Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Knowledge Base": {
+      "main": [
+        [
+          {
+            "node": "AI Response Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Response Generator": {
+      "main": [
+        [
+          {
+            "node": "Check Escalation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Escalation": {
+      "main": [
+        [
+          {
+            "node": "Notify Human Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log to Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Human Agent": {
+      "main": [
+        [
+          {
+            "node": "Log to Database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Database": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/New_York",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-23T13:30:00.000Z",
+  "versionId": "1.0.0"
+}

@@ -1,0 +1,382 @@
+{
+  "name": "AI Business Analyst Agent - NexOperandi Demo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "business-analysis",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "business-analyst-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "company_name",
+              "name": "companyName",
+              "value": "={{ $json.body.companyName }}",
+              "type": "string"
+            },
+            {
+              "id": "industry",
+              "name": "industry",
+              "value": "={{ $json.body.industry }}",
+              "type": "string"
+            },
+            {
+              "id": "employee_count",
+              "name": "employeeCount",
+              "value": "={{ $json.body.employeeCount }}",
+              "type": "number"
+            },
+            {
+              "id": "revenue_range",
+              "name": "revenueRange",
+              "value": "={{ $json.body.revenueRange }}",
+              "type": "string"
+            },
+            {
+              "id": "current_challenges",
+              "name": "currentChallenges",
+              "value": "={{ $json.body.challenges }}",
+              "type": "string"
+            },
+            {
+              "id": "goals",
+              "name": "businessGoals",
+              "value": "={{ $json.body.goals }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-input",
+      "name": "Extract Input Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-20250514",
+        "options": {
+          "maxTokens": 4096,
+          "temperature": 0.3
+        },
+        "text": "=You are an expert AI automation consultant analyzing a business for automation opportunities.\n\n**Company Profile:**\n- Company: {{ $json.companyName }}\n- Industry: {{ $json.industry }}\n- Size: {{ $json.employeeCount }} employees\n- Revenue: {{ $json.revenueRange }}\n\n**Current Challenges:**\n{{ $json.currentChallenges }}\n\n**Business Goals:**\n{{ $json.businessGoals }}\n\n**YOUR TASK:**\nAnalyze this business and provide a comprehensive automation assessment in JSON format:\n\n```json\n{\n  \"businessContext\": {\n    \"industryInsights\": \"2-3 key industry-specific insights\",\n    \"automationReadiness\": \"low/medium/high\",\n    \"criticalPainPoints\": [\"top 3 pain points identified\"]\n  },\n  \"recommendedAgents\": [\n    {\n      \"agentType\": \"AI Customer Service Agent\",\n      \"priority\": \"P0/P1/P2\",\n      \"estimatedROI\": \"$X,XXX/month\",\n      \"implementationTime\": \"X weeks\",\n      \"keyBenefits\": [\"benefit 1\", \"benefit 2\", \"benefit 3\"],\n      \"specificUseCase\": \"How this applies to their business\",\n      \"expectedImpact\": {\n        \"costSavings\": \"$X,XXX/month\",\n        \"timeSavings\": \"X hours/week\",\n        \"efficiencyGain\": \"X%\"\n      }\n    }\n  ],\n  \"implementationRoadmap\": {\n    \"phase1\": {\n      \"name\": \"Quick Wins (30-60 days)\",\n      \"agents\": [\"agent names\"],\n      \"estimatedCost\": \"$X,XXX\",\n      \"expectedROI\": \"$X,XXX/month\"\n    },\n    \"phase2\": {\n      \"name\": \"Core Infrastructure (60-90 days)\",\n      \"agents\": [\"agent names\"],\n      \"estimatedCost\": \"$X,XXX\",\n      \"expectedROI\": \"$X,XXX/month\"\n    },\n    \"phase3\": {\n      \"name\": \"Advanced Optimization (90+ days)\",\n      \"agents\": [\"agent names\"],\n      \"estimatedCost\": \"$X,XXX\",\n      \"expectedROI\": \"$X,XXX/month\"\n    }\n  },\n  \"totalProjection\": {\n    \"year1Investment\": \"$X,XXX\",\n    \"year1Savings\": \"$X,XXX\",\n    \"netROI\": \"XXX%\",\n    \"paybackPeriod\": \"X months\",\n    \"year3Value\": \"$X,XXX\"\n  },\n  \"riskFactors\": [\"factor 1\", \"factor 2\"],\n  \"nextSteps\": [\"step 1\", \"step 2\", \"step 3\"]\n}\n```\n\n**REFERENCE DATA** (from AI Automation Agency market research):\n- AI Customer Service Agent: $3.50 ROI per $1 invested, 30-70% cost reduction\n- B2B Lead Gen Agent: 7x conversion improvement, 40-60% lead quality boost\n- Sales Meeting Scheduler: Saves 11+ hours/week per rep\n- Document Generation Agent: 80% time reduction, 15-25% win rate improvement\n- Website Visitor Intelligence: 3-5x visitor-to-lead conversion\n\n**PRICING REFERENCE:**\n- Starter Package: $2,000-5,000/month (1-2 agents)\n- Growth Package: $5,000-15,000/month (3-4 agents)\n- Enterprise: $15,000-50,000/month (unlimited)\n\nBase recommendations on:\n1. Company size and budget (revenue range)\n2. Industry-specific pain points\n3. Measurable ROI projections\n4. Realistic implementation timeline\n5. Prioritize high-impact, quick-win solutions\n\nReturn ONLY valid JSON, no markdown formatting."
+      },
+      "id": "ai-analysis",
+      "name": "AI Business Analysis",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.8,
+      "position": [680, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credentials",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "parsed_analysis",
+              "name": "analysis",
+              "value": "={{ JSON.parse($json.response) }}",
+              "type": "object"
+            },
+            {
+              "id": "company_name",
+              "name": "companyName",
+              "value": "={{ $('Extract Input Data').item.json.companyName }}",
+              "type": "string"
+            },
+            {
+              "id": "generated_at",
+              "name": "generatedAt",
+              "value": "={{ $now.format('MMMM D, YYYY') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "parse-analysis",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "operation": "formatDocument",
+        "templateType": "custom",
+        "templateContent": "=# AI Automation Roadmap\n## {{ $json.companyName }}\n\n**Generated:** {{ $json.generatedAt }}\n**Prepared by:** NexOperandi.ai\n\n---\n\n## Executive Summary\n\n**Automation Readiness:** {{ $json.analysis.businessContext.automationReadiness.toUpperCase() }}\n\n{{ $json.analysis.businessContext.industryInsights }}\n\n### Critical Pain Points Identified:\n{{ $json.analysis.businessContext.criticalPainPoints.map((p, i) => `${i + 1}. ${p}`).join('\\n') }}\n\n---\n\n## Recommended AI Agents\n\n{{ $json.analysis.recommendedAgents.map((agent, i) => `\n### ${i + 1}. ${agent.agentType} [${agent.priority}]\n\n**Implementation Time:** ${agent.implementationTime}\n**Estimated ROI:** ${agent.estimatedROI}\n\n**Use Case:**\n${agent.specificUseCase}\n\n**Key Benefits:**\n${agent.keyBenefits.map(b => `- ${b}`).join('\\n')}\n\n**Expected Impact:**\n- 💰 Cost Savings: ${agent.expectedImpact.costSavings}\n- ⏱️ Time Savings: ${agent.expectedImpact.timeSavings}\n- 📈 Efficiency Gain: ${agent.expectedImpact.efficiencyGain}\n\n---\n`).join('\\n') }}\n\n## Implementation Roadmap\n\n### Phase 1: {{ $json.analysis.implementationRoadmap.phase1.name }}\n**Agents:** {{ $json.analysis.implementationRoadmap.phase1.agents.join(', ') }}\n**Investment:** {{ $json.analysis.implementationRoadmap.phase1.estimatedCost }}\n**Expected ROI:** {{ $json.analysis.implementationRoadmap.phase1.expectedROI }}\n\n### Phase 2: {{ $json.analysis.implementationRoadmap.phase2.name }}\n**Agents:** {{ $json.analysis.implementationRoadmap.phase2.agents.join(', ') }}\n**Investment:** {{ $json.analysis.implementationRoadmap.phase2.estimatedCost }}\n**Expected ROI:** {{ $json.analysis.implementationRoadmap.phase2.expectedROI }}\n\n### Phase 3: {{ $json.analysis.implementationRoadmap.phase3.name }}\n**Agents:** {{ $json.analysis.implementationRoadmap.phase3.agents.join(', ') }}\n**Investment:** {{ $json.analysis.implementationRoadmap.phase3.estimatedCost }}\n**Expected ROI:** {{ $json.analysis.implementationRoadmap.phase3.expectedROI }}\n\n---\n\n## Financial Projections\n\n| Metric | Value |\n|--------|-------|\n| Year 1 Investment | {{ $json.analysis.totalProjection.year1Investment }} |\n| Year 1 Savings | {{ $json.analysis.totalProjection.year1Savings }} |\n| Net ROI | {{ $json.analysis.totalProjection.netROI }} |\n| Payback Period | {{ $json.analysis.totalProjection.paybackPeriod }} |\n| 3-Year Value | {{ $json.analysis.totalProjection.year3Value }} |\n\n---\n\n## Risk Factors\n\n{{ $json.analysis.riskFactors.map((r, i) => `${i + 1}. ${r}`).join('\\n') }}\n\n---\n\n## Next Steps\n\n{{ $json.analysis.nextSteps.map((s, i) => `${i + 1}. ${s}`).join('\\n') }}\n\n---\n\n## About NexOperandi\n\n**We deliver results, not AI buzzwords.**\n\nOur end-to-end AI automation solutions are designed for businesses that demand measurable ROI within 90 days. From MVP to scale, we handle design, development, and deployment.\n\n**Ready to get started?**\n📧 Contact: hello@nexoperandi.ai\n🌐 Website: https://nexoperandi.ai\n\n---\n\n*This analysis is based on the information provided and market research from 2025. Actual results may vary based on implementation quality and organizational factors.*",
+        "format": "markdown",
+        "options": {}
+      },
+      "id": "format-document",
+      "name": "Format Roadmap Document",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "final_response",
+              "name": "response",
+              "value": "={{ {\n  success: true,\n  message: 'AI Business Analysis Complete',\n  data: {\n    companyName: $json.companyName,\n    generatedAt: $json.generatedAt,\n    analysis: $json.analysis,\n    document: $json.templateContent,\n    summary: {\n      automationReadiness: $json.analysis.businessContext.automationReadiness,\n      recommendedAgents: $json.analysis.recommendedAgents.length,\n      estimatedROI: $json.analysis.totalProjection.netROI,\n      paybackPeriod: $json.analysis.totalProjection.paybackPeriod\n    }\n  }\n} }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-response",
+      "name": "Prepare Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has_required_fields",
+              "leftValue": "={{ $json.body && $json.body.companyName && $json.body.industry }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "validate-input",
+      "name": "Validate Input",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [460, 500]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_response",
+              "name": "response",
+              "value": "={{ {\n  success: false,\n  error: 'Invalid input. Required fields: companyName, industry, employeeCount, revenueRange, challenges, goals',\n  message: 'Please provide all required business information'\n} }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error-response",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "error-webhook-response",
+      "name": "Send Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 500]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "node": "Extract Input Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Input Data": {
+      "main": [
+        [
+          {
+            "node": "AI Business Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Business Analysis": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "Format Roadmap Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Roadmap Document": {
+      "main": [
+        [
+          {
+            "node": "Prepare Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Response": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Response": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-24T12:00:00.000Z",
+      "updatedAt": "2025-01-24T12:00:00.000Z",
+      "id": "demo-agent",
+      "name": "Demo Agent"
+    },
+    {
+      "createdAt": "2025-01-24T12:00:00.000Z",
+      "updatedAt": "2025-01-24T12:00:00.000Z",
+      "id": "ai-business-analyst",
+      "name": "AI Business Analyst"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-24T12:00:00.000Z",
+  "versionId": "1.0.0"
+}

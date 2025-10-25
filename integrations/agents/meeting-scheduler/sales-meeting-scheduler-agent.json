@@ -1,0 +1,410 @@
+{
+  "name": "Sales Meeting Scheduler & Follow-up Agent - NexOperandi Demo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "meeting-scheduler",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "meeting-scheduler-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contact_name",
+              "name": "contactName",
+              "value": "={{ $json.body.contactName }}",
+              "type": "string"
+            },
+            {
+              "id": "contact_email",
+              "name": "contactEmail",
+              "value": "={{ $json.body.contactEmail }}",
+              "type": "string"
+            },
+            {
+              "id": "company_name",
+              "name": "companyName",
+              "value": "={{ $json.body.companyName || 'Not provided' }}",
+              "type": "string"
+            },
+            {
+              "id": "meeting_purpose",
+              "name": "meetingPurpose",
+              "value": "={{ $json.body.meetingPurpose || 'Discovery Call' }}",
+              "type": "string"
+            },
+            {
+              "id": "preferred_date",
+              "name": "preferredDate",
+              "value": "={{ $json.body.preferredDate || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "preferred_time",
+              "name": "preferredTime",
+              "value": "={{ $json.body.preferredTime || 'morning' }}",
+              "type": "string"
+            },
+            {
+              "id": "timezone",
+              "name": "timezone",
+              "value": "={{ $json.body.timezone || 'America/New_York' }}",
+              "type": "string"
+            },
+            {
+              "id": "duration_minutes",
+              "name": "durationMinutes",
+              "value": "={{ $json.body.durationMinutes || 30 }}",
+              "type": "number"
+            },
+            {
+              "id": "additional_notes",
+              "name": "additionalNotes",
+              "value": "={{ $json.body.notes || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-input",
+      "name": "Extract Meeting Request",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has_required_fields",
+              "leftValue": "={{ $json.body && $json.body.contactName && $json.body.contactEmail }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "validate-input",
+      "name": "Validate Input",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [460, 500]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_response",
+              "name": "response",
+              "value": "={{ {\n  success: false,\n  error: 'Invalid input. Required fields: contactName, contactEmail',\n  message: 'Please provide your name and email to schedule a meeting'\n} }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error-response",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "error-webhook-response",
+      "name": "Send Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate simulated calendar availability for demo purposes\n// This simulates checking a real calendar system\n\nconst now = new Date();\nconst timezone = $input.item.json.timezone || 'America/New_York';\nconst preferredDate = $input.item.json.preferredDate;\nconst preferredTime = $input.item.json.preferredTime || 'morning';\nconst durationMinutes = parseInt($input.item.json.durationMinutes) || 30;\n\n// Generate next 7 business days\nconst availableSlots = [];\nlet currentDate = new Date(now);\n\n// Function to check if date is weekend\nfunction isWeekend(date) {\n  const day = date.getDay();\n  return day === 0 || day === 6;\n}\n\n// Generate slots for next 7 business days\nlet businessDaysAdded = 0;\nwhile (businessDaysAdded < 7) {\n  currentDate.setDate(currentDate.getDate() + 1);\n  \n  if (!isWeekend(currentDate)) {\n    const dateStr = currentDate.toISOString().split('T')[0];\n    \n    // Generate time slots based on preference\n    const timeSlots = [];\n    \n    if (preferredTime === 'morning' || preferredTime === 'any') {\n      timeSlots.push(\n        { time: '09:00', display: '9:00 AM' },\n        { time: '10:00', display: '10:00 AM' },\n        { time: '11:00', display: '11:00 AM' }\n      );\n    }\n    \n    if (preferredTime === 'afternoon' || preferredTime === 'any') {\n      timeSlots.push(\n        { time: '13:00', display: '1:00 PM' },\n        { time: '14:00', display: '2:00 PM' },\n        { time: '15:00', display: '3:00 PM' }\n      );\n    }\n    \n    if (preferredTime === 'evening' || preferredTime === 'any') {\n      timeSlots.push(\n        { time: '16:00', display: '4:00 PM' },\n        { time: '17:00', display: '5:00 PM' }\n      );\n    }\n    \n    // Add slots for this day\n    timeSlots.forEach(slot => {\n      availableSlots.push({\n        date: dateStr,\n        time: slot.time,\n        displayTime: slot.display,\n        datetime: `${dateStr}T${slot.time}:00`,\n        timezone: timezone,\n        duration: durationMinutes,\n        available: true\n      });\n    });\n    \n    businessDaysAdded++;\n  }\n}\n\n// Format day names\nconst dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];\navailableSlots.forEach(slot => {\n  const slotDate = new Date(slot.date);\n  slot.dayName = dayNames[slotDate.getDay()];\n  slot.displayDate = slotDate.toLocaleDateString('en-US', { \n    weekday: 'long', \n    year: 'numeric', \n    month: 'long', \n    day: 'numeric' \n  });\n});\n\nreturn {\n  json: {\n    availableSlots: availableSlots,\n    totalSlots: availableSlots.length,\n    timezone: timezone,\n    generatedAt: now.toISOString(),\n    preferredTime: preferredTime,\n    durationMinutes: durationMinutes\n  }\n};"
+      },
+      "id": "generate-availability",
+      "name": "Generate Calendar Availability",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514"
+        },
+        "options": {
+          "maxTokens": 4096,
+          "temperature": 0.3
+        },
+        "text": "=You are an expert AI sales assistant for NexOperandi.ai, a premium AI automation agency.\n\n**MEETING REQUEST:**\n- Contact: {{ $('Extract Meeting Request').item.json.contactName }}\n- Email: {{ $('Extract Meeting Request').item.json.contactEmail }}\n- Company: {{ $('Extract Meeting Request').item.json.companyName }}\n- Purpose: {{ $('Extract Meeting Request').item.json.meetingPurpose }}\n- Preferred Time: {{ $('Extract Meeting Request').item.json.preferredTime }}\n- Duration: {{ $('Extract Meeting Request').item.json.durationMinutes }} minutes\n- Notes: {{ $('Extract Meeting Request').item.json.additionalNotes }}\n\n**AVAILABLE TIME SLOTS:**\n{{ $json.availableSlots.slice(0, 15).map((slot, i) => `${i + 1}. ${slot.displayDate} at ${slot.displayTime} (${slot.duration} min)`).join('\\n') }}\n\n**YOUR TASKS:**\n\n1. **Analyze the request** and recommend the TOP 3 BEST meeting slots that:\n   - Match their time preference\n   - Allow proper preparation time (not too soon)\n   - Avoid Mondays (busy) and Fridays (week-end focus)\n   - Prefer Tuesday-Thursday for highest engagement\n\n2. **Generate a personalized follow-up email** that:\n   - Is warm, professional, and executive-level\n   - References their specific meeting purpose\n   - Highlights NexOperandi's relevant expertise\n   - Creates excitement about the meeting\n   - Includes clear next steps\n\n3. **Calculate ROI impact** based on:\n   - Sales Meeting Scheduler saves 11+ hours/week per rep\n   - Average meeting booking time: 15-20 minutes manual vs. 30 seconds automated\n   - This meeting scheduling alone demonstrates 95%+ time savings\n\n**OUTPUT FORMAT (JSON only, no markdown):**\n```json\n{\n  \"recommendedSlots\": [\n    {\n      \"rank\": 1,\n      \"date\": \"2025-01-28\",\n      \"time\": \"14:00\",\n      \"displayTime\": \"2:00 PM\",\n      \"dayName\": \"Tuesday\",\n      \"displayDate\": \"Tuesday, January 28, 2025\",\n      \"timezone\": \"America/New_York\",\n      \"reason\": \"Why this is the best choice\"\n    }\n  ],\n  \"followUpEmail\": {\n    \"subject\": \"Your Meeting with NexOperandi - [Topic]\",\n    \"body\": \"Full email text here\",\n    \"tone\": \"professional, warm, executive\"\n  },\n  \"meetingDetails\": {\n    \"title\": \"Discovery Call: [Purpose] - NexOperandi\",\n    \"agenda\": [\n      \"Understanding your current challenges\",\n      \"Exploring AI automation opportunities\",\n      \"ROI projections and implementation roadmap\"\n    ],\n    \"preparationTips\": [\n      \"Have 2-3 key pain points ready to discuss\",\n      \"Consider your automation goals (time, cost, quality)\"\n    ]\n  },\n  \"roiPreview\": {\n    \"timesSaved\": \"11+ hours per week per sales rep\",\n    \"automationRate\": \"95% of meeting scheduling automated\",\n    \"followUpRate\": \"100% follow-up completion (vs. 30% manual)\",\n    \"estimatedValue\": \"$2,400-5,000/month per rep in recovered time\"\n  },\n  \"personalizedInsights\": [\n    \"Based on [meeting purpose], we recommend starting with [agent type]\",\n    \"Companies like [company name] typically see ROI within 30-60 days\"\n  ]\n}\n```\n\n**COMPANY CONTEXT (use for personalization):**\n- NexOperandi.ai specializes in AI automation for serious businesses\n- Tagline: \"Results, not AI buzzwords\"\n- Core offering: End-to-end AI automation - MVP to scale\n- Expertise: Customer service, lead gen, sales automation, document generation\n- Track record: 90-day ROI guarantee, proven implementations\n- Value proposition: Fast execution (MVP in weeks, not months)\n\n**EMAIL STYLE GUIDE:**\n- Executive-level (not overly casual)\n- Confidence without arrogance\n- Data-driven (include relevant metrics)\n- Action-oriented (clear next steps)\n- Time-respectful (concise, scannable)\n- Results-focused (ROI, efficiency gains)\n\nReturn ONLY valid JSON, no markdown formatting or code blocks."
+      },
+      "id": "ai-scheduling-analysis",
+      "name": "AI Scheduling & Follow-up Generator",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.8,
+      "position": [900, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credentials",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "parsed_result",
+              "name": "aiResult",
+              "value": "={{ JSON.parse($json.response) }}",
+              "type": "object"
+            },
+            {
+              "id": "contact_info",
+              "name": "contactInfo",
+              "value": "={{ {\n  name: $('Extract Meeting Request').item.json.contactName,\n  email: $('Extract Meeting Request').item.json.contactEmail,\n  company: $('Extract Meeting Request').item.json.companyName\n} }}",
+              "type": "object"
+            },
+            {
+              "id": "meeting_request",
+              "name": "originalRequest",
+              "value": "={{ {\n  purpose: $('Extract Meeting Request').item.json.meetingPurpose,\n  preferredTime: $('Extract Meeting Request').item.json.preferredTime,\n  duration: $('Extract Meeting Request').item.json.durationMinutes,\n  notes: $('Extract Meeting Request').item.json.additionalNotes\n} }}",
+              "type": "object"
+            },
+            {
+              "id": "generated_at",
+              "name": "generatedAt",
+              "value": "={{ $now.format('MMMM D, YYYY [at] h:mm A') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "parse-ai-response",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "final_response",
+              "name": "response",
+              "value": "={{ {\n  success: true,\n  message: 'Meeting scheduling analysis complete',\n  data: {\n    contact: $json.contactInfo,\n    request: $json.originalRequest,\n    recommendedSlots: $json.aiResult.recommendedSlots,\n    followUpEmail: $json.aiResult.followUpEmail,\n    meetingDetails: $json.aiResult.meetingDetails,\n    roiPreview: $json.aiResult.roiPreview,\n    insights: $json.aiResult.personalizedInsights,\n    generatedAt: $json.generatedAt\n  },\n  meta: {\n    agentType: 'Sales Meeting Scheduler & Follow-up',\n    version: '1.0.0',\n    provider: 'NexOperandi.ai',\n    demoMode: true,\n    timeSaved: '95%+ scheduling time reduction',\n    nextSteps: [\n      'Review recommended meeting times',\n      'Click preferred slot to confirm',\n      'Receive automated calendar invite',\n      'Get personalized meeting preparation guide'\n    ]\n  }\n} }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-final-response",
+      "name": "Prepare Final Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "success-webhook-response",
+      "name": "Send Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1560, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "node": "Extract Meeting Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Meeting Request": {
+      "main": [
+        [
+          {
+            "node": "Generate Calendar Availability",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Calendar Availability": {
+      "main": [
+        [
+          {
+            "node": "AI Scheduling & Follow-up Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Scheduling & Follow-up Generator": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "Prepare Final Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Final Response": {
+      "main": [
+        [
+          {
+            "node": "Send Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Response": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-24T12:00:00.000Z",
+      "updatedAt": "2025-01-24T12:00:00.000Z",
+      "id": "demo-agent",
+      "name": "Demo Agent"
+    },
+    {
+      "createdAt": "2025-01-24T12:00:00.000Z",
+      "updatedAt": "2025-01-24T12:00:00.000Z",
+      "id": "sales-meeting-scheduler",
+      "name": "Sales Meeting Scheduler"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-24T12:00:00.000Z",
+  "versionId": "1.0.0"
+}
