@@ -1,0 +1,400 @@
+{
+  "name": "AI Customer Service Agent - 24/7 Support Bot",
+  "nodes": [
+    {
+      "id": "webhook-trigger",
+      "name": "Customer Service Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "customer-service",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      }
+    },
+    {
+      "id": "extract-data",
+      "name": "Extract Customer Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [450, 300],
+      "parameters": {
+        "mode": "manual",
+        "fields": {
+          "values": [
+            {
+              "name": "customerId",
+              "value": "={{ $json.body.customerId }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $json.body.message }}"
+            },
+            {
+              "name": "language",
+              "value": "={{ $json.body.language || 'en' }}"
+            },
+            {
+              "name": "channel",
+              "value": "={{ $json.body.channel || 'web' }}"
+            },
+            {
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "sentiment-analysis",
+      "name": "Analyze Sentiment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 200],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"gpt-4o-mini\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Analyze the sentiment of the following customer message and return: sentiment (positive/neutral/negative), urgency (low/medium/high), and intent (question/complaint/feedback/request). Return as JSON.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.message }}\"\n    }\n  ],\n  \"temperature\": 0.3,\n  \"response_format\": { \"type\": \"json_object\" }\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "check-knowledge-base",
+      "name": "Query Knowledge Base",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 400],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"text-embedding-3-small\",\n  \"input\": \"{{ $json.message }}\"\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "route-by-sentiment",
+      "name": "Route by Urgency",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [850, 300],
+      "parameters": {
+        "mode": "expression",
+        "conditions": {
+          "rules": [
+            {
+              "outputKey": 0,
+              "value": "={{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).urgency }}",
+              "operation": {
+                "type": "string:equals",
+                "value": "high",
+                "singleValue": true
+              },
+              "renameOutput": true,
+              "outputName": "High Priority"
+            },
+            {
+              "outputKey": 1,
+              "value": "={{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).urgency }}",
+              "operation": {
+                "type": "string:equals",
+                "value": "medium",
+                "singleValue": true
+              },
+              "renameOutput": true,
+              "outputName": "Medium Priority"
+            },
+            {
+              "outputKey": 2,
+              "value": "={{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).urgency }}",
+              "operation": {
+                "type": "string:equals",
+                "value": "low",
+                "singleValue": true
+              },
+              "renameOutput": true,
+              "outputName": "Low Priority"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ai-response-generator",
+      "name": "Generate AI Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"gpt-4o\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a helpful customer service agent for NexOperandi AI Automation Agency. Be professional, empathetic, and solution-oriented. Use the provided knowledge base context to answer questions accurately. If you cannot fully resolve an issue, offer to connect the customer with a human agent.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Customer message: {{ $('extract-data').item.json.message }}\\n\\nSentiment analysis: {{ $('sentiment-analysis').item.json.choices[0].message.content }}\\n\\nKnowledge base context: {{ $('check-knowledge-base').item.json }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 500\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "escalate-to-human",
+      "name": "Escalate to Human",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 100],
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"text\": \"🚨 High Priority Customer Service Request\",\n  \"attachments\": [\n    {\n      \"color\": \"danger\",\n      \"fields\": [\n        {\n          \"title\": \"Customer ID\",\n          \"value\": \"{{ $('extract-data').item.json.customerId }}\",\n          \"short\": true\n        },\n        {\n          \"title\": \"Channel\",\n          \"value\": \"{{ $('extract-data').item.json.channel }}\",\n          \"short\": true\n        },\n        {\n          \"title\": \"Message\",\n          \"value\": \"{{ $('extract-data').item.json.message }}\",\n          \"short\": false\n        },\n        {\n          \"title\": \"Sentiment\",\n          \"value\": \"{{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).sentiment }}\",\n          \"short\": true\n        }\n      ],\n      \"footer\": \"Customer Service Bot\",\n      \"ts\": {{ Date.now() / 1000 }}\n    }\n  ]\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "log-conversation",
+      "name": "Log to Database",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1250, 300],
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "customer_service_logs",
+        "columns": "customer_id,session_id,message,response,sentiment,urgency,channel,timestamp",
+        "additionalFields": {},
+        "options": {}
+      }
+    },
+    {
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1450, 300],
+      "parameters": {
+        "mode": "manual",
+        "fields": {
+          "values": [
+            {
+              "name": "success",
+              "value": true
+            },
+            {
+              "name": "response",
+              "value": "={{ $('ai-response-generator').item.json.choices[0].message.content }}"
+            },
+            {
+              "name": "sessionId",
+              "value": "={{ $('extract-data').item.json.sessionId }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            },
+            {
+              "name": "sentiment",
+              "value": "={{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).sentiment }}"
+            },
+            {
+              "name": "humanHandoff",
+              "value": "={{ JSON.parse($('sentiment-analysis').item.json.choices[0].message.content).urgency === 'high' }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "webhook-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1650, 300],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "webhook-trigger": {
+      "main": [
+        [
+          {
+            "node": "extract-data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract-data": {
+      "main": [
+        [
+          {
+            "node": "sentiment-analysis",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "check-knowledge-base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sentiment-analysis": {
+      "main": [
+        [
+          {
+            "node": "route-by-sentiment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check-knowledge-base": {
+      "main": [
+        [
+          {
+            "node": "route-by-sentiment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "route-by-sentiment": {
+      "main": [
+        [
+          {
+            "node": "escalate-to-human",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ai-response-generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ai-response-generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ai-response-generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ai-response-generator": {
+      "main": [
+        [
+          {
+            "node": "log-conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "escalate-to-human": {
+      "main": [
+        [
+          {
+            "node": "log-conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "log-conversation": {
+      "main": [
+        [
+          {
+            "node": "format-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format-response": {
+      "main": [
+        [
+          {
+            "node": "webhook-response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all"
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false
+}

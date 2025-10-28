@@ -1,59 +1,110 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+/**
+ * Contact Form API Route with AI Lead Qualification
+ * Sends contact submissions to n8n for AI analysis, scoring, and email notification
+ */
+
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || '';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
     const { name, email, website, message } = body;
+
+    console.log('📨 Contact Form - Received submission:', {
+      name,
+      email,
+      hasWebsite: !!website,
+      messageLength: message?.length || 0,
+      timestamp: new Date().toISOString()
+    });
 
     // Validate required fields
     if (!name || !email || !message) {
+      console.error('❌ Missing required fields');
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Get n8n webhook URL from environment variable
-    const webhookUrl = process.env.N8N_WEBHOOK_URL;
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.error('❌ Invalid email format:', email);
+      return NextResponse.json(
+        { error: 'Invalid email address' },
+        { status: 400 }
+      );
+    }
 
-    if (!webhookUrl) {
-      console.error('N8N_WEBHOOK_URL is not configured');
-      // Return success even if webhook is not configured (for development)
+    // Check if webhook is configured
+    if (!N8N_WEBHOOK_URL) {
+      console.error('⚠️  N8N_WEBHOOK_URL is not configured');
+      console.log('💡 Add N8N_WEBHOOK_URL to .env.local to enable AI lead qualification');
+
+      // Return success anyway (for development/testing)
       return NextResponse.json({
         success: true,
         message: 'Form submitted successfully (webhook not configured)',
+        note: 'Configure N8N_WEBHOOK_URL to enable AI lead qualification'
       });
     }
 
-    // Send data to n8n webhook
-    const response = await fetch(webhookUrl, {
+    // Prepare data for n8n workflow
+    const payload = {
+      name,
+      email,
+      website: website || 'Not provided',
+      message,
+      timestamp: new Date().toISOString(),
+      source: 'NexOperandi Website',
+    };
+
+    console.log('🔄 Forwarding to n8n webhook:', N8N_WEBHOOK_URL);
+
+    // Send to n8n for AI qualification
+    const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name,
-        email,
-        website: website || '',
-        message,
-        timestamp: new Date().toISOString(),
-        source: 'NexOperandi Website',
-      }),
+      body: JSON.stringify(payload),
     });
+
+    console.log('📡 n8n response status:', response.status);
 
     if (!response.ok) {
-      throw new Error(`n8n webhook returned status ${response.status}`);
+      const errorText = await response.text();
+      console.error('❌ n8n webhook error:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText
+      });
+      throw new Error(`n8n webhook failed: ${response.status} - ${errorText}`);
     }
 
+    const result = await response.json();
+    console.log('✅ Contact form processed successfully');
+
+    // Return success with lead info (if available)
     return NextResponse.json({
       success: true,
-      message: 'Form submitted successfully',
+      message: 'Thank you! We\'ve received your message and will get back to you soon.',
+      ...(result.lead && { lead: result.lead }) // Include lead score if returned
     });
+
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('❌ Contact form error:', error);
+
     return NextResponse.json(
-      { error: 'Failed to submit form' },
+      {
+        success: false,
+        error: 'Failed to submit form',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        hint: 'Make sure n8n workflow is active at: ' + N8N_WEBHOOK_URL
+      },
       { status: 500 }
     );
   }

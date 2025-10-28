@@ -1,0 +1,256 @@
+{
+  "name": "Contact Form - AI Lead Qualification & Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "📥 Contact Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 400],
+      "webhookId": "contact-form"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "name",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "website",
+              "name": "website",
+              "value": "={{ $json.body.website || 'Not provided' }}",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $json.body.timestamp || $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "name": "source",
+              "value": "={{ $json.body.source || 'Website Contact Form' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-data",
+      "name": "🔍 Extract Contact Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-haiku-20241022",
+        "options": {
+          "temperature": 0.3,
+          "maxTokens": 500
+        },
+        "prompt": "=You are an expert B2B lead qualification specialist.\n\nAnalyze this contact form submission and provide:\n1. Lead Quality Score (0-100)\n2. Priority Level (High/Medium/Low)\n3. Business Intent (what they want)\n4. Recommended Next Action\n5. Key Insights\n\n**Contact Details:**\nName: {{ $json.name }}\nEmail: {{ $json.email }}\nWebsite: {{ $json.website }}\nMessage: {{ $json.message }}\n\nProvide your analysis in this exact JSON format:\n{\n  \"score\": <number 0-100>,\n  \"priority\": \"<High/Medium/Low>\",\n  \"intent\": \"<brief description of what they want>\",\n  \"action\": \"<recommended next action>\",\n  \"insights\": \"<2-3 sentences with key insights about the lead>\",\n  \"signals\": {\n    \"budget_signals\": \"<any budget indicators found>\",\n    \"urgency_signals\": \"<any urgency indicators>\",\n    \"fit_signals\": \"<how well they fit your services>\"\n  }\n}"
+      },
+      "id": "ai-qualification",
+      "name": "🤖 AI Lead Qualification (Claude)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.10,
+      "position": [680, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse AI response and structure data\nconst aiResponse = $input.first().json.text || $input.first().json.response || '{}';\n\nlet qualification;\ntry {\n  // Try to extract JSON from the response\n  const jsonMatch = aiResponse.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    qualification = JSON.parse(jsonMatch[0]);\n  } else {\n    // Fallback if AI didn't return JSON\n    qualification = {\n      score: 50,\n      priority: 'Medium',\n      intent: 'General inquiry',\n      action: 'Follow up within 24 hours',\n      insights: 'Unable to parse AI response',\n      signals: {\n        budget_signals: 'Unknown',\n        urgency_signals: 'Unknown',\n        fit_signals: 'Unknown'\n      }\n    };\n  }\n} catch (error) {\n  // Error fallback\n  qualification = {\n    score: 50,\n    priority: 'Medium',\n    intent: 'General inquiry',\n    action: 'Follow up within 24 hours',\n    insights: 'Error parsing AI response: ' + error.message,\n    signals: {\n      budget_signals: 'Unknown',\n      urgency_signals: 'Unknown',\n      fit_signals: 'Unknown'\n    }\n  };\n}\n\n// Get contact data from previous node\nconst contactData = $('🔍 Extract Contact Data').first().json;\n\n// Combine everything\nreturn {\n  json: {\n    // Contact info\n    name: contactData.name,\n    email: contactData.email,\n    website: contactData.website,\n    message: contactData.message,\n    timestamp: contactData.timestamp,\n    source: contactData.source,\n    \n    // AI Qualification\n    lead_score: qualification.score,\n    priority: qualification.priority,\n    intent: qualification.intent,\n    recommended_action: qualification.action,\n    ai_insights: qualification.insights,\n    \n    // Signals\n    budget_signals: qualification.signals.budget_signals,\n    urgency_signals: qualification.signals.urgency_signals,\n    fit_signals: qualification.signals.fit_signals,\n    \n    // Priority emoji for email\n    priority_emoji: qualification.priority === 'High' ? '🔥' : qualification.priority === 'Medium' ? '⚡' : '📋',\n    \n    // Score color for email\n    score_color: qualification.score >= 70 ? '#22c55e' : qualification.score >= 40 ? '#f59e0b' : '#ef4444'\n  }\n};"
+      },
+      "id": "structure-data",
+      "name": "📊 Structure Qualified Lead Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "url",
+        "documentUrl": "=https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE/edit",
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Contact Form Leads"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $json.timestamp }}",
+            "name": "={{ $json.name }}",
+            "email": "={{ $json.email }}",
+            "website": "={{ $json.website }}",
+            "message": "={{ $json.message }}",
+            "lead_score": "={{ $json.lead_score }}",
+            "priority": "={{ $json.priority }}",
+            "intent": "={{ $json.intent }}",
+            "recommended_action": "={{ $json.recommended_action }}",
+            "ai_insights": "={{ $json.ai_insights }}",
+            "budget_signals": "={{ $json.budget_signals }}",
+            "urgency_signals": "={{ $json.urgency_signals }}",
+            "fit_signals": "={{ $json.fit_signals }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "save-to-sheets",
+      "name": "💾 Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1120, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets",
+          "name": "Google Sheets OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "notifications@nexoperandi.ai",
+        "toEmail": "ecotoddlershop@gmail.com",
+        "subject": "={{ $json.priority_emoji }} New {{ $json.priority }} Priority Lead: {{ $json.name }}",
+        "emailType": "html",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }\n    .container { max-width: 600px; margin: 0 auto; padding: 20px; }\n    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; }\n    .header h1 { margin: 0; font-size: 24px; }\n    .score-badge { display: inline-block; background: {{ $json.score_color }}; color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-top: 10px; }\n    .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; }\n    .section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; border-left: 4px solid {{ $json.score_color }}; }\n    .section h2 { margin-top: 0; color: #667eea; font-size: 18px; }\n    .field { margin-bottom: 15px; }\n    .label { font-weight: 600; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }\n    .value { color: #333; font-size: 15px; margin-top: 5px; }\n    .message-box { background: #f0f4f8; padding: 15px; border-radius: 6px; border-left: 3px solid #667eea; font-style: italic; }\n    .insights-box { background: #fff9e6; padding: 15px; border-radius: 6px; border-left: 3px solid #f59e0b; }\n    .action-box { background: #e6f7ff; padding: 15px; border-radius: 6px; border-left: 3px solid #1890ff; font-weight: 500; }\n    .signals { display: grid; gap: 10px; margin-top: 15px; }\n    .signal { background: #f8f9fa; padding: 12px; border-radius: 6px; }\n    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>{{ $json.priority_emoji }} New Lead Submission</h1>\n      <div class=\"score-badge\">Lead Score: {{ $json.lead_score }}/100 - {{ $json.priority }} Priority</div>\n    </div>\n    \n    <div class=\"content\">\n      <!-- Contact Information -->\n      <div class=\"section\">\n        <h2>👤 Contact Information</h2>\n        <div class=\"field\">\n          <div class=\"label\">Name</div>\n          <div class=\"value\">{{ $json.name }}</div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Email</div>\n          <div class=\"value\"><a href=\"mailto:{{ $json.email }}\">{{ $json.email }}</a></div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Website</div>\n          <div class=\"value\">{{ $json.website }}</div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Submitted</div>\n          <div class=\"value\">{{ $json.timestamp }}</div>\n        </div>\n      </div>\n\n      <!-- Message -->\n      <div class=\"section\">\n        <h2>💬 Their Message</h2>\n        <div class=\"message-box\">\n          {{ $json.message }}\n        </div>\n      </div>\n\n      <!-- AI Qualification -->\n      <div class=\"section\">\n        <h2>🤖 AI Lead Qualification</h2>\n        \n        <div class=\"field\">\n          <div class=\"label\">Business Intent</div>\n          <div class=\"value\">{{ $json.intent }}</div>\n        </div>\n\n        <div class=\"field\">\n          <div class=\"label\">AI Insights</div>\n          <div class=\"insights-box\">{{ $json.ai_insights }}</div>\n        </div>\n\n        <div class=\"field\">\n          <div class=\"label\">Recommended Next Action</div>\n          <div class=\"action-box\">{{ $json.recommended_action }}</div>\n        </div>\n\n        <div class=\"signals\">\n          <div class=\"signal\">\n            <div class=\"label\">💰 Budget Signals</div>\n            <div class=\"value\">{{ $json.budget_signals }}</div>\n          </div>\n          <div class=\"signal\">\n            <div class=\"label\">⏰ Urgency Signals</div>\n            <div class=\"value\">{{ $json.urgency_signals }}</div>\n          </div>\n          <div class=\"signal\">\n            <div class=\"label\">✅ Fit Signals</div>\n            <div class=\"value\">{{ $json.fit_signals }}</div>\n          </div>\n        </div>\n      </div>\n\n      <!-- Quick Actions -->\n      <div class=\"section\">\n        <h2>⚡ Quick Actions</h2>\n        <p>\n          <a href=\"mailto:{{ $json.email }}?subject=Re: Your inquiry to NexOperandi\" style=\"background: #667eea; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin-right: 10px;\">📧 Reply to Lead</a>\n          <a href=\"{{ $json.website }}\" target=\"_blank\" style=\"background: #64748b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;\">🌐 Visit Their Website</a>\n        </p>\n      </div>\n    </div>\n\n    <div class=\"footer\">\n      🤖 Automatically qualified by AI | NexOperandi Lead Intelligence System<br>\n      View all leads in your <a href=\"https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE\" target=\"_blank\">Google Sheets Dashboard</a>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "📧 Send Email Notification",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1120, 500],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-credentials",
+          "name": "Gmail SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\n  \"success\": true,\n  \"message\": \"Thank you! We've received your message and will get back to you soon.\",\n  \"lead\": {\n    \"priority\": $json.priority,\n    \"score\": $json.lead_score\n  }\n} }}"
+      },
+      "id": "webhook-response",
+      "name": "✅ Send Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1340, 400]
+    }
+  ],
+  "connections": {
+    "📥 Contact Form Webhook": {
+      "main": [
+        [
+          {
+            "node": "🔍 Extract Contact Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Extract Contact Data": {
+      "main": [
+        [
+          {
+            "node": "🤖 AI Lead Qualification (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤖 AI Lead Qualification (Claude)": {
+      "main": [
+        [
+          {
+            "node": "📊 Structure Qualified Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Structure Qualified Lead Data": {
+      "main": [
+        [
+          {
+            "node": "💾 Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📧 Send Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💾 Save to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📧 Send Email Notification": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-26T09:30:00.000Z",
+  "versionId": "1"
+}

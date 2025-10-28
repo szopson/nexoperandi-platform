@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * Forwards visitor tracking data to n8n workflow
  */
 
-const N8N_WEBHOOK_URL = process.env.N8N_VISITOR_INTEL_URL || 'https://piotr108-20108.wykr.es/webhook-test/visitor-intel';
+const N8N_WEBHOOK_URL = process.env.N8N_VISITOR_INTEL_URL || 'https://piotr108-20108.wykr.es/webhook/visitor-intel';
 
 // Temporary: Enable test mode for debugging
 const TEST_MODE = process.env.VISITOR_INTEL_TEST_MODE === 'true';

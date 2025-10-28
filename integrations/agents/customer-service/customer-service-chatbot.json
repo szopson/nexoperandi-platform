@@ -1,0 +1,425 @@
+{
+  "name": "AI Customer Service Chatbot - FIXED",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "customer-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b92117f2-7215-4fc3-b822-d8a7b41a504e",
+      "name": "📬 Chat Message Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2096,
+        464
+      ],
+      "webhookId": "customer-chat"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "session-id",
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId || $now.toUnixInteger() }}",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "user-id",
+              "name": "userId",
+              "value": "={{ $json.body.userId || 'anonymous' }}",
+              "type": "string"
+            },
+            {
+              "id": "user-email",
+              "name": "userEmail",
+              "value": "={{ $json.body.userEmail || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "user-name",
+              "name": "userName",
+              "value": "={{ $json.body.userName || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "conversation-history",
+              "name": "conversationHistory",
+              "value": "={{ $json.body.conversationHistory || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7769dda0-aa39-4b52-831e-95eca448c764",
+      "name": "📋 Extract Chat Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1888,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// NexOperandi Knowledge Base\nconst knowledgeBase = {\n  company: {\n    name: \"NexOperandi\",\n    tagline: \"AI automation for serious businesses\",\n    website: \"https://nexoperandi.ai\",\n    email: \"contact@nexoperandi.com\",\n    focus: \"Small & mid-cap businesses\"\n  },\n  \n  services: [\n    \"AI Agents & Chatbots (like this one!)\",\n    \"Workflow Automation with n8n\",\n    \"Lead Generation & Qualification Systems\",\n    \"Customer Service Automation\",\n    \"MCP (Model Context Protocol) Implementations\",\n    \"Custom AI Solutions & Integrations\",\n    \"Business Process Automation\",\n    \"Data Analytics & Insights Dashboards\"\n  ],\n  \n  pricing: {\n    starting: \"$500 USD\",\n    approach: \"Custom pricing based on complexity\",\n    tiers: {\n      simple: \"$500-2,000 - Single agent implementations\",\n      medium: \"$2,000-5,000 - Multiple workflows, integrations\",\n      complex: \"$5,000+ - Enterprise solutions, custom AI\"\n    },\n    process: [\n      \"Free consultation - We analyze your needs\",\n      \"Custom proposal - Best price/value solution\",\n      \"Fast delivery - Get results quickly\"\n    ]\n  },\n  \n  differentiators: [\n    \"Fast Delivery - Results-focused execution\",\n    \"Guaranteed Results - We stand behind our work\",\n    \"Small & Mid-Cap Focus - We understand your challenges\",\n    \"Full Solutions - End-to-end AI automation\",\n    \"Tailored Approach - No cookie-cutter solutions\",\n    \"Affordable - Enterprise quality without enterprise prices\"\n  ],\n  \n  process: [\n    \"1. Free Needs Assessment - Understand your challenges\",\n    \"2. Tailored Solution Design - Custom plan for your business\",\n    \"3. Rapid Implementation - Fast, professional delivery\",\n    \"4. Ongoing Support - We're here when you need us\"\n  ],\n  \n  cta: {\n    primary: \"Schedule a free consultation\",\n    secondary: \"Get a custom quote\",\n    tertiary: \"See case studies\"\n  },\n  \n  commonQuestions: {\n    pricing: \"Our AI automation solutions start at $500 USD for simple agents. We provide custom quotes based on your specific needs after a free consultation.\",\n    timeline: \"Simple implementations take 1-2 weeks. More complex solutions typically take 3-6 weeks. We prioritize fast delivery.\",\n    roi: \"Most clients see ROI within 3-6 months through time savings, increased conversions, and reduced operational costs.\",\n    support: \"All solutions include ongoing support. We're available via email, Slack, or scheduled calls.\",\n    guarantee: \"We guarantee results or we work with you until you're satisfied. Your success is our success.\"\n  }\n};\n\nconst previousData = $input.first().json;\n\nreturn {\n  json: {\n    knowledgeBase,\n    userMessage: previousData.message,\n    conversationHistory: previousData.conversationHistory,\n    hasContactInfo: !!previousData.userEmail,\n    userData: {\n      sessionId: previousData.sessionId,\n      userId: previousData.userId,\n      userEmail: previousData.userEmail,\n      userName: previousData.userName,\n      timestamp: previousData.timestamp\n    }\n  }\n};"
+      },
+      "id": "748dcaa0-6794-4eb1-9d6f-2599a5dd799f",
+      "name": "📚 Load Knowledge Base",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1696,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "parsed-response",
+              "name": "parsedResponse",
+              "value": "={{ JSON.parse($json.content[0].text) }}",
+              "type": "object"
+            },
+            {
+              "id": "user-data",
+              "name": "userData",
+              "value": "={{ $('📚 Load Knowledge Base').item.json.userData }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6da32fbc-6d11-4085-aa41-d1e129774b8a",
+      "name": "⚙️ Parse AI Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1152,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": false,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-hot-lead",
+              "leftValue": "={{ $json.parsedResponse.leadQuality }}",
+              "rightValue": "hot",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6bba1b57-1a1b-4d5a-b154-bc870c70370e",
+      "name": "🔥 Hot Lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1152,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "15aQjw0f6u9JS7d0mZz4grR64CUhalA4yx4d6UCySMhI",
+          "mode": "list",
+          "cachedResultName": "Leads chatBot (Enhanced)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15aQjw0f6u9JS7d0mZz4grR64CUhalA4yx4d6UCySMhI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1851898053,
+          "mode": "list",
+          "cachedResultName": "chatbot-leads-google-sheets-template",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15aQjw0f6u9JS7d0mZz4grR64CUhalA4yx4d6UCySMhI/edit#gid=1851898053"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('⚙️ Parse AI Response').item.json.userData.timestamp }}",
+            "Session ID": "={{ $('⚙️ Parse AI Response').item.json.userData.sessionId }}",
+            "User ID": "={{ $('⚙️ Parse AI Response').item.json.userData.userId }}",
+            "User Name": "={{ $('⚙️ Parse AI Response').item.json.userData.userName }}",
+            "User Email": "={{ $('⚙️ Parse AI Response').item.json.userData.userEmail }}",
+            "Message": "={{ $('📚 Load Knowledge Base').item.json.userMessage }}",
+            "AI Response": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.response }}",
+            "Intent": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.intent }}",
+            "Sentiment": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.sentiment }}",
+            "Urgency": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.urgency }}",
+            "Lead Score": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.leadScore }}",
+            "Lead Quality": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.leadQuality }}",
+            "Key Topics": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.keyTopics.join(', ') }}",
+            "Suggested Action": "={{ $('⚙️ Parse AI Response').item.json.parsedResponse.suggestedAction }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "2dc4b57b-0308-4862-9dde-7b14f2291c49",
+      "name": "📊 Log Hot Lead to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -880,
+        640
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "txIx9FrMZlIyjbz8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "9a6b4fce-852b-4784-afaa-02178e114859",
+      "name": "✅ Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -592,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the parsed AI response and user data\nconst data = $input.first().json;\nconst parsed = data.parsedResponse || {};\nconst user = data.userData || {};\n\n// Build the final response structure\nconst finalResponse = {\n  success: true,\n  response: parsed.response || 'Thank you for your message. Our team will get back to you soon.',\n  sessionId: user.sessionId || 'unknown',\n  timestamp: new Date().toISOString(),\n  leadIntelligence: {\n    score: parsed.leadScore || 0,\n    quality: parsed.leadQuality || 'cold',\n    intent: parsed.intent || 'unknown',\n    sentiment: parsed.sentiment || 'neutral',\n    urgency: parsed.urgency || 'low',\n    keyTopics: parsed.keyTopics || [],\n    suggestedAction: parsed.suggestedAction || 'no_action'\n  }\n};\n\nreturn finalResponse;"
+      },
+      "id": "810a9b1b-6744-4304-aac9-b5cb1e72b226",
+      "name": "🎁 Build Final Response1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nconst requestBody = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  messages: [{\n    role: \"user\",\n    content: `You are an expert AI customer service agent for NexOperandi.ai.\n\n**KNOWLEDGE BASE:**\n${JSON.stringify(data.knowledgeBase, null, 2)}\n\n**USER MESSAGE:**\n\"${data.userMessage}\"\n\n**CONVERSATION HISTORY:**\n${JSON.stringify(data.conversationHistory, null, 2)}\n\n**HAS CONTACT INFO:** ${data.hasContactInfo}\n\n**YOUR TASK:**\nRespond to the user's message in a helpful, professional manner. Also provide lead intelligence analysis.\n\nReturn your response in this EXACT JSON format:\n{\n  \"response\": \"Your helpful response to the user (friendly, professional, concise)\",\n  \"intent\": \"question/pricing/demo/support/technical/other\",\n  \"sentiment\": \"positive/neutral/negative\",\n  \"urgency\": \"low/medium/high\",\n  \"leadScore\": 0-100,\n  \"leadQuality\": \"cold/warm/hot\",\n  \"keyTopics\": [\"topic1\", \"topic2\"],\n  \"suggestedAction\": \"follow_up/send_quote/schedule_demo/technical_support/no_action\"\n}\n\n**LEAD SCORING GUIDELINES:**\n- 80-100 (HOT): Asking about pricing, demos, timeline, ready to buy\n- 50-79 (WARM): Interested, specific use case, evaluating options\n- 0-49 (COLD): General questions, early research, browsing\n\nReturn ONLY valid JSON, no markdown formatting.`\n  }]\n};\n\nreturn { json: { requestBody, userData: data.userData } };"
+      },
+      "id": "build-claude-req-final",
+      "name": "🔨 Build Claude Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "ADD VALUE HERE"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "id": "claude-ai-http-fixed",
+      "name": "🤖 Claude AI (HTTP)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1376,
+        464
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "📬 Chat Message Webhook": {
+      "main": [
+        [
+          {
+            "node": "📋 Extract Chat Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Extract Chat Data": {
+      "main": [
+        [
+          {
+            "node": "📚 Load Knowledge Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⚙️ Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "🔥 Hot Lead?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🎁 Build Final Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔥 Hot Lead?": {
+      "main": [
+        [
+          {
+            "node": "📊 Log Hot Lead to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Log Hot Lead to Sheets": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎁 Build Final Response1": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📚 Load Knowledge Base": {
+      "main": [
+        [
+          {
+            "node": "🔨 Build Claude Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔨 Build Claude Request": {
+      "main": [
+        [
+          {
+            "node": "🤖 Claude AI (HTTP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤖 Claude AI (HTTP)": {
+      "main": [
+        [
+          {
+            "node": "⚙️ Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1f99bc9c-d6b8-410a-9294-41bc5f23e058",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0ca5feaaa1c88b3017a21d18cb2f5215cb909d5512a6606a522b349ae49f022d"
+  },
+  "id": "YgxdM5MkpZaAlKIR",
+  "tags": []
+}

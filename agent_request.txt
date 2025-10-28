@@ -1,0 +1,12 @@
+Based on the files provided create a 3rd agent which will be added. 
+It has to be a done using all the mcps you have, workflows etc. 
+Take into consideration my company specification etc. 
+Use free tools because I want to add it to my website and to have it available for my clients who will be visiting the website. 
+It need to be a demo for them to use, give a hint how it works and convince them to work with me. 
+Take into consideration the code, use best practices for n8n and ai agents creation
+For this session, I approve all:
+
+Template searches
+Node documentation lookups
+Validation checks (but show me the results)
+Workflow building (but don't deploy without confirmation)
