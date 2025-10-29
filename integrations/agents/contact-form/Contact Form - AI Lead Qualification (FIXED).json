@@ -1,0 +1,596 @@
+{
+  "name": "Contact Form - AI Lead Qualification (FIXED)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "7a7ddba6-5b55-492a-ac70-bfc67aed6ac0",
+      "name": "📥 Contact Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1808,
+        32
+      ],
+      "webhookId": "contact-form-webhook",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "has_name",
+              "leftValue": "={{ $json.body && $json.body.name && $json.body.name.length > 0 }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "has_email",
+              "leftValue": "={{ $json.body && $json.body.email && $json.body.email.includes('@') }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "has_message",
+              "leftValue": "={{ $json.body && $json.body.message && $json.body.message.length > 10 }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4bc20dd7-f358-4547-84a7-16ff7dd35702",
+      "name": "✅ Validate Required Fields",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1600,
+        32
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_response",
+              "name": "response",
+              "value": "={{ { success: false, error: 'Missing required fields', message: 'Please provide name, email, and message (minimum 10 characters)' } }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0bf2103b-368d-4299-bfa7-8454a5f1dfc3",
+      "name": "❌ Error Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1376,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "db059e94-6a9d-483c-befe-81bc36da60de",
+      "name": "Send Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -1152,
+        240
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "name",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "website",
+              "name": "website",
+              "value": "={{ $json.body.website || 'Not provided' }}",
+              "type": "string"
+            },
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $json.body.timestamp || $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "name": "source",
+              "value": "={{ $json.body.source || 'Website Contact Form' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c9cf7958-3979-4a17-9e07-1ed9833c2b51",
+      "name": "🔍 Extract & Clean Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1376,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({\n  model: 'claude-3-5-haiku-20241022',\n  max_tokens: 500,\n  temperature: 0.3,\n  messages: [\n    {\n      role: 'user',\n      content: 'You are an expert B2B lead qualification specialist for NexOperandi.\\n\\nAnalyze this contact:\\nName: ' + $json.name + '\\nEmail: ' + $json.email + '\\nWebsite: ' + $json.website + '\\nMessage: ' + $json.message + '\\n\\nReturn ONLY this JSON (no other text):\\n{\\n  \"score\": 85,\\n  \"priority\": \"High\",\\n  \"intent\": \"their main goal\",\\n  \"action\": \"what to do next\",\\n  \"insights\": \"2-3 sentence analysis\",\\n  \"signals\": {\\n    \"budget\": \"budget indicators or None\",\\n    \"urgency\": \"urgency indicators or None\",\\n    \"fit\": \"service fit assessment\"\\n  }\\n}\\n\\nScoring: 80-100=Enterprise+Budget+Urgent, 60-79=Qualified, 40-59=General, 20-39=Vague, 0-19=Spam.'\n    }\n  ]\n}) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1152,
+        -80
+      ],
+      "id": "5279d3bd-f771-4766-a0a4-11dd4d9c72a3",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "HMl7DmekzNz5VQWD",
+          "name": "Header Auth account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse AI response and structure complete lead data\nconst aiResponse = $input.first().json.content?.[0]?.text || $input.first().json.text || $input.first().json.response || '{}';\nconst contactData = $('🔍 Extract & Clean Data').first().json;\n\nlet qualification;\ntry {\n  // Extract JSON from AI response\n  const jsonMatch = aiResponse.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    qualification = JSON.parse(jsonMatch[0]);\n    \n    // Validate required fields\n    if (typeof qualification.score !== 'number' || \n        !qualification.priority || \n        !qualification.intent) {\n      throw new Error('Invalid qualification structure');\n    }\n  } else {\n    throw new Error('No JSON found in response');\n  }\n} catch (error) {\n  console.log('AI parsing error:', error.message);\n  // Fallback qualification\n  qualification = {\n    score: 50,\n    priority: 'Medium',\n    intent: 'General inquiry - requires manual review',\n    action: 'Review and respond within 24 hours',\n    insights: 'AI qualification unavailable. Manual review recommended. Error: ' + error.message,\n    signals: {\n      budget: 'Unknown - manual review needed',\n      urgency: 'Unknown - manual review needed',\n      fit: 'Unknown - manual review needed'\n    }\n  };\n}\n\n// Map priority to emoji\nconst priorityEmoji = {\n  'High': '🔥',\n  'Medium': '⚡',\n  'Low': '📋'\n}[qualification.priority] || '📋';\n\n// Map score to color\nconst scoreColor = qualification.score >= 70 ? '#22c55e' : \n                   qualification.score >= 40 ? '#f59e0b' : '#ef4444';\n\n// Return structured data\nreturn {\n  json: {\n    // Contact info\n    name: contactData.name,\n    email: contactData.email,\n    website: contactData.website,\n    message: contactData.message,\n    timestamp: contactData.timestamp,\n    source: contactData.source,\n    \n    // AI Qualification\n    lead_score: qualification.score,\n    priority: qualification.priority,\n    intent: qualification.intent,\n    action: qualification.action,\n    insights: qualification.insights,\n    \n    // Signals\n    budget_signals: qualification.signals.budget || 'No data',\n    urgency_signals: qualification.signals.urgency || 'No data',\n    fit_signals: qualification.signals.fit || 'No data',\n    \n    // Display helpers\n    priority_emoji: priorityEmoji,\n    score_color: scoreColor,\n    qualified_at: new Date().toISOString(),\n    \n    // Spreadsheet ID for email link\n    spreadsheet_id: '1ThKZIA7B7uA9U1k88wu87-4uUTnLsUYJ2QA8_kezSTo'\n  }\n};"
+      },
+      "id": "d8ec745d-a8f6-4da8-9629-cfc81712fa35",
+      "name": "📊 Structure Lead Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        -80
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/1ThKZIA7B7uA9U1k88wu87-4uUTnLsUYJ2QA8_kezSTo/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0"
+        },
+        "columns": {
+          "value": {
+            "name": "={{ $json.name }}",
+            "email": "={{ $json.email }}",
+            "action": "={{ $json.action }}",
+            "intent": "={{ $json.intent }}",
+            "source": "={{ $json.source }}",
+            "message": "={{ $json.message }}",
+            "website": "={{ $json.website }}",
+            "insights": "={{ $json.insights }}",
+            "priority": "={{ $json.priority }}",
+            "timestamp": "={{ $json.timestamp }}",
+            "lead_score": "={{ $json.lead_score }}",
+            "fit_signals": "={{ $json.fit_signals }}",
+            "budget_signals": "={{ $json.budget_signals }}",
+            "urgency_signals": "={{ $json.urgency_signals }}"
+          },
+          "schema": [
+            {
+              "id": "timestamp",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "timestamp",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "name",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "email",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "website",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lead_score",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "lead_score",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "priority",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "priority",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "intent",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "intent",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "action",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "action",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "insights",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "insights",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "budget_signals",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "budget_signals",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "urgency_signals",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "urgency_signals",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fit_signals",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "fit_signals",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "message",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "source",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": []
+        },
+        "options": {
+          "cellFormat": "USER_ENTERED"
+        }
+      },
+      "id": "4856c4ca-b64b-4204-aea0-5635b6b8c99c",
+      "name": "💾 Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -720,
+        -176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "txIx9FrMZlIyjbz8",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fromEmail": "notifications@nexoperandi.ai",
+        "toEmail": "ecotoddlershop@gmail.com",
+        "subject": "={{ 'New ' + $json.priority + ' Priority Lead: ' + $json.name }}",
+        "html": "=<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }\n    .container { max-width: 600px; margin: 0 auto; padding: 20px; }\n    .header { background: #667eea; color: white; padding: 20px; border-radius: 8px 8px 0 0; }\n    .content { background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }\n    .field { margin-bottom: 15px; }\n    .label { font-weight: bold; color: #555; }\n    .value { margin-top: 5px; padding: 10px; background: white; border-radius: 4px; }\n    .button { display: inline-block; background: #667eea; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin-top: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h2>{{ $json.priority_emoji }} New Contact Form Submission</h2>\n      <p>Priority: {{ $json.priority }} | Score: {{ $json.lead_score }}/100</p>\n    </div>\n    \n    <div class=\"content\">\n      <div class=\"field\">\n        <div class=\"label\">Name:</div>\n        <div class=\"value\">{{ $json.name }}</div>\n      </div>\n      \n      <div class=\"field\">\n        <div class=\"label\">Email:</div>\n        <div class=\"value\"><a href=\"mailto:{{ $json.email }}\">{{ $json.email }}</a></div>\n      </div>\n      \n      <div class=\"field\">\n        <div class=\"label\">Website:</div>\n        <div class=\"value\"><a href=\"{{ $json.website }}\" target=\"_blank\">{{ $json.website }}</a></div>\n      </div>\n      \n      <div class=\"field\">\n        <div class=\"label\">Message:</div>\n        <div class=\"value\">{{ $json.message }}</div>\n      </div>\n      \n      <div class=\"field\">\n        <div class=\"label\">Submitted:</div>\n        <div class=\"value\">{{ $json.timestamp }}</div>\n      </div>\n      \n      <div class=\"field\">\n        <div class=\"label\">AI Analysis:</div>\n        <div class=\"value\">{{ $json.insights }}</div>\n      </div>\n      \n      <a href=\"https://docs.google.com/spreadsheets/d/{{ $json.spreadsheet_id }}\" target=\"_blank\" class=\"button\">\n        📊 View All Leads in Google Sheets\n      </a>\n      \n      <a href=\"mailto:{{ $json.email }}?subject=Re: Your inquiry\" class=\"button\" style=\"background: #10b981;\">\n        📧 Reply to Lead\n      </a>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "f0f19c25-46c8-4b8d-99cb-ab479924ec7b",
+      "name": "📧 Send Email to You",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        32
+      ],
+      "webhookId": "547fd170-d4bd-490b-b1b3-cb40d8e7d86c",
+      "credentials": {
+        "smtp": {
+          "id": "NdcOWOVmZwDh95W9",
+          "name": "SMTP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \n  success: true, \n  message: 'Thank you! We have received your message and will respond within 24 hours.', \n  lead: { \n    priority: $json.priority, \n    score: $json.lead_score \n  } \n} }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "aae5de48-50c7-46d1-a336-38cdb228e656",
+      "name": "✅ Send Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -496,
+        -80
+      ],
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "📥 Contact Form Webhook": {
+      "main": [
+        [
+          {
+            "node": "✅ Validate Required Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Validate Required Fields": {
+      "main": [
+        [
+          {
+            "node": "🔍 Extract & Clean Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "❌ Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "❌ Error Response": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 Extract & Clean Data": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "📊 Structure Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Structure Lead Data": {
+      "main": [
+        [
+          {
+            "node": "💾 Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📧 Send Email to You": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💾 Save to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "✅ Send Success Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📧 Send Email to You",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e98606bd-84c2-4f19-ab08-b0ddf77e9a80",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0ca5feaaa1c88b3017a21d18cb2f5215cb909d5512a6606a522b349ae49f022d"
+  },
+  "id": "XyEHnvxKf3Lms9hI",
+  "tags": []
+}

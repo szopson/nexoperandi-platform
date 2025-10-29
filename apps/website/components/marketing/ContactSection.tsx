@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setIsSubmitting(true);
     setShowSuccess(false);
     setShowError(false);
@@ -22,6 +24,8 @@ export default function ContactSection() {
         message: formData.get("What can we help you with?"),
       };
 
+      console.log('Submitting form data:', data);
+
       // Call our API route instead of directly calling the webhook
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -31,12 +35,21 @@ export default function ContactSection() {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error("Form submission failed");
+      console.log('Response status:', response.status);
+
+      const result = await response.json();
+      console.log('Response data:', result);
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Form submission failed");
       }
 
       setShowSuccess(true);
-      e.currentTarget.reset();
+
+      // Reset form using ref
+      if (formRef.current) {
+        formRef.current.reset();
+      }
     } catch (error) {
       console.error("Form submission error:", error);
       setShowError(true);
@@ -71,7 +84,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+        <form ref={formRef} onSubmit={handleSubmit} className="max-w-2xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label

@@ -85,14 +85,26 @@ export async function POST(request: NextRequest) {
       throw new Error(`n8n webhook failed: ${response.status} - ${errorText}`);
     }
 
-    const result = await response.json();
-    console.log('✅ Contact form processed successfully');
+    // Try to parse JSON response, but handle empty responses
+    let result: any = null;
+    const responseText = await response.text();
+
+    if (responseText) {
+      try {
+        result = JSON.parse(responseText);
+        console.log('✅ Contact form processed successfully with response:', result);
+      } catch (parseError) {
+        console.log('⚠️  n8n returned non-JSON response:', responseText);
+      }
+    } else {
+      console.log('✅ Contact form processed successfully (empty response from n8n)');
+    }
 
     // Return success with lead info (if available)
     return NextResponse.json({
       success: true,
       message: 'Thank you! We\'ve received your message and will get back to you soon.',
-      ...(result.lead && { lead: result.lead }) // Include lead score if returned
+      ...(result?.lead && { lead: result.lead }) // Include lead score if returned
     });
 
   } catch (error) {
