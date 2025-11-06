@@ -18,72 +18,45 @@ export default function Globe({ width = 600, height = 600 }: GlobeProps) {
     import('globe.gl').then((GlobeModule) => {
       const Globe = GlobeModule.default;
 
-      // Create globe instance
+      // Generate random points on globe surface for particle effect
+      const N = 300; // number of particles
+      const gData = [...Array(N).keys()].map(() => ({
+        lat: (Math.random() - 0.5) * 180,
+        lng: (Math.random() - 0.5) * 360,
+        size: Math.random() * 0.5 + 0.3,
+        color: ['#3b82f6', '#60a5fa', '#93c5fd'][Math.floor(Math.random() * 3)]
+      }));
+
+      // Create globe instance - minimal, clean version
       const myGlobe = new Globe(globeEl.current!)
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .backgroundColor('rgba(255,255,255,0)')
+        .showAtmosphere(false)
+        .showGraticules(false)
+        .globeMaterial(new (window as any).THREE.MeshBasicMaterial({
+          color: '#f8fafc',
+          transparent: true,
+          opacity: 0.1
+        }))
         .width(width)
         .height(height);
 
-      // Define major cities for connection arcs
-      const cities = [
-        { lat: 40.7128, lng: -74.0060, name: 'New York' },      // USA
-        { lat: 51.5074, lng: -0.1278, name: 'London' },         // UK
-        { lat: 35.6762, lng: 139.6503, name: 'Tokyo' },         // Japan
-        { lat: -33.8688, lng: 151.2093, name: 'Sydney' },       // Australia
-        { lat: 19.4326, lng: -99.1332, name: 'Mexico City' },   // Mexico
-        { lat: -23.5505, lng: -46.6333, name: 'São Paulo' },    // Brazil
-        { lat: 28.6139, lng: 77.2090, name: 'New Delhi' },      // India
-        { lat: 1.3521, lng: 103.8198, name: 'Singapore' },      // Singapore
-        { lat: 52.2297, lng: 21.0122, name: 'Warsaw' },         // Poland (your location!)
-        { lat: 55.7558, lng: 37.6173, name: 'Moscow' },         // Russia
-        { lat: 31.2304, lng: 121.4737, name: 'Shanghai' },      // China
-        { lat: 25.2048, lng: 55.2708, name: 'Dubai' },          // UAE
-      ];
-
-      // Create connection arcs between cities
-      const arcsData: any[] = [];
-      const centerCity = cities[8]; // Warsaw as center
-
-      cities.forEach(city => {
-        if (city.name !== centerCity.name) {
-          arcsData.push({
-            startLat: centerCity.lat,
-            startLng: centerCity.lng,
-            endLat: city.lat,
-            endLng: city.lng,
-            color: ['rgba(59, 130, 246, 0.5)', 'rgba(96, 165, 250, 0.3)'], // Blue gradient
-          });
-        }
-      });
-
-      // Add arcs to globe
+      // Add particles as points
       myGlobe
-        .arcsData(arcsData)
-        .arcColor('color')
-        .arcDashLength(0.4)
-        .arcDashGap(0.2)
-        .arcDashAnimateTime(3000)
-        .arcStroke(0.5)
-        .arcsTransitionDuration(0);
-
-      // Add points for cities
-      myGlobe
-        .pointsData(cities)
+        .pointsData(gData)
         .pointLat('lat')
         .pointLng('lng')
-        .pointColor(() => 'rgba(59, 130, 246, 0.8)')
-        .pointAltitude(0.01)
-        .pointRadius(0.5);
+        .pointColor('color')
+        .pointAltitude(0)
+        .pointRadius('size');
 
-      // Auto-rotate
+      // Auto-rotate - slower and smoother
       myGlobe.controls().autoRotate = true;
-      myGlobe.controls().autoRotateSpeed = 0.5;
+      myGlobe.controls().autoRotateSpeed = 0.3;
       myGlobe.controls().enableZoom = false;
+      myGlobe.controls().enablePan = false;
 
-      // Set initial view point (focus on Europe/USA)
-      myGlobe.pointOfView({ lat: 40, lng: -20, altitude: 2.5 }, 0);
+      // Set initial view point (centered view)
+      myGlobe.pointOfView({ lat: 20, lng: 0, altitude: 2.2 }, 0);
 
       // Store instance for cleanup
       globeInstance.current = myGlobe;
@@ -103,9 +76,6 @@ export default function Globe({ width = 600, height = 600 }: GlobeProps) {
   return (
     <div className="relative">
       <div ref={globeEl} className="globe-container" />
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
-        <p className="text-sm text-gray-600 font-medium">Global AI Automation</p>
-      </div>
     </div>
   );
 }
