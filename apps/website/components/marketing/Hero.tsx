@@ -1,16 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const Globe = dynamic(() => import("@/components/Globe"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
-      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
-    </div>
-  ),
-});
+import NetworkDiagram from "@/components/NetworkDiagram";
 
 export default function Hero() {
   return (
@@ -36,7 +27,25 @@ export default function Hero() {
           </Link>
         </div>
         <div className="mt-12 md:mt-0 md:w-1/2 flex justify-center relative">
-          <Globe width={400} height={400} />
+          <NetworkDiagram />
+        </div>
+      </div>
+
+      {/* Trust strip - desktop version */}
+      <div className="container mx-auto px-6 mt-16 hidden md:block">
+        <div className="grid grid-cols-3 gap-8 text-center max-w-3xl mx-auto">
+          <div className="border-l-2 border-blue-600 pl-4 text-left">
+            <div className="text-2xl font-bold text-gray-900">90-day</div>
+            <div className="text-gray-600">ROI guarantee</div>
+          </div>
+          <div className="border-l-2 border-blue-600 pl-4 text-left">
+            <div className="text-2xl font-bold text-gray-900">50+</div>
+            <div className="text-gray-600">deployments</div>
+          </div>
+          <div className="border-l-2 border-blue-600 pl-4 text-left">
+            <div className="text-2xl font-bold text-gray-900">End-to-end</div>
+            <div className="text-gray-600">implementation</div>
+          </div>
         </div>
       </div>
     </header>
