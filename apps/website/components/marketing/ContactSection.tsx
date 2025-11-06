@@ -58,24 +58,12 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Work With Us</h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-600 mb-4">
             Provide your details below and we'll be in touch!
           </p>
-
-          <div className="flex flex-col md:flex-row gap-8 justify-center items-center mb-12">
-            <div className="text-center">
-              <h3 className="text-lg font-semibold mb-2">Send us a message</h3>
-              <p className="text-gray-600">Fill out the form below</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-lg font-semibold mb-2">Call us directly</h3>
-              <a
-                href="tel:+15551234567"
-                className="text-blue-600 hover:text-blue-800 transition text-lg font-medium"
-              >
-                +1 (555) 123-4567
-              </a>
-            </div>
+          <div className="text-center mb-8">
+            <h3 className="text-lg font-semibold mb-2">Send us a message</h3>
+            <p className="text-gray-600">Fill out the form below</p>
           </div>
         </div>
 
@@ -168,7 +156,7 @@ export default function ContactSection() {
           {showError && (
             <div className="mt-4 text-center text-red-600">
               <p className="font-medium">
-                Something went wrong. Please try again or call us directly.
+                Something went wrong. Please try again.
               </p>
             </div>
           )}
