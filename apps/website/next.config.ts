@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@nexoperandi/ui", "@nexoperandi/agent-core"],
 
   // Production optimizations
-  output: 'standalone', // Optimized for Docker/VPS deployments
+  // output: 'standalone', // Disabled on Windows due to symlink permission issues
   compress: true, // Enable gzip compression
   poweredByHeader: false, // Remove X-Powered-By header for security
 
