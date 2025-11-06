@@ -24,8 +24,6 @@ export default function ContactSection() {
         message: formData.get("What can we help you with?"),
       };
 
-      console.log('Submitting form data:', data);
-
       // Call our API route instead of directly calling the webhook
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -35,10 +33,7 @@ export default function ContactSection() {
         body: JSON.stringify(data),
       });
 
-      console.log('Response status:', response.status);
-
       const result = await response.json();
-      console.log('Response data:', result);
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Form submission failed");

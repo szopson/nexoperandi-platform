@@ -12,17 +12,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, email, website, message } = body;
 
-    console.log('📨 Contact Form - Received submission:', {
-      name,
-      email,
-      hasWebsite: !!website,
-      messageLength: message?.length || 0,
-      timestamp: new Date().toISOString()
-    });
-
     // Validate required fields
     if (!name || !email || !message) {
-      console.error('❌ Missing required fields');
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -32,7 +23,6 @@ export async function POST(request: NextRequest) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      console.error('❌ Invalid email format:', email);
       return NextResponse.json(
         { error: 'Invalid email address' },
         { status: 400 }
@@ -41,9 +31,6 @@ export async function POST(request: NextRequest) {
 
     // Check if webhook is configured
     if (!N8N_WEBHOOK_URL) {
-      console.error('⚠️  N8N_WEBHOOK_URL is not configured');
-      console.log('💡 Add N8N_WEBHOOK_URL to .env.local to enable AI lead qualification');
-
       // Return success anyway (for development/testing)
       return NextResponse.json({
         success: true,
@@ -62,8 +49,6 @@ export async function POST(request: NextRequest) {
       source: 'NexOperandi Website',
     };
 
-    console.log('🔄 Forwarding to n8n webhook:', N8N_WEBHOOK_URL);
-
     // Send to n8n for AI qualification
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
@@ -73,15 +58,8 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(payload),
     });
 
-    console.log('📡 n8n response status:', response.status);
-
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ n8n webhook error:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
-      });
       throw new Error(`n8n webhook failed: ${response.status} - ${errorText}`);
     }
 
@@ -92,12 +70,9 @@ export async function POST(request: NextRequest) {
     if (responseText) {
       try {
         result = JSON.parse(responseText);
-        console.log('✅ Contact form processed successfully with response:', result);
       } catch (parseError) {
-        console.log('⚠️  n8n returned non-JSON response:', responseText);
+        // Silently handle non-JSON responses
       }
-    } else {
-      console.log('✅ Contact form processed successfully (empty response from n8n)');
     }
 
     // Return success with lead info (if available)
@@ -108,14 +83,11 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('❌ Contact form error:', error);
-
     return NextResponse.json(
       {
         success: false,
         error: 'Failed to submit form',
-        message: error instanceof Error ? error.message : 'Unknown error',
-        hint: 'Make sure n8n workflow is active at: ' + N8N_WEBHOOK_URL
+        message: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );
