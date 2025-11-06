@@ -21,10 +21,10 @@ export default function Footer() {
             LinkedIn
           </Link>
           <Link
-            href="mailto:hello@NexOperandi.ai"
+            href="mailto:contact@nexoperandi.cloud"
             className="text-sm text-gray-500 hover:text-black transition"
           >
-            hello@NexOperandi.ai
+            contact@nexoperandi.cloud
           </Link>
         </div>
       </div>
