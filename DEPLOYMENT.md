@@ -110,7 +110,7 @@ You need to set ONE environment variable:
 This is the webhook URL from your n8n instance for the contact form.
 
 **How to get it:**
-1. In your n8n instance (http://piotr108.mikrus.xyz:40233)
+1. In your n8n instance (https://n8n.srv1108737.hstgr.cloud)
 2. Create or open the contact form workflow
 3. Add a "Webhook" trigger node
 4. Copy the webhook URL
@@ -118,7 +118,7 @@ This is the webhook URL from your n8n instance for the contact form.
 
 **Example:**
 ```
-N8N_WEBHOOK_URL=https://piotr108.mikrus.xyz:40233/webhook/contact-form
+N8N_WEBHOOK_URL=https://n8n.srv1108737.hstgr.cloud/webhook/contact-form
 ```
 
 **Note:** If you don't set this immediately, the contact form will still work (it just won't send data anywhere). You can add it later without redeploying the site.

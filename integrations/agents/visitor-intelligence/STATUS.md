@@ -25,7 +25,7 @@
   - Tracks all pages automatically
 
 - ✅ **Environment Configuration** ([.env.local](../../../apps/website/.env.local))
-  - Correct webhook URL: `https://piotr108-20108.wykr.es/webhook-test/visitor-intel`
+  - Correct webhook URL: `https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel`
   - Dev server running on port 3003
 
 ### 2. Terminal Output Confirms Everything Works
@@ -36,7 +36,7 @@
   device: 'desktop',
   timestamp: '2025-10-26T08:30:56.182Z'
 }
-🔄 Forwarding to n8n webhook: https://piotr108-20108.wykr.es/webhook-test/visitor-intel
+🔄 Forwarding to n8n webhook: https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel
 ```
 
 **This proves:**
@@ -72,7 +72,7 @@ Go to n8n and **activate the workflow** (toggle the "Active" switch to green).
 
 ### Step 1: Open n8n (1 min)
 ```
-https://piotr108-20108.wykr.es
+https://n8n.srv1108737.hstgr.cloud
 ```
 
 ### Step 2: Find Your Workflow (1 min)
@@ -117,7 +117,7 @@ Inactive [■■■■■] Active  ← GREEN
 
 ### Option 1: Direct Webhook Test
 ```bash
-curl -X POST https://piotr108-20108.wykr.es/webhook-test/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{"url":"https://test.com","timeOnPage":45,"pagesViewed":3,"device":"desktop"}'
 ```
@@ -141,7 +141,7 @@ curl -X POST https://piotr108-20108.wykr.es/webhook-test/visitor-intel \
 3. **Check terminal:**
    ```
    📊 Visitor Intelligence - Received data: {...}
-   🔄 Forwarding to n8n webhook: https://piotr108-20108.wykr.es/webhook-test/visitor-intel
+   🔄 Forwarding to n8n webhook: https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel
    📡 n8n response status: 200    ← Should be 200!
    ✅ n8n webhook success
    ```
@@ -211,13 +211,13 @@ Data appears in Google Sheets instantly! ✅
 - Next.js version: 15.5.6 ✅
 
 **n8n:**
-- URL: `https://piotr108-20108.wykr.es` ✅
+- URL: `https://n8n.srv1108737.hstgr.cloud` ✅
 - Webhook path: `/webhook/visitor-intel` ✅
 - Status: Active (Production) ✅
 
 **Environment Variable:**
 - File: `apps/website/.env.local` ✅
-- Value: `https://piotr108-20108.wykr.es/webhook/visitor-intel` ✅
+- Value: `https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel` ✅
 
 ---
 

@@ -37,12 +37,12 @@
 ┗━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
                         │
                         │ Forward to n8n webhook
-                        │ URL: https://piotr108-20108.wykr.es/webhook/contact-form
+                        │ URL: https://n8n.srv1108737.hstgr.cloud/webhook/contact-form
                         │
                         ↓
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃              🎣 N8N WEBHOOK TRIGGER (Node 1)                  ┃
-┃          📍 https://piotr108-20108.wykr.es                    ┃
+┃          📍 https://n8n.srv1108737.hstgr.cloud                    ┃
 ┃                                                               ┃
 ┃  Receives JSON:                                               ┃
 ┃  {                                                            ┃

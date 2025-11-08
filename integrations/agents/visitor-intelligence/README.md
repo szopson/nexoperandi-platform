@@ -71,7 +71,7 @@ Device | Referrer | Email | Name | Company | Status | Contacted | Notes
 
 ### 3. Test (2 min)
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{"url":"https://nexoperandi.ai/pricing","timeOnPage":45,"pagesViewed":3}'
 ```

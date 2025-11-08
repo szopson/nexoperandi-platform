@@ -59,7 +59,7 @@ Cmd+Shift+R (Mac)
 **2. "Demo mode" response?**
 ```bash
 # Check .env.local has this line:
-N8N_CHATBOT_URL=https://piotr108-20108.wykr.es/webhook/customer-chat
+N8N_CHATBOT_URL=https://n8n.srv1108737.hstgr.cloud/webhook/customer-chat
 
 # Then restart:
 Ctrl+C
@@ -68,7 +68,7 @@ pnpm dev
 
 **3. No AI response?**
 - Check n8n workflow is ACTIVE (green toggle)
-- Go to: https://piotr108-20108.wykr.es/
+- Go to: https://n8n.srv1108737.hstgr.cloud/
 - Find "AI Customer Service Chatbot - FIXED"
 - Make sure toggle is ON
 

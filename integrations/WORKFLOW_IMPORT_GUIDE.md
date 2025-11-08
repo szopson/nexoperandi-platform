@@ -110,7 +110,7 @@ Create the following files in the agent folder (e.g., `integrations/agents/custo
 
 3. Test with sample data:
    \`\`\`bash
-   curl -X POST http://piotr108.mikrus.xyz:40233/webhook/customer-service \\
+   curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/customer-service \\
      -H "Content-Type: application/json" \\
      -d @test-data.json
    \`\`\`
@@ -301,7 +301,7 @@ export default function CustomerServiceDemo() {
 
 3. **Test n8n webhook directly:**
    ```bash
-   curl -X POST http://piotr108.mikrus.xyz:40233/webhook/customer-service \\
+   curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/customer-service \\
      -H "Content-Type: application/json" \\
      -d @integrations/agents/customer-service/test-data.json
    ```

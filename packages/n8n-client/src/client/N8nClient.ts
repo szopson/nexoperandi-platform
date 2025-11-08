@@ -228,7 +228,7 @@ export class N8nClient {
 // Export a pre-configured client instance
 export function createN8nClient(config?: Partial<N8nClientConfig>): N8nClient {
   const defaultConfig: N8nClientConfig = {
-    baseUrl: process.env.N8N_API_URL || 'http://piotr108.mikrus.xyz:40233',
+    baseUrl: process.env.N8N_API_URL || 'https://n8n.srv1108737.hstgr.cloud',
     apiKey: process.env.N8N_API_KEY,
     timeout: 30000,
     retryAttempts: 3,

@@ -23,7 +23,7 @@ Create or update `apps/website/.env.local`:
 
 ```bash
 # Visitor Intelligence webhook URL
-N8N_VISITOR_INTEL_URL=http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+N8N_VISITOR_INTEL_URL=https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 ### Step 2: Install Dependencies (if needed) (1 min)
@@ -139,7 +139,7 @@ POST /api/visitor-intel
 ```typescript
 // apps/website/app/api/visitor-intel/route.ts
 // Forwards to n8n webhook
-POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 ### 5. n8n Workflow Processes
@@ -330,7 +330,7 @@ export const trackEvent = async (eventName: string, eventData?: any) => {
 
 3. **Check n8n executions:**
    ```
-   http://piotr108.mikrus.xyz:40233
+   https://n8n.srv1108737.hstgr.cloud
    → Click "Executions"
    → Should see successful execution
    ```
@@ -422,7 +422,7 @@ Total:         62 points → HOT LEAD! 🔥
 
 **Check 1: Is n8n workflow active?**
 ```
-http://piotr108.mikrus.xyz:40233
+https://n8n.srv1108737.hstgr.cloud
 → Workflows
 → "Visitor Intelligence Agent - Google Sheets"
 → Toggle should be green (Active)

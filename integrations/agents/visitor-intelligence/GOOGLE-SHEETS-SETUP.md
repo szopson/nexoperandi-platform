@@ -83,7 +83,7 @@ https://docs.google.com/spreadsheets/d/1abc-DEF_ghi123JKL456mno/edit
 
 ### 2.2 Import to n8n
 
-1. Go to n8n: `http://piotr108.mikrus.xyz:40233`
+1. Go to n8n: `https://n8n.srv1108737.hstgr.cloud`
 2. Click **"Add workflow"** button (top left)
 3. Click **"..."** menu (top right)
 4. Select **"Import from Clipboard"**
@@ -127,7 +127,7 @@ Only if Option A doesn't work or you want more control:
 2. Create new project: "n8n Integration"
 3. Enable Google Sheets API
 4. Create OAuth 2.0 credentials
-5. Add authorized redirect URI: `http://piotr108.mikrus.xyz:40233/rest/oauth2-credential/callback`
+5. Add authorized redirect URI: `https://n8n.srv1108737.hstgr.cloud/rest/oauth2-credential/callback`
 6. Copy Client ID and Client Secret
 7. Paste into n8n credentials form
 8. Click "Connect my account"
@@ -175,7 +175,7 @@ Only if Option A doesn't work or you want more control:
 
 The webhook URL is:
 ```
-http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 Save this - you'll need it to send visitor data!
@@ -189,7 +189,7 @@ Save this - you'll need it to send visitor data!
 Open your terminal or use a tool like Postman:
 
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://nexoperandi.ai/pricing",
@@ -229,7 +229,7 @@ Test different scenarios:
 
 **Test 1: Cold Visitor (Low Score)**
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://nexoperandi.ai/blog",
@@ -244,7 +244,7 @@ Expected: Score ~15 (Cold, monitor)
 
 **Test 2: Warm Visitor (Medium Score)**
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://nexoperandi.ai/solutions",
@@ -259,7 +259,7 @@ Expected: Score ~51 (Warm, engage_email)
 
 **Test 3: Hot Visitor with Contact Info**
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://nexoperandi.ai/demo",
@@ -558,7 +558,7 @@ You now have:
 - ✅ AI behavioral insights
 - ✅ Ready for analytics and charts
 
-**Webhook URL:** `http://piotr108.mikrus.xyz:40233/webhook/visitor-intel`
+**Webhook URL:** `https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel`
 
 **Next:** Integrate this webhook with your website's client-side tracking!
 

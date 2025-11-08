@@ -65,7 +65,7 @@ All workflows require the following base environment variables:
 
 ```env
 # n8n Instance
-N8N_API_URL=http://piotr108.mikrus.xyz:40233
+N8N_API_URL=https://n8n.srv1108737.hstgr.cloud
 N8N_API_KEY=your-api-key-here
 
 # AI Models
@@ -82,8 +82,8 @@ DATABASE_URL=postgresql://...
 ## Deployment
 
 Workflows are deployed to the n8n instance at:
-- **Production:** http://piotr108.mikrus.xyz:40233
-- **Webhook Base:** http://piotr108.mikrus.xyz:40233/webhook/
+- **Production:** https://n8n.srv1108737.hstgr.cloud
+- **Webhook Base:** https://n8n.srv1108737.hstgr.cloud/webhook/
 
 ## Testing
 
@@ -91,7 +91,7 @@ Each agent includes test data for validation:
 
 ```bash
 # Test customer service agent
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/customer-service \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/customer-service \
   -H "Content-Type: application/json" \
   -d @integrations/agents/customer-service/test-data.json
 ```

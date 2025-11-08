@@ -185,7 +185,7 @@ apps/website/
 2. Workflow should show "Active" (green)
 3. Click "💬 Chat Message Webhook" node
 4. Copy the "Production URL"
-   Example: https://piotr108-20108.wykr.es/webhook/customer-chat
+   Example: https://n8n.srv1108737.hstgr.cloud/webhook/customer-chat
 ```
 
 ### 5. Configure Website

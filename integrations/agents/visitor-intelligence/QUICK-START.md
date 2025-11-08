@@ -38,14 +38,14 @@
 ### Step 5: Activate (1 min)
 1. Save workflow
 2. Toggle "Active" switch ON
-3. Note webhook URL: `http://piotr108.mikrus.xyz:40233/webhook/visitor-intel`
+3. Note webhook URL: `https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel`
 
 ---
 
 ## 🧪 Test It
 
 ```bash
-curl -X POST http://piotr108.mikrus.xyz:40233/webhook/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://nexoperandi.ai/pricing",
@@ -183,7 +183,7 @@ When score ≥ 60:
 
 **Webhook URL:**
 ```
-http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 **Ready to track visitors!** 🚀

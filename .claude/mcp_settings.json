@@ -7,7 +7,7 @@
         "npx",
         "-y",
         "mcp-remote",
-        "http://piotr108.mikrus.xyz:40233/mcp",
+        "https://n8n.srv1108737.hstgr.cloud/mcp",
         "--allow-http",
         "--header",
         "Authorization: Bearer axAdPXneRcdnWENjgYyhzTMYpfTs+i9zm4h2mv9zv3k="

@@ -25,7 +25,7 @@ Create `apps/website/.env.local`:
 
 ```bash
 # In: apps/website/.env.local
-N8N_VISITOR_INTEL_URL=http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+N8N_VISITOR_INTEL_URL=https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 ### Step 2: Restart Dev Server (1 min)
@@ -89,7 +89,7 @@ Categories:
 - Easy sharing with team
 
 ### Option 2: n8n Executions
-- Go to: `http://piotr108.mikrus.xyz:40233`
+- Go to: `https://n8n.srv1108737.hstgr.cloud`
 - Click "Executions" in sidebar
 - See every visitor tracked
 - View complete workflow execution
@@ -169,7 +169,7 @@ cat .env.local | grep N8N_VISITOR_INTEL_URL
 
 **2. Check n8n workflow is active:**
 ```
-http://piotr108.mikrus.xyz:40233
+https://n8n.srv1108737.hstgr.cloud
 → Workflows → Toggle should be green
 ```
 
@@ -226,7 +226,7 @@ When ready to deploy:
 **Vercel:**
 ```bash
 vercel env add N8N_VISITOR_INTEL_URL
-# Value: http://piotr108.mikrus.xyz:40233/webhook/visitor-intel
+# Value: https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel
 ```
 
 **Other platforms:**
@@ -332,7 +332,7 @@ curl -X POST https://your-domain.com/api/visitor-intel \
 
 ```bash
 # 1. Create .env.local
-echo "N8N_VISITOR_INTEL_URL=http://piotr108.mikrus.xyz:40233/webhook/visitor-intel" > apps/website/.env.local
+echo "N8N_VISITOR_INTEL_URL=https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel" > apps/website/.env.local
 
 # 2. Restart
 cd apps/website

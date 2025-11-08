@@ -973,7 +973,7 @@ CREATE INDEX idx_visitor_timestamp ON visitor_intelligence(created_at);
 
 ```bash
 # n8n Configuration
-N8N_WEBHOOK_URL=http://piotr108.mikrus.xyz:40233/webhook
+N8N_WEBHOOK_URL=https://n8n.srv1108737.hstgr.cloud/webhook
 N8N_API_KEY=axAdPXneRcdnWENjgYyhzTMYpfTs+i9zm4h2mv9zv3k=
 
 # AI Models

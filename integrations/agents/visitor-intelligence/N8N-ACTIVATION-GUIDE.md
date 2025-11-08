@@ -15,7 +15,7 @@ This means the workflow needs to be **activated** in n8n.
 
 ### Step 1: Go to n8n
 ```
-https://piotr108-20108.wykr.es
+https://n8n.srv1108737.hstgr.cloud
 ```
 
 ### Step 2: Import Workflow
@@ -39,7 +39,7 @@ https://piotr108-20108.wykr.es
 
 The workflow webhook path needs to match your URL structure.
 
-**Your URL:** `https://piotr108-20108.wykr.es/webhook-test/visitor-intel`
+**Your URL:** `https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel`
 
 In the workflow:
 1. Click on **"Webhook Trigger"** node (first node)
@@ -117,7 +117,7 @@ Inactive [■■■■■] Active  ← Should be GREEN
 ### Test 1: Direct Webhook Test
 
 ```bash
-curl -X POST https://piotr108-20108.wykr.es/webhook-test/visitor-intel \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel \
   -H "Content-Type: application/json" \
   -d '{"url":"https://test.com","timeOnPage":45,"pagesViewed":3,"device":"desktop"}'
 ```
@@ -149,7 +149,7 @@ curl -X POST https://piotr108-20108.wykr.es/webhook-test/visitor-intel \
 3. **Check terminal output:**
    ```
    📊 Visitor Intelligence - Received data: {...}
-   🔄 Forwarding to n8n webhook: https://piotr108-20108.wykr.es/webhook-test/visitor-intel
+   🔄 Forwarding to n8n webhook: https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel
    📡 n8n response status: 200    ← Should be 200!
    ✅ n8n webhook success
    POST /api/visitor-intel 200 in XXXms
@@ -261,8 +261,8 @@ If you're still stuck:
 
 3. **Verify webhook URL:**
    - Your workflow uses: `visitor-intel`
-   - Your base URL is: `https://piotr108-20108.wykr.es/webhook-test/`
-   - Final URL: `https://piotr108-20108.wykr.es/webhook-test/visitor-intel`
+   - Your base URL is: `https://n8n.srv1108737.hstgr.cloud/webhook-test/`
+   - Final URL: `https://n8n.srv1108737.hstgr.cloud/webhook-test/visitor-intel`
 
 ---
 

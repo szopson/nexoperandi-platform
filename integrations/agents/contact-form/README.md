@@ -34,7 +34,7 @@ Toggle "Active" switch to GREEN
 ### 4. Add to Website
 ```env
 # apps/website/.env.local
-N8N_WEBHOOK_URL=https://piotr108-20108.wykr.es/webhook/contact-form
+N8N_WEBHOOK_URL=https://n8n.srv1108737.hstgr.cloud/webhook/contact-form
 ```
 
 **Done!** Your contact form now has AI lead qualification! 🎉
@@ -152,7 +152,7 @@ Model: `claude-3-5-haiku-20241022` (cheapest, fastest)
 
 ### Direct Test:
 ```bash
-curl -X POST https://piotr108-20108.wykr.es/webhook/contact-form \
+curl -X POST https://n8n.srv1108737.hstgr.cloud/webhook/contact-form \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Test Lead",

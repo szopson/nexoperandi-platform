@@ -128,7 +128,7 @@ This creates:
 
 ### Step 3: Configure n8n Connection
 
-1. Open n8n: `http://piotr108.mikrus.xyz:40233`
+1. Open n8n: `https://n8n.srv1108737.hstgr.cloud`
 2. Go to **Credentials** → **New Credential**
 3. Select **PostgreSQL**
 4. Fill in details:
@@ -448,7 +448,7 @@ export default async function AnalyticsPage() {
 ### Option 1: n8n Execution Dashboard
 
 **Built-in, no setup:**
-1. Go to n8n: `http://piotr108.mikrus.xyz:40233`
+1. Go to n8n: `https://n8n.srv1108737.hstgr.cloud`
 2. Click **"Executions"** in left sidebar
 3. Filter by workflow: "Visitor Intelligence Agent"
 4. See real-time execution log
