@@ -89,7 +89,7 @@ const engagements = [
 
 // Extract numbers from headline for count-up animation
 function extractNumbers(headline: string): Array<{ original: string; value: number; suffix: string }> {
-  const matches = headline.matchAll(/([+-]?\d+)([–-]\d+)?(%|x)?/g);
+  const matches = Array.from(headline.matchAll(/([+-]?\d+)([–-]\d+)?(%|x)?/g));
   const results: Array<{ original: string; value: number; suffix: string }> = [];
 
   for (const match of matches) {

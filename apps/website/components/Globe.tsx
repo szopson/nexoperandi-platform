@@ -20,7 +20,7 @@ export default function Globe({ width = 600, height = 600 }: GlobeProps) {
 
       // Generate random points on globe surface for particle effect
       const N = 300; // number of particles
-      const gData = [...Array(N).keys()].map(() => ({
+      const gData = Array.from({ length: N }, () => ({
         lat: (Math.random() - 0.5) * 180,
         lng: (Math.random() - 0.5) * 360,
         size: Math.random() * 0.5 + 0.3,
