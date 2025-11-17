@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import NetworkDiagram from "@/components/NetworkDiagram";
+import CalendlyButton from "@/components/CalendlyButton";
 
 export default function Hero() {
   return (
@@ -19,12 +20,21 @@ export default function Hero() {
           <p className="text-lg md:text-xl text-blue-600 font-semibold mb-8">
             Working globally, serving clients worldwide
           </p>
-          <Link
-            href="#contact"
-            className="inline-block bg-blue-600 text-white font-semibold py-4 px-8 rounded-md hover:bg-blue-700 hover:scale-105 transition-transform"
-          >
-            Start Today
-          </Link>
+          {/* Dual CTA: Primary (Form) + Secondary (Call) */}
+          <div className="flex flex-col sm:flex-row gap-4 items-center md:items-start justify-center md:justify-start">
+            <Link
+              href="#contact"
+              className="inline-block bg-blue-600 text-white font-semibold py-4 px-8 rounded-md hover:bg-blue-700 hover:scale-105 transition-transform text-lg shadow-md"
+            >
+              Start Today
+            </Link>
+            <CalendlyButton
+              buttonText="Book 20-Min Diagnostic"
+              variant="outline"
+              utmSource="hero"
+              className="text-base"
+            />
+          </div>
         </div>
         <div className="mt-12 md:mt-0 md:w-1/2 flex justify-center relative">
           <NetworkDiagram />

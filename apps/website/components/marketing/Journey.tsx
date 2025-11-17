@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import CalendlyButton from '@/components/CalendlyButton';
 
 interface ModalContent {
   title: string;
@@ -203,12 +204,26 @@ export default function Journey() {
               ))}
             </ul>
 
-            <a
-              href="#contact"
-              className="block w-full bg-blue-600 text-white text-center font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              {cards[activeModal].modal.cta}
-            </a>
+            {/* Smart routing: demo/See → Calendly, others → form */}
+            {cards[activeModal].modal.cta.toLowerCase().includes('demo') ||
+             cards[activeModal].modal.cta.toLowerCase().includes('see') ? (
+              <div onClick={() => setActiveModal(null)}>
+                <CalendlyButton
+                  buttonText={cards[activeModal].modal.cta}
+                  variant="primary"
+                  utmSource={`journey_${cards[activeModal].title.toLowerCase().replace(/\s+/g, '_')}`}
+                  className="w-full"
+                />
+              </div>
+            ) : (
+              <a
+                href="#contact"
+                onClick={() => setActiveModal(null)}
+                className="block w-full bg-blue-600 text-white text-center font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {cards[activeModal].modal.cta}
+              </a>
+            )}
           </div>
         </div>
       )}

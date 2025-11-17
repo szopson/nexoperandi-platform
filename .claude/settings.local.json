@@ -29,7 +29,8 @@
       "Bash(timeout /t 15 /nobreak)",
       "Bash(nul)",
       "Bash(if exist nul del nul)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(if exist \"apps/website/nul\" del \"apps/website/nul\")"
     ],
     "deny": [],
     "ask": []

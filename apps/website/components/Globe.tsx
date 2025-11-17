@@ -23,22 +23,26 @@ export default function Globe({ width = 600, height = 600 }: GlobeProps) {
       const gData = Array.from({ length: N }, () => ({
         lat: (Math.random() - 0.5) * 180,
         lng: (Math.random() - 0.5) * 360,
-        size: Math.random() * 0.5 + 0.3,
+        size: Math.random() * 1.5 + 0.8,
         color: ['#3b82f6', '#60a5fa', '#93c5fd'][Math.floor(Math.random() * 3)]
       }));
 
       // Create globe instance - minimal, clean version
       const myGlobe = new Globe(globeEl.current!)
-        .backgroundColor('rgba(255,255,255,0)')
+        .backgroundColor('rgba(0,0,0,0)')
         .showAtmosphere(false)
         .showGraticules(false)
-        .globeMaterial(new (window as any).THREE.MeshBasicMaterial({
-          color: '#f8fafc',
-          transparent: true,
-          opacity: 0.1
-        }))
         .width(width)
         .height(height);
+
+      // Set globe material after initialization
+      myGlobe.scene().children.forEach((child: any) => {
+        if (child.type === 'Mesh') {
+          child.material.color.setHex(0xe2e8f0);
+          child.material.transparent = true;
+          child.material.opacity = 0.05;
+        }
+      });
 
       // Add particles as points
       myGlobe

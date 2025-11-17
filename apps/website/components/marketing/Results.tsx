@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import CalendlyButton from '@/components/CalendlyButton';
 
 // Intent tint colors for each engagement type
 const intentColors = {
@@ -476,13 +477,14 @@ export default function Results() {
                   </div>
 
                   <div className="mt-8">
-                    <a
-                      href="#contact"
-                      onClick={() => setActiveModal(null)}
-                      className="block w-full bg-blue-600 text-white text-center font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
-                    >
-                      Book 20-min Diagnostic
-                    </a>
+                    <div onClick={() => setActiveModal(null)}>
+                      <CalendlyButton
+                        buttonText="Book Free Diagnostic"
+                        variant="primary"
+                        utmSource={`results_${engagement.id}`}
+                        className="w-full"
+                      />
+                    </div>
                   </div>
                 </>
               );
