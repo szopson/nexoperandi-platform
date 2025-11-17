@@ -18,10 +18,15 @@ jobs:
         port: 22
         script: |
           cd /root/nexoperandi-platform
-          git pull origin main
+          # Force sync with origin, discard any local changes
+          git fetch origin main
+          git reset --hard origin/main
           # Clear Next.js build cache to force fresh build
           rm -rf apps/website/.next
           cd /root
+          # Stop and remove old container to avoid ContainerConfig errors
+          docker-compose stop nextjs || true
+          docker-compose rm -f nextjs || true
           # Force rebuild without Docker cache
           docker-compose build --no-cache nextjs
           docker-compose up -d nextjs
