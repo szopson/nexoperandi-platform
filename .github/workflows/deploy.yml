@@ -19,6 +19,10 @@ jobs:
         script: |
           cd /root/nexoperandi-platform
           git pull origin main
+          # Clear Next.js build cache to force fresh build
+          rm -rf apps/website/.next
           cd /root
-          docker-compose up -d --build nextjs
+          # Force rebuild without Docker cache
+          docker-compose build --no-cache nextjs
+          docker-compose up -d nextjs
           docker-compose logs --tail=30 nextjs
