@@ -2,8 +2,14 @@
 
 import { useState, useRef, FormEvent } from "react";
 import CalendlyButton from "@/components/CalendlyButton";
+import { getTranslations, type Lang } from "@/lib/translations";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  lang?: Lang;
+}
+
+export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
+  const t = getTranslations(lang);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -55,150 +61,164 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-white">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Work With Us</h2>
+    <section id="contact" className="pt-8 pb-10 md:py-32 bg-slate-50 md:bg-white">
+      <div className="mx-auto px-4 md:px-6 max-w-[1140px]">
+        {/* Header - centered on desktop, left on mobile */}
+        <div className="mb-6 md:mb-16">
+          <h2 className="text-center md:text-left text-xl md:text-5xl font-bold text-gray-900">{t.contact.title}</h2>
         </div>
 
-        {/* 2-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* LEFT: Why contact us */}
-          <div className="flex flex-col justify-center">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-              Have Questions?
+        {/* 2-column layout - aligned to top */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6 lg:gap-16 items-start">
+          {/* LEFT: Info column - hidden on mobile, shown below form */}
+          <div className="hidden lg:block lg:pt-1">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              {t.contact.haveQuestions}
             </h3>
-            <p className="text-lg text-gray-600 leading-relaxed mb-6">
-              Not ready for a call yet? Send us a message and we'll get back to you within 24 hours.
+            <p className="text-base text-gray-600 leading-relaxed mb-8">
+              {t.contact.notReady}
             </p>
 
-            <div className="space-y-3 mb-8">
-              <div className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                <span>contact@nexoperandi.cloud</span>
+            {/* Contact info - aligned icons */}
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </div>
+                <span className="ml-4 text-gray-700">{t.contact.email}</span>
               </div>
-              <div className="flex items-center text-gray-600">
-                <svg className="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                </svg>
-                <span>Response time: &lt; 24 hours</span>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="ml-4 text-gray-700">{t.contact.responseTime}</span>
               </div>
-            </div>
-
-            {/* Prefer to talk? box */}
-            <div className="p-6 bg-blue-50 rounded-xl border-2 border-blue-100">
-              <p className="font-semibold text-gray-900 mb-3">Prefer to talk?</p>
-              <CalendlyButton
-                buttonText="Book a 20-min diagnostic call →"
-                variant="link"
-                utmSource="contact_section"
-                className="text-blue-700 hover:text-blue-800 text-base font-semibold"
-              />
-              <p className="text-sm text-gray-600 mt-3">
-                Free consultation • No commitment • See exactly how we can help
-              </p>
             </div>
           </div>
 
           {/* RIGHT: Form */}
-          <div>
-            <form ref={formRef} onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                What is your name? <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="What is your name?"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                placeholder="Your full name"
-              />
-            </div>
+          <div className="bg-white md:bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-8 shadow-sm md:shadow-none border border-slate-200 md:border-0">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t.contact.form.name} <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="What is your name?"
+                    required
+                    className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder={t.contact.form.namePlaceholder}
+                  />
+                </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                What is your email? <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="What is your email?"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                placeholder="your@email.com"
-              />
-            </div>
-          </div>
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t.contact.form.email} <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="What is your email?"
+                    required
+                    className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder={t.contact.form.emailPlaceholder}
+                  />
+                </div>
+              </div>
 
-          <div className="mb-6">
-            <label
-              htmlFor="website"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              What is your company website?
-            </label>
-            <input
-              type="url"
-              id="website"
-              name="What is your company website?"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              placeholder="e.g. https://nexoperandi.com"
-            />
-          </div>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="website"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {t.contact.form.website}
+                </label>
+                <input
+                  type="url"
+                  id="website"
+                  name="What is your company website?"
+                  className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  placeholder={t.contact.form.websitePlaceholder}
+                />
+              </div>
 
-          <div className="mb-8">
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              What can we help you with? <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="message"
-              name="What can we help you with?"
-              required
-              rows={5}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-vertical"
-              placeholder="Tell us about your project, goals, or how we can help you..."
-            ></textarea>
-          </div>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {t.contact.form.message} <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="What can we help you with?"
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-vertical"
+                  placeholder={t.contact.form.messagePlaceholder}
+                ></textarea>
+              </div>
 
-          <div className="text-center">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-blue-600 text-white font-semibold py-4 px-8 rounded-md hover:bg-blue-700 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </div>
+              <div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+                >
+                  {isSubmitting ? t.contact.form.submitting : t.contact.form.submit}
+                </button>
+              </div>
 
-          {showSuccess && (
-            <div className="mt-4 text-center text-green-600">
-              <p className="font-medium">Thank you! We'll be in touch soon.</p>
-            </div>
-          )}
+              {showSuccess && (
+                <div className="text-center text-green-600">
+                  <p className="font-medium">{t.contact.form.success}</p>
+                </div>
+              )}
 
-          {showError && (
-            <div className="mt-4 text-center text-red-600">
-              <p className="font-medium">
-                Something went wrong. Please try again.
-              </p>
-            </div>
-          )}
+              {showError && (
+                <div className="text-center text-red-600">
+                  <p className="font-medium">{t.contact.form.error}</p>
+                </div>
+              )}
+
+              {/* Alternative CTA */}
+              <div className="pt-3 md:pt-4 border-t border-gray-200 text-center">
+                <p className="text-xs md:text-sm text-gray-500 mb-1 md:mb-2">{t.contact.preferToTalk}</p>
+                <CalendlyButton
+                  buttonText={t.contact.bookCall}
+                  variant="link"
+                  utmSource="contact_section"
+                  className="text-blue-600 hover:text-blue-700 text-xs md:text-sm font-medium underline"
+                />
+              </div>
             </form>
+          </div>
+
+          {/* Mobile: Info section below form */}
+          <div className="lg:hidden mt-6 text-center">
+            <h3 className="text-base font-semibold text-gray-900 mb-2">
+              {t.contact.haveQuestions}
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              {t.contact.email}
+            </p>
+            <p className="text-xs text-slate-500">
+              {t.contact.responseTime}
+            </p>
           </div>
         </div>
       </div>

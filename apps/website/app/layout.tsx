@@ -43,6 +43,13 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: 'https://nexoperandi.ai',
+    languages: {
+      'en': 'https://nexoperandi.ai',
+      'pl': 'https://nexoperandi.ai/pl',
+    },
+  },
 };
 
 export default function RootLayout({

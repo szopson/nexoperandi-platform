@@ -1,0 +1,437 @@
+export const translations = {
+  en: {
+    // Navbar
+    nav: {
+      journey: 'Journey',
+      results: 'Results',
+      proof: 'Proof',
+      startToday: 'Start Today',
+    },
+    // Hero
+    hero: {
+      title1: 'Build. Scale.',
+      title2: 'Dominate.',
+      subtitle: 'AI automation for serious businesses.',
+      global: 'Working globally, serving clients worldwide',
+      ctaPrimary: 'Start Today',
+      ctaSecondary: 'Book 20-Min Diagnostic',
+      trust: {
+        roi: '90-day',
+        roiLabel: 'ROI guarantee',
+        deployments: '50+',
+        deploymentsLabel: 'deployments',
+        implementation: 'End-to-end',
+        implementationLabel: 'implementation',
+      },
+    },
+    // Bold Statement
+    boldStatement: {
+      line1: "We don't sell AI.",
+      line2: 'We sell growth.',
+    },
+    // Results section
+    results: {
+      title: 'Results we target (and how we prove them)',
+      subtitle: 'Across SaaS · Fintech · B2B services',
+      guaranteeLink: '90-day ROI guarantee →',
+      viewSample: 'View sample engagement',
+      scope: 'Scope',
+      stack: 'Stack',
+      timeToValue: 'Time to value',
+      disclaimer: "Ranges based on internal benchmarks and pilot results. Actual impact depends on data quality, process fit, and adoption. We define metrics together and share dashboards during the pilot.",
+      guarantee: {
+        title: '90-day ROI guarantee',
+        description: "If we don't hit the KPI we agree for your pilot (e.g., -25% support cost or +15% qualified leads), you don't pay the pilot fee.",
+        item1: 'Transparent scope and data access',
+        item2: 'Guardrails and rollback plan',
+        item3: 'Weekly progress reports',
+        cta: 'See guarantee terms',
+      },
+      modal: {
+        illustrative: 'Illustrative example (not client data)',
+        problem: 'Problem',
+        solution: 'Solution',
+        resultTarget: 'Result target',
+        bookDiagnostic: 'Book Free Diagnostic',
+      },
+      engagements: {
+        support: {
+          pill: 'Support • Global',
+          headline: '-30–60% support cost, 20–40% faster response',
+          mechanism: 'L1 triage, auto-resolution, smarter escalations.',
+          scope: 'L1/L2 triage',
+          stack: 'Slack, Jira, KB',
+          timeToValue: '4–6 weeks',
+          problem: 'Support team overwhelmed with repetitive L1 tickets, slow response times, high operational costs',
+          solution: [
+            'Agent monitors Slack/Jira, automatically triages and tags tickets by urgency and category',
+            'Auto-resolves common issues using KB; escalates complex cases with full context',
+            'Human-in-the-loop checkpoints for quality assurance and continuous learning',
+          ],
+          resultTarget: '-30–60% support cost, 20–40% faster response',
+          modalStack: 'Slack, Jira, Notion/Confluence KB',
+        },
+        onboarding: {
+          pill: 'Onboarding • US/EU',
+          headline: 'Profitable MVP in 4–6 weeks',
+          mechanism: 'Agent handles 60–80% of onboarding interactions.',
+          scope: 'Onboarding assistant',
+          stack: 'Stripe, Plaid, Internal API',
+          timeToValue: '4–6 weeks',
+          problem: 'Manual onboarding process bottleneck preventing scale, inconsistent user experience, high support burden',
+          solution: [
+            'Agent guides users through KYC/AML, payment setup, and initial configuration',
+            'Integrates with Stripe for billing, Plaid for bank verification, internal APIs for provisioning',
+            'Human review for edge cases and compliance checks',
+          ],
+          resultTarget: '60–80% of onboarding fully automated, 4–6 week time to profitable MVP',
+          modalStack: 'Stripe, Plaid, Internal APIs, Email/SMS',
+        },
+        revenue: {
+          pill: 'Revenue • Global',
+          headline: '+15–30% qualified pipeline',
+          mechanism: 'Enrichment, routing, and follow-up automation.',
+          scope: 'Lead qualification',
+          stack: 'HubSpot/SFDC, Clearbit, Email',
+          timeToValue: '3–5 weeks',
+          problem: 'Sales team wasting time on unqualified leads, inconsistent follow-up, manual data enrichment',
+          solution: [
+            'Agent enriches incoming leads with firmographic data (size, industry, tech stack)',
+            'Scores and routes qualified leads to appropriate sales rep based on territory and expertise',
+            'Automated follow-up sequences with personalization; human takeover at engagement threshold',
+          ],
+          resultTarget: '+15–30% increase in qualified pipeline, 25%+ reduction in lead response time',
+          modalStack: 'HubSpot/Salesforce, Clearbit/ZoomInfo, Email automation',
+        },
+      },
+    },
+    // CTA Banner
+    ctaBanner: {
+      title: 'Ready?',
+      subtitle: "We'll build your first AI workflow in 48 hours.",
+      cta: 'Get Started',
+      or: 'Or',
+      bookCall: 'book a 20-min diagnostic call',
+    },
+    // Contact Section
+    contact: {
+      title: 'Work With Us',
+      haveQuestions: 'Have Questions?',
+      notReady: "Not ready for a call yet? Send us a message and we'll get back to you within 24 hours.",
+      email: 'contact@nexoperandi.cloud',
+      responseTime: 'Response time: < 24 hours',
+      preferToTalk: 'Prefer to talk?',
+      bookCall: 'Book a 20-min diagnostic call →',
+      consultation: 'Free consultation • No commitment • See exactly how we can help',
+      form: {
+        name: 'What is your name?',
+        namePlaceholder: 'Your full name',
+        email: 'What is your email?',
+        emailPlaceholder: 'your@email.com',
+        website: 'What is your company website?',
+        websitePlaceholder: 'e.g. https://nexoperandi.com',
+        message: 'What can we help you with?',
+        messagePlaceholder: 'Tell us about your project, goals, or how we can help you...',
+        submit: 'Send Message',
+        submitting: 'Sending...',
+        success: "Thank you! We'll be in touch soon.",
+        error: 'Something went wrong. Please try again.',
+      },
+    },
+    // Footer
+    footer: {
+      tagline: 'Ideas into profits. Faster.',
+      linkedin: 'LinkedIn',
+    },
+    // Demos page
+    demos: {
+      title: 'Live AI Agent Demos',
+      subtitle: 'Experience our AI automation agents in action. Each demo uses real workflows powered by n8n and advanced AI models.',
+      liveDemo: 'Live Demo',
+      comingSoon: 'Coming Soon',
+      roi: 'ROI',
+      tryDemo: 'Try Demo',
+      ctaTitle: 'Ready to Deploy These Agents?',
+      ctaSubtitle: 'Get started with a free consultation and ROI analysis.',
+      ctaButton: 'Schedule Consultation',
+      agents: {
+        customerService: {
+          name: 'AI Customer Service Agent',
+          description: '24/7 autonomous support with 70-90% inquiry resolution',
+          roi: '$3.50 return per $1 invested',
+          features: [
+            'Multi-language support (50+ languages)',
+            'Sentiment analysis & escalation',
+            'Omnichannel deployment',
+            'Smart handoff to humans',
+          ],
+        },
+        leadGeneration: {
+          name: 'B2B Lead Generation Agent',
+          description: '7x improvement in conversion rates with hyper-personalization',
+          roi: '40-60% lead quality improvement',
+          features: [
+            '175M+ B2B contacts database',
+            '3,000+ buying signals tracked',
+            'Predictive lead scoring',
+            'Multi-channel outreach',
+          ],
+        },
+        meetingScheduler: {
+          name: 'Meeting Scheduler Agent',
+          description: 'Saves 11+ hours per week per sales rep',
+          roi: '30-40% rep productivity increase',
+          features: [
+            'Intelligent scheduling',
+            'Automated follow-ups',
+            'Meeting preparation',
+            'Post-meeting summaries',
+          ],
+        },
+        documentGenerator: {
+          name: 'Document Generator Agent',
+          description: '80% reduction in proposal creation time',
+          roi: '15-25% win rate improvement',
+          features: [
+            'Template intelligence',
+            'Dynamic pricing automation',
+            'Compliance checking',
+            'Multi-format export',
+          ],
+        },
+        visitorIntelligence: {
+          name: 'Visitor Intelligence Agent',
+          description: '3-5x more visitors to qualified leads',
+          roi: '40-60% engagement rate increase',
+          features: [
+            'Visitor identification',
+            'Behavioral analytics',
+            'Triggered engagement',
+            'Intent prediction',
+          ],
+        },
+      },
+    },
+  },
+  pl: {
+    // Navbar
+    nav: {
+      journey: 'Proces',
+      results: 'Rezultaty',
+      proof: 'Dowody',
+      startToday: 'Rozpocznij',
+    },
+    // Hero
+    hero: {
+      title1: 'Buduj. Skaluj.',
+      title2: 'Dominuj.',
+      subtitle: 'Automatyzacja AI dla ambitnych firm.',
+      global: 'Działamy globalnie, obsługujemy klientów na całym świecie',
+      ctaPrimary: 'Rozpocznij',
+      ctaSecondary: 'Umów 20-min konsultację',
+      trust: {
+        roi: '90 dni',
+        roiLabel: 'gwarancja ROI',
+        deployments: '50+',
+        deploymentsLabel: 'wdrożeń',
+        implementation: 'Kompleksowa',
+        implementationLabel: 'implementacja',
+      },
+    },
+    // Bold Statement
+    boldStatement: {
+      line1: 'Nie sprzedajemy AI.',
+      line2: 'Sprzedajemy wzrost.',
+    },
+    // Results section
+    results: {
+      title: 'Rezultaty, które osiągamy (i jak je udowadniamy)',
+      subtitle: 'SaaS · Fintech · Usługi B2B',
+      guaranteeLink: '90-dniowa gwarancja ROI →',
+      viewSample: 'Zobacz przykładowe wdrożenie',
+      scope: 'Zakres',
+      stack: 'Technologie',
+      timeToValue: 'Czas do rezultatu',
+      disclaimer: 'Zakresy oparte na wewnętrznych benchmarkach i wynikach pilotaży. Rzeczywisty wpływ zależy od jakości danych, dopasowania procesów i adopcji. Wspólnie definiujemy metryki i dzielimy się dashboardami podczas pilotażu.',
+      guarantee: {
+        title: '90-dniowa gwarancja ROI',
+        description: 'Jeśli nie osiągniemy uzgodnionego KPI dla Twojego pilotażu (np. -25% kosztów supportu lub +15% kwalifikowanych leadów), nie płacisz za pilotaż.',
+        item1: 'Transparentny zakres i dostęp do danych',
+        item2: 'Zabezpieczenia i plan wycofania',
+        item3: 'Cotygodniowe raporty postępu',
+        cta: 'Zobacz warunki gwarancji',
+      },
+      modal: {
+        illustrative: 'Przykład ilustracyjny (nie dane klienta)',
+        problem: 'Problem',
+        solution: 'Rozwiązanie',
+        resultTarget: 'Docelowy rezultat',
+        bookDiagnostic: 'Umów bezpłatną konsultację',
+      },
+      engagements: {
+        support: {
+          pill: 'Support • Globalnie',
+          headline: '-30–60% kosztów supportu, 20–40% szybsza odpowiedź',
+          mechanism: 'Triażowanie L1, auto-rozwiązywanie, inteligentna eskalacja.',
+          scope: 'Triaż L1/L2',
+          stack: 'Slack, Jira, KB',
+          timeToValue: '4–6 tygodni',
+          problem: 'Zespół supportu przytłoczony powtarzalnymi zgłoszeniami L1, wolne czasy odpowiedzi, wysokie koszty operacyjne',
+          solution: [
+            'Agent monitoruje Slack/Jira, automatycznie kategoryzuje i taguje zgłoszenia według pilności',
+            'Auto-rozwiązuje typowe problemy używając bazy wiedzy; eskaluje złożone przypadki z pełnym kontekstem',
+            'Checkpointy human-in-the-loop dla zapewnienia jakości i ciągłego uczenia',
+          ],
+          resultTarget: '-30–60% kosztów supportu, 20–40% szybsza odpowiedź',
+          modalStack: 'Slack, Jira, Notion/Confluence KB',
+        },
+        onboarding: {
+          pill: 'Onboarding • US/EU',
+          headline: 'Rentowne MVP w 4–6 tygodni',
+          mechanism: 'Agent obsługuje 60–80% interakcji onboardingowych.',
+          scope: 'Asystent onboardingu',
+          stack: 'Stripe, Plaid, Internal API',
+          timeToValue: '4–6 tygodni',
+          problem: 'Ręczny proces onboardingu blokuje skalowanie, niespójna jakość doświadczenia użytkownika, duże obciążenie supportu',
+          solution: [
+            'Agent prowadzi użytkowników przez KYC/AML, konfigurację płatności i początkową konfigurację',
+            'Integruje się ze Stripe do rozliczeń, Plaid do weryfikacji bankowej, wewnętrznymi API do provisioningu',
+            'Przegląd przez człowieka dla edge cases i kontroli zgodności',
+          ],
+          resultTarget: '60–80% onboardingu w pełni zautomatyzowane, 4–6 tygodni do rentownego MVP',
+          modalStack: 'Stripe, Plaid, Internal APIs, Email/SMS',
+        },
+        revenue: {
+          pill: 'Przychody • Globalnie',
+          headline: '+15–30% kwalifikowanego pipeline',
+          mechanism: 'Enrichment, routing i automatyzacja follow-up.',
+          scope: 'Kwalifikacja leadów',
+          stack: 'HubSpot/SFDC, Clearbit, Email',
+          timeToValue: '3–5 tygodni',
+          problem: 'Zespół sprzedaży traci czas na niekwalifikowane leady, niespójny follow-up, ręczny enrichment danych',
+          solution: [
+            'Agent wzbogaca przychodzące leady o dane firmograficzne (wielkość, branża, tech stack)',
+            'Scoruje i kieruje kwalifikowane leady do odpowiedniego handlowca na podstawie terytorium i specjalizacji',
+            'Automatyczne sekwencje follow-up z personalizacją; przejęcie przez człowieka przy progu zaangażowania',
+          ],
+          resultTarget: '+15–30% wzrost kwalifikowanego pipeline, 25%+ redukcja czasu odpowiedzi na leady',
+          modalStack: 'HubSpot/Salesforce, Clearbit/ZoomInfo, Email automation',
+        },
+      },
+    },
+    // CTA Banner
+    ctaBanner: {
+      title: 'Gotowy?',
+      subtitle: 'Zbudujemy Twój pierwszy workflow AI w 48 godzin.',
+      cta: 'Rozpocznij',
+      or: 'Lub',
+      bookCall: 'umów 20-min rozmowę diagnostyczną',
+    },
+    // Contact Section
+    contact: {
+      title: 'Współpracuj z nami',
+      haveQuestions: 'Masz pytania?',
+      notReady: 'Nie jesteś jeszcze gotowy na rozmowę? Wyślij nam wiadomość, a odezwiemy się w ciągu 24 godzin.',
+      email: 'contact@nexoperandi.cloud',
+      responseTime: 'Czas odpowiedzi: < 24 godziny',
+      preferToTalk: 'Wolisz porozmawiać?',
+      bookCall: 'Umów 20-min rozmowę diagnostyczną →',
+      consultation: 'Bezpłatna konsultacja • Bez zobowiązań • Zobacz dokładnie, jak możemy pomóc',
+      form: {
+        name: 'Jak masz na imię?',
+        namePlaceholder: 'Twoje imię i nazwisko',
+        email: 'Jaki jest Twój email?',
+        emailPlaceholder: 'twoj@email.pl',
+        website: 'Jaka jest strona Twojej firmy?',
+        websitePlaceholder: 'np. https://twojafirma.pl',
+        message: 'W czym możemy Ci pomóc?',
+        messagePlaceholder: 'Opowiedz nam o swoim projekcie, celach lub jak możemy Ci pomóc...',
+        submit: 'Wyślij wiadomość',
+        submitting: 'Wysyłanie...',
+        success: 'Dziękujemy! Wkrótce się odezwiemy.',
+        error: 'Coś poszło nie tak. Spróbuj ponownie.',
+      },
+    },
+    // Footer
+    footer: {
+      tagline: 'Od pomysłu do zysku. Szybciej.',
+      linkedin: 'LinkedIn',
+    },
+    // Demos page
+    demos: {
+      title: 'Demo agentów AI na żywo',
+      subtitle: 'Doświadcz naszych agentów automatyzacji AI w akcji. Każde demo wykorzystuje prawdziwe workflow zasilane przez n8n i zaawansowane modele AI.',
+      liveDemo: 'Demo na żywo',
+      comingSoon: 'Wkrótce',
+      roi: 'ROI',
+      tryDemo: 'Wypróbuj demo',
+      ctaTitle: 'Gotowy wdrożyć tych agentów?',
+      ctaSubtitle: 'Rozpocznij od bezpłatnej konsultacji i analizy ROI.',
+      ctaButton: 'Umów konsultację',
+      agents: {
+        customerService: {
+          name: 'Agent obsługi klienta AI',
+          description: 'Autonomiczny support 24/7 z 70-90% rozwiązywalnością zapytań',
+          roi: '3,50$ zwrotu na każdy 1$ inwestycji',
+          features: [
+            'Wsparcie wielojęzyczne (50+ języków)',
+            'Analiza sentymentu i eskalacja',
+            'Wdrożenie omnichannel',
+            'Inteligentne przekazanie do człowieka',
+          ],
+        },
+        leadGeneration: {
+          name: 'Agent generowania leadów B2B',
+          description: '7x poprawa współczynnika konwersji z hiper-personalizacją',
+          roi: '40-60% poprawa jakości leadów',
+          features: [
+            'Baza 175M+ kontaktów B2B',
+            'Śledzenie 3000+ sygnałów zakupowych',
+            'Predykcyjny scoring leadów',
+            'Outreach wielokanałowy',
+          ],
+        },
+        meetingScheduler: {
+          name: 'Agent planowania spotkań',
+          description: 'Oszczędność 11+ godzin tygodniowo na handlowca',
+          roi: '30-40% wzrost produktywności handlowców',
+          features: [
+            'Inteligentne planowanie',
+            'Automatyczne follow-upy',
+            'Przygotowanie do spotkań',
+            'Podsumowania po spotkaniach',
+          ],
+        },
+        documentGenerator: {
+          name: 'Agent generowania dokumentów',
+          description: '80% redukcja czasu tworzenia ofert',
+          roi: '15-25% poprawa wskaźnika wygranych',
+          features: [
+            'Inteligentne szablony',
+            'Automatyzacja dynamicznego cennika',
+            'Sprawdzanie zgodności',
+            'Eksport wieloformatowy',
+          ],
+        },
+        visitorIntelligence: {
+          name: 'Agent analizy odwiedzających',
+          description: '3-5x więcej odwiedzających przekształconych w kwalifikowane leady',
+          roi: '40-60% wzrost wskaźnika zaangażowania',
+          features: [
+            'Identyfikacja odwiedzających',
+            'Analityka behawioralna',
+            'Zaangażowanie wyzwalane',
+            'Predykcja intencji',
+          ],
+        },
+      },
+    },
+  },
+} as const;
+
+export type Lang = keyof typeof translations;
+export type Translations = typeof translations[Lang];
+
+export function getTranslations(lang: Lang) {
+  return translations[lang];
+}

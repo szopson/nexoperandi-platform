@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getTranslations, type Lang } from "@/lib/translations";
 
-export default function Footer() {
+interface FooterProps {
+  lang?: Lang;
+}
+
+export default function Footer({ lang = 'en' }: FooterProps) {
   const [year, setYear] = useState(2025);
+  const t = getTranslations(lang);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -14,11 +20,11 @@ export default function Footer() {
     <footer className="bg-white border-t border-gray-100 py-8">
       <div className="container mx-auto px-6 text-center">
         <p className="text-sm text-gray-500">
-          © {year} NexOperandi.ai — Ideas into profits. Faster.
+          © {year} NexOperandi.ai — {t.footer.tagline}
         </p>
         <div className="mt-4 space-x-4">
           <Link href="#" className="text-sm text-gray-500 hover:text-black transition">
-            LinkedIn
+            {t.footer.linkedin}
           </Link>
           <Link
             href="mailto:contact@nexoperandi.cloud"

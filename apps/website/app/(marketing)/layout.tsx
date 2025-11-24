@@ -8,9 +8,9 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <Navbar lang="en" />
       <main>{children}</main>
-      <Footer />
+      <Footer lang="en" />
     </>
   );
 }

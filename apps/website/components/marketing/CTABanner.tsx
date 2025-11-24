@@ -2,28 +2,35 @@
 
 import Link from "next/link";
 import CalendlyButton from "@/components/CalendlyButton";
+import { getTranslations, type Lang } from "@/lib/translations";
 
-export default function CTABanner() {
+interface CTABannerProps {
+  lang?: Lang;
+}
+
+export default function CTABanner({ lang = 'en' }: CTABannerProps) {
+  const t = getTranslations(lang);
+
   return (
-    <section id="cta" className="bg-black text-white text-center py-24 md:py-32">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready?</h2>
-        <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          We'll build your first AI workflow in 48 hours.
+    <section id="cta" className="bg-black text-white px-4 md:px-6 py-8 md:py-32">
+      <div className="container mx-auto max-w-2xl">
+        <h2 className="text-center md:text-left text-2xl md:text-5xl font-semibold mb-2 md:mb-6">{t.ctaBanner.title}</h2>
+        <p className="text-sm md:text-xl text-slate-200 md:text-gray-300 mb-5 md:mb-10">
+          {t.ctaBanner.subtitle}
         </p>
         <Link
           href="#contact"
-          className="inline-block bg-white text-black font-semibold py-4 px-8 rounded-md hover:bg-gray-100 hover:scale-105 transition-transform shadow-lg"
+          className="block w-full text-center bg-white text-black font-semibold py-3 md:py-4 px-6 md:px-8 rounded-md md:rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-sm md:text-lg"
         >
-          Get Started
+          {t.ctaBanner.cta}
         </Link>
-        <p className="mt-6 text-sm text-gray-400">
-          Or{' '}
+        <p className="mt-3 md:mt-6 text-xs md:text-sm text-slate-300 md:text-gray-400">
+          {t.ctaBanner.or}{' '}
           <CalendlyButton
-            buttonText="book a 20-min diagnostic call"
+            buttonText={t.ctaBanner.bookCall}
             variant="link"
             utmSource="cta_banner"
-            className="text-gray-300 hover:text-white"
+            className="text-slate-200 hover:text-white underline"
           />
         </p>
       </div>

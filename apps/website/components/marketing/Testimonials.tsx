@@ -1,8 +1,8 @@
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12">
+    <section id="testimonials" className="py-8 md:py-32 bg-gray-50">
+      <div className="container mx-auto px-4 md:px-6">
+        <h2 className="text-center md:text-left text-xl md:text-4xl font-semibold mb-6 md:mb-12">
           Proof
         </h2>
         <div className="flex overflow-x-auto snap-x gap-6 md:grid md:grid-cols-2 md:gap-8 pb-4">

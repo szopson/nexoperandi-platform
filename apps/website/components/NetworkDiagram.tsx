@@ -130,21 +130,6 @@ export default function NetworkDiagram() {
         `}</style>
       </svg>
 
-      {/* Trust strip - visible on mobile */}
-      <div className="mt-6 grid grid-cols-3 gap-3 text-center text-xs text-gray-600 md:hidden">
-        <div>
-          <div className="font-semibold text-gray-900">90-day</div>
-          <div>ROI guarantee</div>
-        </div>
-        <div>
-          <div className="font-semibold text-gray-900">50+</div>
-          <div>deployments</div>
-        </div>
-        <div>
-          <div className="font-semibold text-gray-900">End-to-end</div>
-          <div>implementation</div>
-        </div>
-      </div>
     </div>
   );
 }
