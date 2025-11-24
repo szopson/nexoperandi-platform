@@ -14,7 +14,7 @@ export default function CTABanner({ lang = 'en' }: CTABannerProps) {
   return (
     <section id="cta" className="bg-black text-white px-4 md:px-6 py-8 md:py-32">
       <div className="container mx-auto max-w-2xl">
-        <h2 className="text-center md:text-left text-2xl md:text-5xl font-semibold mb-2 md:mb-6">{t.ctaBanner.title}</h2>
+        <h2 className="text-center text-2xl md:text-5xl font-semibold mb-2 md:mb-6">{t.ctaBanner.title}</h2>
         <p className="text-sm md:text-xl text-slate-200 md:text-gray-300 mb-5 md:mb-10">
           {t.ctaBanner.subtitle}
         </p>

@@ -65,7 +65,7 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
       <div className="mx-auto px-4 md:px-6 max-w-[1140px]">
         {/* Header - centered on desktop, left on mobile */}
         <div className="mb-6 md:mb-16">
-          <h2 className="text-center md:text-left text-xl md:text-5xl font-bold text-gray-900">{t.contact.title}</h2>
+          <h2 className="text-center text-xl md:text-5xl font-bold text-gray-900">{t.contact.title}</h2>
         </div>
 
         {/* 2-column layout - aligned to top */}

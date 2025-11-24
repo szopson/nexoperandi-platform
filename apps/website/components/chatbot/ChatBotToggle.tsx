@@ -1,11 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import ChatBotEnhanced from './ChatBotEnhanced';
+import { getTranslations, type Lang } from '@/lib/translations';
 
 export default function ChatBotToggle() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  const pathname = usePathname();
+
+  // Detect language from URL
+  const lang: Lang = pathname.startsWith('/pl') ? 'pl' : 'en';
+  const t = getTranslations(lang);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -16,7 +23,7 @@ export default function ChatBotToggle() {
 
   return (
     <>
-      <ChatBotEnhanced isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <ChatBotEnhanced key={lang} isOpen={isOpen} onClose={() => setIsOpen(false)} lang={lang} />
 
       {/* Floating Chat Button */}
       <button
@@ -41,7 +48,7 @@ export default function ChatBotToggle() {
 
         {/* Tooltip */}
         <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          {isOpen ? 'Close chat' : 'Chat with AI'}
+          {isOpen ? t.chatbot.tooltipClose : t.chatbot.tooltipOpen}
           <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
         </div>
       </button>

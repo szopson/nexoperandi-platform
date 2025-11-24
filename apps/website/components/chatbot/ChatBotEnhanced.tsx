@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { getTranslations, type Lang } from '@/lib/translations';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,6 +19,7 @@ interface Message {
 interface ChatBotProps {
   isOpen: boolean;
   onClose: () => void;
+  lang?: Lang;
 }
 
 interface LeadInfo {
@@ -25,22 +27,24 @@ interface LeadInfo {
   email: string;
 }
 
-export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: "Hi! I'm your AI assistant from NexOperandi. We specialize in AI automation for serious businesses. How can I help you today?",
-      timestamp: new Date(),
-      callToAction: {
-        show: true,
-        buttons: [
-          { label: "Our Services", action: "services" },
-          { label: "Pricing Info", action: "pricing" },
-          { label: "Book Free Consultation", action: "book" }
-        ]
-      }
-    },
-  ]);
+export default function ChatBotEnhanced({ isOpen, onClose, lang = 'en' }: ChatBotProps) {
+  const t = getTranslations(lang);
+
+  const getInitialMessage = (): Message => ({
+    role: 'assistant',
+    content: t.chatbot.welcomeMessage,
+    timestamp: new Date(),
+    callToAction: {
+      show: true,
+      buttons: [
+        { label: t.chatbot.quickActions.services, action: "services" },
+        { label: t.chatbot.quickActions.pricing, action: "pricing" },
+        { label: t.chatbot.quickActions.book, action: "book" }
+      ]
+    }
+  });
+
+  const [messages, setMessages] = useState<Message[]>([getInitialMessage()]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substring(7)}`);
@@ -66,11 +70,11 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
 
   const handleQuickAction = (action: string) => {
     const actionMessages: Record<string, string> = {
-      services: "Tell me about your AI automation services",
-      pricing: "What are your pricing options?",
-      book: "I'd like to schedule a free consultation",
-      get_quote: "I'd like to get a custom quote",
-      show_services: "What services do you offer?"
+      services: t.chatbot.actionMessages.services,
+      pricing: t.chatbot.actionMessages.pricing,
+      book: t.chatbot.actionMessages.book,
+      get_quote: t.chatbot.actionMessages.pricing,
+      show_services: t.chatbot.actionMessages.services
     };
 
     const message = actionMessages[action] || action;
@@ -146,7 +150,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
       console.error('Chat error:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again or contact us directly at contact@nexoperandi.com",
+        content: t.chatbot.errorMessage,
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -161,7 +165,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
       // Send a message to continue the conversation
       const thanksMessage: Message = {
         role: 'assistant',
-        content: `Thanks ${leadInfo.name}! I've got your contact info. Let me help you with your inquiry!`,
+        content: t.chatbot.leadCapture.thanks.replace('{name}', leadInfo.name),
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, thanksMessage]);
@@ -169,7 +173,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
+    return date.toLocaleTimeString(lang === 'pl' ? 'pl-PL' : 'en-US', {
       hour: '2-digit',
       minute: '2-digit'
     });
@@ -186,10 +190,10 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
             🤖
           </div>
           <div>
-            <h3 className="font-semibold text-lg">NexOperandi AI</h3>
+            <h3 className="font-semibold text-lg">{t.chatbot.headerTitle}</h3>
             <div className="flex items-center gap-2 text-xs text-blue-100">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span>Online • AI Powered</span>
+              <span>{t.chatbot.online} • {t.chatbot.aiPowered}</span>
             </div>
           </div>
         </div>
@@ -207,7 +211,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
       {/* Lead Score Indicator (if available) */}
       {leadScore !== null && leadScore >= 70 && (
         <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 text-xs font-semibold text-center">
-          🔥 Hot Lead - Score: {leadScore}/100
+          🔥 {t.chatbot.hotLead}: {leadScore}/100
         </div>
       )}
 
@@ -270,19 +274,19 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
       {showLeadCapture && !leadInfo.email && (
         <div className="px-4 py-3 bg-blue-50 border-t border-blue-200">
           <p className="text-xs text-gray-700 mb-2 font-semibold">
-            Let's stay in touch! Share your details:
+            {t.chatbot.leadCapture.title}
           </p>
           <div className="flex flex-col gap-2">
             <input
               type="text"
-              placeholder="Your name"
+              placeholder={t.chatbot.leadCapture.namePlaceholder}
               value={leadInfo.name}
               onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })}
               className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <input
               type="email"
-              placeholder="Your email"
+              placeholder={t.chatbot.leadCapture.emailPlaceholder}
               value={leadInfo.email}
               onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })}
               className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -292,7 +296,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
               disabled={!leadInfo.name || !leadInfo.email}
               className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Continue Chat
+              {t.chatbot.leadCapture.continueButton}
             </button>
           </div>
         </div>
@@ -306,7 +310,7 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type your message..."
+            placeholder={t.chatbot.placeholder}
             className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             disabled={isLoading}
           />
@@ -323,11 +327,11 @@ export default function ChatBotEnhanced({ isOpen, onClose }: ChatBotProps) {
         </div>
         <div className="flex items-center justify-between mt-2">
           <p className="text-xs text-gray-500">
-            Powered by Claude AI
+            {t.chatbot.poweredBy}
           </p>
           {leadScore !== null && (
             <p className="text-xs font-semibold text-gray-600">
-              Lead Score: {leadScore}/100
+              {t.chatbot.leadScore}: {leadScore}/100
             </p>
           )}
         </div>
