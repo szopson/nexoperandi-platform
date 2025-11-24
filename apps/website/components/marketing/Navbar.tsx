@@ -45,13 +45,17 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
           </span>
         </Link>
 
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="block md:hidden text-2xl focus:outline-none"
-          aria-label="Toggle menu"
-        >
-          ☰
-        </button>
+        {/* Mobile: Language switcher + hamburger */}
+        <div className="flex items-center gap-4 md:hidden">
+          <LanguageSwitcher isMobile />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-2xl focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
+        </div>
 
         <ul className="hidden md:flex space-x-8 items-center">
           <li>
@@ -107,9 +111,6 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
             >
               {t.nav.startToday}
             </Link>
-          </li>
-          <li className="pt-4">
-            <LanguageSwitcher isMobile />
           </li>
         </ul>
       )}
