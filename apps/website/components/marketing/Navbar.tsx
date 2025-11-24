@@ -59,18 +59,8 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
 
         <ul className="hidden md:flex space-x-8 items-center">
           <li>
-            <Link href="#journey" className="text-sm hover:text-blue-600 transition">
-              {t.nav.journey}
-            </Link>
-          </li>
-          <li>
             <Link href="#results" className="text-sm hover:text-blue-600 transition">
               {t.nav.results}
-            </Link>
-          </li>
-          <li>
-            <Link href="#testimonials" className="text-sm hover:text-blue-600 transition">
-              {t.nav.proof}
             </Link>
           </li>
           <li>
@@ -90,18 +80,8 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
       {mobileMenuOpen && (
         <ul className="flex flex-col space-y-1 px-4 pb-4 md:hidden">
           <li>
-            <Link href="#journey" className="block py-2.5 text-sm text-slate-900 hover:text-blue-600">
-              {t.nav.journey}
-            </Link>
-          </li>
-          <li>
             <Link href="#results" className="block py-2.5 text-sm text-slate-900 hover:text-blue-600">
               {t.nav.results}
-            </Link>
-          </li>
-          <li>
-            <Link href="#testimonials" className="block py-2.5 text-sm text-slate-900 hover:text-blue-600">
-              {t.nav.proof}
             </Link>
           </li>
           <li className="pt-2">
