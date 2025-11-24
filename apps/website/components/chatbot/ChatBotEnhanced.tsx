@@ -208,12 +208,12 @@ export default function ChatBotEnhanced({ isOpen, onClose, lang = 'en' }: ChatBo
         </button>
       </div>
 
-      {/* Lead Score Indicator (if available) */}
-      {leadScore !== null && leadScore >= 70 && (
+      {/* Lead Score Indicator - hidden from customers, only for internal use */}
+      {/* {leadScore !== null && leadScore >= 70 && (
         <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 text-xs font-semibold text-center">
           🔥 {t.chatbot.hotLead}: {leadScore}/100
         </div>
-      )}
+      )} */}
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
@@ -325,15 +325,10 @@ export default function ChatBotEnhanced({ isOpen, onClose, lang = 'en' }: ChatBo
             </svg>
           </button>
         </div>
-        <div className="flex items-center justify-between mt-2">
-          <p className="text-xs text-gray-500">
+        <div className="flex items-center justify-center mt-2">
+          <p className="text-xs text-gray-400">
             {t.chatbot.poweredBy}
           </p>
-          {leadScore !== null && (
-            <p className="text-xs font-semibold text-gray-600">
-              {t.chatbot.leadScore}: {leadScore}/100
-            </p>
-          )}
         </div>
       </form>
     </div>
