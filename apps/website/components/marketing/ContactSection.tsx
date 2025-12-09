@@ -63,7 +63,7 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
   return (
     <section id="contact" className="bg-[#020617] border-t pt-24 pb-24 relative border-slate-900">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="md:p-12 bg-gradient-to-b max-w-6xl border rounded-2xl mx-auto p-8 from-slate-900 to-slate-950 border-slate-800">
+        <div className="p-6 md:p-8 lg:p-12 bg-gradient-to-b max-w-6xl border rounded-2xl mx-auto from-slate-900 to-slate-950 border-slate-800">
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
@@ -72,14 +72,14 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
           </div>
 
           {/* 2-column layout */}
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start text-left">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-start text-left">
             {/* LEFT: Info column */}
-            <div className="space-y-10 lg:pt-4">
+            <div className="space-y-6 md:space-y-10 lg:pt-4">
               <div>
                 <h3 className="text-xl font-bold mb-4 text-white">
                   {t.contact.haveQuestions}
                 </h3>
-                <p className="leading-relaxed max-w-md text-slate-400 text-lg font-light">
+                <p className="leading-relaxed max-w-md text-slate-400 text-base md:text-lg font-light">
                   {t.contact.notReady}
                 </p>
               </div>

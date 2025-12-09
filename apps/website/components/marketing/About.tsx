@@ -16,7 +16,7 @@ export default function About({ lang = 'en' }: AboutProps) {
       <div className="absolute right-0 bottom-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24 items-center">
 
           {/* Left Column: Manifesto */}
           <div className="space-y-8">

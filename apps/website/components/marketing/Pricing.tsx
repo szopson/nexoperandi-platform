@@ -30,7 +30,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
           {/* Card 1: Conversion Core */}
-          <div className="group relative flex flex-col h-full rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-8 hover:scale-105 transition-transform duration-300 hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.1)] hover:border-blue-500/30">
+          <div className="group relative flex flex-col h-full rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-6 md:p-8 hover:scale-105 transition-transform duration-300 hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.1)] hover:border-blue-500/30">
             <div className="mb-6 space-y-2">
               <h3 className="text-2xl font-semibold text-white tracking-tight">
                 {t.pricing?.packages?.conversionCore?.name || 'The Conversion Core'}
@@ -90,7 +90,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
           </div>
 
           {/* Card 2: Visibility Engine */}
-          <div className="group relative flex flex-col h-full rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-8 hover:scale-105 transition-transform duration-300 hover:shadow-[0_20px_40px_-10px_rgba(217,70,239,0.1)] hover:border-fuchsia-500/30">
+          <div className="group relative flex flex-col h-full rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm p-6 md:p-8 hover:scale-105 transition-transform duration-300 hover:shadow-[0_20px_40px_-10px_rgba(217,70,239,0.1)] hover:border-fuchsia-500/30">
             <div className="mb-6 space-y-2">
               <h3 className="text-2xl font-semibold text-white tracking-tight">
                 {t.pricing?.packages?.visibilityEngine?.name || 'The Visibility Engine'}
@@ -150,7 +150,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
           </div>
 
           {/* Card 3: Growth Ecosystem (Highlighted) */}
-          <div className="group relative flex flex-col h-full rounded-2xl border border-cyan-500/40 bg-slate-900/60 backdrop-blur-sm p-8 hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] ring-1 ring-cyan-500/20">
+          <div className="group relative flex flex-col h-full rounded-2xl border border-cyan-500/40 bg-slate-900/60 backdrop-blur-sm p-6 md:p-8 hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] ring-1 ring-cyan-500/20">
 
             {/* Best Value Badge */}
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
@@ -230,7 +230,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
         </div>
 
         {/* Tailored Section */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#0B1120] to-[#0f172a] border border-slate-800 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
+        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#0B1120] to-[#0f172a] border border-slate-800 p-6 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
           {/* Decorative glow */}
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-slate-700/20 rounded-full blur-3xl group-hover:bg-slate-600/20 transition-colors" />
 

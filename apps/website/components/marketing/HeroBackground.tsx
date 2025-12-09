@@ -1,11 +1,28 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function HeroBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    // Skip canvas animation if reduced motion is preferred
+    if (prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -16,6 +33,22 @@ export default function HeroBackground() {
     let particles: Particle[] = [];
     let connections: Connection[] = [];
 
+    // Detect if mobile for reduced particle count
+    const isMobile = window.innerWidth < 768;
+    const MAX_PARTICLES = isMobile ? 20 : 40;
+    const MAX_CONNECTIONS = isMobile ? 8 : 12;
+    const CONNECTION_DISTANCE_SQUARED = 150 * 150; // Use squared distance to avoid sqrt
+    const MAX_CONNECTIONS_PER_PARTICLE = 3;
+
+    // Pre-defined colors (avoid creating strings in loop)
+    const PARTICLE_COLORS = [
+      "rgba(56, 189, 248, 0.8)",  // cyan-400
+      "rgba(34, 211, 238, 0.8)",  // cyan-400 lighter
+      "rgba(6, 182, 212, 0.8)",   // cyan-500
+      "rgba(20, 184, 166, 0.8)",  // teal-500
+      "rgba(52, 211, 153, 0.7)",  // emerald-400
+    ];
+
     // Set canvas size
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -24,7 +57,7 @@ export default function HeroBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Particle class
+    // Optimized Particle class - no gradients, simple circles
     class Particle {
       x: number;
       y: number;
@@ -32,6 +65,7 @@ export default function HeroBackground() {
       vy: number;
       radius: number;
       color: string;
+      glowColor: string;
       pulsePhase: number;
       pulseSpeed: number;
 
@@ -44,15 +78,10 @@ export default function HeroBackground() {
         this.pulsePhase = Math.random() * Math.PI * 2;
         this.pulseSpeed = 0.02 + Math.random() * 0.02;
 
-        // Emerald/Teal/Cyan gradient colors
-        const colors = [
-          "rgba(56, 189, 248, 0.8)",  // cyan-400
-          "rgba(34, 211, 238, 0.8)",  // cyan-400 lighter
-          "rgba(6, 182, 212, 0.8)",   // cyan-500
-          "rgba(20, 184, 166, 0.8)",  // teal-500
-          "rgba(52, 211, 153, 0.7)",  // emerald-400
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        const colorIndex = Math.floor(Math.random() * PARTICLE_COLORS.length);
+        this.color = PARTICLE_COLORS[colorIndex];
+        // Pre-calculate glow color (lower opacity version)
+        this.glowColor = this.color.replace("0.8", "0.3").replace("0.7", "0.25");
       }
 
       update(canvasWidth: number, canvasHeight: number) {
@@ -71,20 +100,13 @@ export default function HeroBackground() {
         const pulse = Math.sin(this.pulsePhase) * 0.3 + 0.7;
         const currentRadius = this.radius * pulse;
 
-        // Glow effect
-        const gradient = ctx.createRadialGradient(
-          this.x, this.y, 0,
-          this.x, this.y, currentRadius * 3
-        );
-        gradient.addColorStop(0, this.color);
-        gradient.addColorStop(1, "transparent");
-
+        // Simple glow effect using larger circle (no gradient creation)
         ctx.beginPath();
-        ctx.arc(this.x, this.y, currentRadius * 3, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, currentRadius * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = this.glowColor;
         ctx.fill();
 
-        // Core
+        // Core particle
         ctx.beginPath();
         ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
@@ -92,7 +114,7 @@ export default function HeroBackground() {
       }
     }
 
-    // Connection class for animated lines
+    // Optimized Connection class - simplified drawing
     class Connection {
       startX: number;
       startY: number;
@@ -102,39 +124,38 @@ export default function HeroBackground() {
       speed: number;
       opacity: number;
       direction: number;
+      color: string;
 
       constructor(canvasWidth: number, canvasHeight: number) {
-        // Create lines that flow from edges toward center
         const side = Math.floor(Math.random() * 4);
         const centerX = canvasWidth / 2;
         const centerY = canvasHeight / 2;
 
         switch (side) {
-          case 0: // top
+          case 0:
             this.startX = Math.random() * canvasWidth;
             this.startY = 0;
             break;
-          case 1: // right
+          case 1:
             this.startX = canvasWidth;
             this.startY = Math.random() * canvasHeight;
             break;
-          case 2: // bottom
+          case 2:
             this.startX = Math.random() * canvasWidth;
             this.startY = canvasHeight;
             break;
-          default: // left
+          default:
             this.startX = 0;
             this.startY = Math.random() * canvasHeight;
         }
 
-        // End point near center with some randomness
         this.endX = centerX + (Math.random() - 0.5) * 300;
         this.endY = centerY + (Math.random() - 0.5) * 300;
-
         this.progress = 0;
         this.speed = 0.003 + Math.random() * 0.005;
         this.opacity = 0.1 + Math.random() * 0.2;
         this.direction = 1;
+        this.color = `rgba(56, 189, 248, ${this.opacity})`;
       }
 
       update() {
@@ -144,7 +165,6 @@ export default function HeroBackground() {
           this.direction = -1;
         } else if (this.progress <= 0) {
           this.direction = 1;
-          // Reset with new position
           this.reset();
         }
       }
@@ -182,19 +202,11 @@ export default function HeroBackground() {
         const currentX = this.startX + (this.endX - this.startX) * this.progress;
         const currentY = this.startY + (this.endY - this.startY) * this.progress;
 
-        // Create gradient along the line
-        const gradient = ctx.createLinearGradient(
-          this.startX, this.startY,
-          currentX, currentY
-        );
-        gradient.addColorStop(0, "transparent");
-        gradient.addColorStop(0.5, `rgba(56, 189, 248, ${this.opacity})`);
-        gradient.addColorStop(1, `rgba(34, 211, 238, ${this.opacity * 1.5})`);
-
+        // Simple line without gradient
         ctx.beginPath();
         ctx.moveTo(this.startX, this.startY);
         ctx.lineTo(currentX, currentY);
-        ctx.strokeStyle = gradient;
+        ctx.strokeStyle = this.color;
         ctx.lineWidth = 1;
         ctx.stroke();
 
@@ -208,53 +220,66 @@ export default function HeroBackground() {
 
     // Initialize particles and connections
     const initParticles = () => {
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
       particles = [];
-      for (let i = 0; i < Math.min(particleCount, 80); i++) {
+      for (let i = 0; i < MAX_PARTICLES; i++) {
         particles.push(new Particle(canvas.width, canvas.height));
       }
 
       connections = [];
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < MAX_CONNECTIONS; i++) {
         connections.push(new Connection(canvas.width, canvas.height));
       }
     };
     initParticles();
 
-    // Animation loop
+    // Pre-calculate connection line color
+    const connectionLineColor = "rgba(56, 189, 248, 0.15)";
+
+    // Animation loop with optimized particle connections
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connections between nearby particles
+      // Optimized: Use squared distance, cap connections per particle
+      const connectionCounts = new Array(particles.length).fill(0);
+
       for (let i = 0; i < particles.length; i++) {
+        if (connectionCounts[i] >= MAX_CONNECTIONS_PER_PARTICLE) continue;
+
         for (let j = i + 1; j < particles.length; j++) {
+          if (connectionCounts[j] >= MAX_CONNECTIONS_PER_PARTICLE) continue;
+
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const distanceSquared = dx * dx + dy * dy;
 
-          if (distance < 150) {
-            const opacity = (1 - distance / 150) * 0.15;
+          if (distanceSquared < CONNECTION_DISTANCE_SQUARED) {
+            // Calculate opacity based on squared distance (approximate)
+            const opacity = (1 - distanceSquared / CONNECTION_DISTANCE_SQUARED) * 0.15;
+
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
+
+            connectionCounts[i]++;
+            connectionCounts[j]++;
           }
         }
       }
 
       // Update and draw flowing connections
-      connections.forEach((connection) => {
-        connection.update();
-        connection.draw(ctx);
-      });
+      for (let i = 0; i < connections.length; i++) {
+        connections[i].update();
+        connections[i].draw(ctx);
+      }
 
       // Update and draw particles
-      particles.forEach((particle) => {
-        particle.update(canvas.width, canvas.height);
-        particle.draw(ctx);
-      });
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update(canvas.width, canvas.height);
+        particles[i].draw(ctx);
+      }
 
       animationId = requestAnimationFrame(animate);
     };
@@ -264,16 +289,18 @@ export default function HeroBackground() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <>
-      {/* Canvas for particle animation */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ opacity: 0.6 }}
-      />
+      {/* Canvas for particle animation - only render if motion allowed */}
+      {!prefersReducedMotion && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{ opacity: 0.6 }}
+        />
+      )}
 
       {/* Gradient overlays for depth */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -289,7 +316,7 @@ export default function HeroBackground() {
           }}
         />
 
-        {/* Animated gradient orbs */}
+        {/* Animated gradient orbs - CSS handles reduced motion */}
         <div className="hero-orb hero-orb-1" />
         <div className="hero-orb hero-orb-2" />
         <div className="hero-orb hero-orb-3" />

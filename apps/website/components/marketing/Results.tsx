@@ -191,7 +191,7 @@ export default function Results({ lang = 'en' }: ResultsProps) {
 
                     {/* Metric */}
                     <div className="mb-6">
-                      <h3 className="group-hover:text-white transition-colors text-2xl font-semibold tracking-tight mb-2 text-white">
+                      <h3 className="group-hover:text-white transition-colors text-xl md:text-2xl font-semibold tracking-tight mb-2 text-white">
                         {engagement.headline}
                       </h3>
                       <p className={`text-sm font-medium ${styles.tagText}/80`}>
@@ -233,7 +233,7 @@ export default function Results({ lang = 'en' }: ResultsProps) {
           aria-labelledby="modal-title"
         >
           <div
-            className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-4 sm:p-6 md:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button

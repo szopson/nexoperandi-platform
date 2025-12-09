@@ -14,7 +14,7 @@ export default function Architecture({ lang = 'en' }: ArchitectureProps) {
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-900/10 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
 
           {/* Left: Explanation */}
           <div className="space-y-8">

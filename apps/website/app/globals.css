@@ -36,6 +36,7 @@ html {
   filter: blur(60px);
   opacity: 0.4;
   pointer-events: none;
+  will-change: transform;
 }
 
 .hero-orb-1 {
@@ -141,11 +142,13 @@ html {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-delayed {
   animation: float 6s ease-in-out infinite;
   animation-delay: 3s;
+  will-change: transform;
 }
 
 /* Spin Slow */
@@ -260,6 +263,22 @@ html {
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .hero-orb-1 {
+    width: 300px;
+    height: 300px;
+  }
+  .hero-orb-2 {
+    width: 250px;
+    height: 250px;
+  }
+  .hero-orb-3 {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 /* ===== REDUCED MOTION ===== */
