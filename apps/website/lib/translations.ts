@@ -6,15 +6,33 @@ export const translations = {
       results: 'Results',
       proof: 'Proof',
       startToday: 'Start Today',
+      howItWorks: 'How it works',
+      about: 'About Us',
+      pricing: 'Pricing',
+      contact: 'Contact',
     },
     // Hero
     hero: {
       title1: 'Build. Scale.',
       title2: 'Dominate.',
-      subtitle: 'AI automation for ambitious businesses.',
+      titleLine1: 'Build. Scale. Dominate.',
+      titleAccent: 'AI automation',
+      titleLine2: 'for ambitious businesses',
+      subtitle: 'We construct digital brains that work 24/7—capturing leads, nurturing prospects, and closing deals while you sleep.',
       global: 'Serving clients worldwide',
-      ctaPrimary: 'Get Started',
+      ctaPrimary: 'Contact Us',
       ctaSecondary: 'Book a Free Call',
+      systemCore: 'System Core',
+      nodes: {
+        input: 'Input',
+        rawData: 'Raw Data',
+        logic: 'Logic',
+        aiAgent: 'AI Agent',
+        output: 'Output',
+        execution: 'Execution',
+        sync: 'Sync',
+        cloudDb: 'Cloud DB',
+      },
       trust: {
         roi: '90-day',
         roiLabel: 'money-back guarantee',
@@ -32,7 +50,10 @@ export const translations = {
     // Results section
     results: {
       title: 'Results we deliver (and how we prove them)',
+      titleNew: 'Real Impact.',
+      titleAccent: 'Measurable Scale.',
       subtitle: 'SaaS · Fintech · Professional Services',
+      subtitleNew: "We don't just optimize. We transform operations.",
       guaranteeLink: '90-day money-back guarantee →',
       viewSample: 'View example project',
       scope: 'What we do',
@@ -57,7 +78,8 @@ export const translations = {
       engagements: {
         customerSuccess: {
           pill: 'Customer Success • US/EU & Global',
-          headline: '-30–60% support cost, faster onboarding & shorter response times',
+          headline: '-30–60% support cost',
+          subheadline: 'Faster onboarding & shorter response times',
           mechanism: 'AI assistant guides new customers step by step from day one and handles first-line support. It answers simple questions, organizes tickets, collects data needed to launch the service, and escalates complex issues to the right people on your team.',
           scope: 'First-line support and new customer onboarding (basic and complex questions, step-by-step guidance)',
           stack: 'Slack, Jira, your knowledge base, payment integrations (e.g. Stripe), data verification (e.g. Plaid), and your internal systems',
@@ -74,6 +96,7 @@ export const translations = {
         revenue: {
           pill: 'Sales • Global',
           headline: '+25–40% more sales opportunities',
+          subheadline: 'Higher conversion rates & 24/7 lead engagement',
           mechanism: 'AI assistant enriches leads, routes them to the right reps, and keeps follow-ups on track. This typically results in 25–40% more qualified opportunities without increasing your sales headcount.',
           scope: 'Lead qualification and routing',
           stack: 'HubSpot/Salesforce, Clearbit, Email',
@@ -89,7 +112,8 @@ export const translations = {
         },
         content: {
           pill: 'Marketing & Content · Global',
-          headline: '+30–50% more high-quality content without growing your team',
+          headline: '+30–50% more high-quality content',
+          subheadline: 'Consistent brand voice & automated distribution',
           mechanism: 'AI assistant creates LinkedIn, Instagram, X/Twitter posts and newsletters tailored to your brand and audience. It helps B2B companies and creators alike – from research and topic ideas to drafts and ready-to-publish posts.',
           scope: 'Content generation for social media, blogs, and newsletters',
           stack: 'LinkedIn, Instagram, X/Twitter, email marketing tools (MailerLite, Mailchimp), your knowledge repository (blog, podcasts, video)',
@@ -112,6 +136,98 @@ export const translations = {
       cta: 'Get Started',
       or: 'Or',
       bookCall: 'book a free 20-min call',
+    },
+    // Architecture Section
+    architecture: {
+      badge: 'Programmable Intelligence',
+      title: 'We engineer the logic.',
+      titleAccent: 'You reap the results.',
+      description: 'Our methodology involves deeply understanding your business logic and encoding it into sophisticated system prompts. We don\'t just "use AI"; we architect custom cognitive layers that sit on top of your existing stack.',
+      features: {
+        promptEngineering: {
+          title: 'Prompt Engineering',
+          description: 'Advanced chain-of-thought prompting to ensure high-fidelity outputs and strict adherence to brand guidelines.',
+        },
+        modularIntegration: {
+          title: 'Modular Integration',
+          description: 'Connects seamlessly with CRM, Database, and API endpoints without disrupting your current workflow.',
+        },
+      },
+    },
+    // About Section
+    about: {
+      title: 'Engineering Precision.',
+      titleAccent: 'Designer Soul.',
+      description: 'We are a collective of obsessed developers, creative designers, and strategic thinkers. We don\'t just write code—we craft experiences. While our engineers ensure military-grade stability, our designers ensure your automation feels human, intuitive, and flawless. We build systems that work beautifully.',
+      workspaceTitle: 'Our Workspace',
+      competencies: {
+        engineering: {
+          title: 'Engineering Core',
+          description: 'Military-grade stability. We build self-healing systems prepared for massive scale.',
+        },
+        creative: {
+          title: 'Creative Studio',
+          description: 'Obsessing over every interaction. Automation shouldn\'t feel robotic—it should feel magical.',
+        },
+        strategy: {
+          title: 'Strategy Lab',
+          description: 'Aligning tech with revenue. We ensure ROI from Day 1.',
+        },
+      },
+    },
+    // Pricing Section
+    pricing: {
+      title: 'Choose your',
+      titleAccent: 'Scale',
+      subtitle: 'Flexible structures designed to grow with your ambition.',
+      packages: {
+        conversionCore: {
+          name: 'The Conversion Core',
+          category: 'For Operations & Support',
+          description: 'Turn your traffic into revenue. We automate the boring stuff so you never miss a lead again.',
+          setupNote: '+ One-time Setup Fee',
+          features: [
+            '24/7 AI Receptionist',
+            'Instant Lead Qualification',
+            'CRM Sync',
+            'Review Automation',
+          ],
+          cta: 'Automate Operations',
+        },
+        visibilityEngine: {
+          name: 'The Visibility Engine',
+          category: 'For Content & Outreach',
+          description: 'Be everywhere, all at once. An automated content machine that keeps your brand top-of-mind.',
+          setupNote: 'No Setup Fee • Cancel anytime',
+          features: [
+            'SEO Blog Autopilot',
+            'Newsletter System',
+            'Video-to-Text Workflow',
+            'Multiplatform content generation',
+          ],
+          cta: 'Automate Marketing',
+        },
+        growthEcosystem: {
+          name: 'The Growth Ecosystem',
+          category: 'Operations + Marketing',
+          description: 'The complete Business-in-a-Box solution. Scale your traffic and handle the influx of leads.',
+          badge: 'Best Value',
+          savings: 'Save $800 on Setup',
+          setupNote: 'All-inclusive Pilot Rate',
+          features: [
+            'Everything in Conversion Core',
+            'Everything in Visibility Engine',
+            'Priority Support',
+            'Unified Dashboard',
+          ],
+          cta: 'Get The Full System',
+        },
+      },
+      customSection: {
+        title: "Needs are more complex? Let's build Custom.",
+        description: 'We build custom AI architectures for enterprise workflows, internal training bots, and proprietary data security.',
+        cta: 'Book Architecture Audit',
+      },
     },
     // Contact Section
     contact: {
@@ -251,15 +367,33 @@ export const translations = {
       results: 'Rezultaty',
       proof: 'Dowody',
       startToday: 'Rozpocznij',
+      howItWorks: 'Jak to działa',
+      about: 'O nas',
+      pricing: 'Cennik',
+      contact: 'Kontakt',
     },
     // Hero
     hero: {
       title1: 'Buduj. Skaluj.',
       title2: 'Dominuj.',
-      subtitle: 'Automatyzacja AI dla ambitnych firm.',
+      titleLine1: 'Buduj. Skaluj. Dominuj.',
+      titleAccent: 'Automatyzacja AI',
+      titleLine2: 'dla ambitnych firm',
+      subtitle: 'Tworzymy cyfrowe mózgi, które pracują 24/7 — zdobywają leady, pielęgnują potencjalnych klientów i zamykają transakcje, gdy śpisz.',
       global: 'Obsługujemy klientów na całym świecie',
-      ctaPrimary: 'Rozpocznij',
+      ctaPrimary: 'Skontaktuj się',
       ctaSecondary: 'Umów bezpłatną rozmowę',
+      systemCore: 'Rdzeń Systemu',
+      nodes: {
+        input: 'Wejście',
+        rawData: 'Surowe dane',
+        logic: 'Logika',
+        aiAgent: 'Agent AI',
+        output: 'Wyjście',
+        execution: 'Wykonanie',
+        sync: 'Synchronizacja',
+        cloudDb: 'Baza danych',
+      },
       trust: {
         roi: '90 dni',
         roiLabel: 'gwarancja zwrotu',
@@ -277,7 +411,10 @@ export const translations = {
     // Results section
     results: {
       title: 'Rezultaty, które dowozimy – w liczbach',
+      titleNew: 'Realny wpływ.',
+      titleAccent: 'Mierzalna skala.',
       subtitle: 'SaaS · Fintech · Usługi profesjonalne',
+      subtitleNew: 'Nie tylko optymalizujemy. Transformujemy operacje.',
       guaranteeLink: '90-dniowa gwarancja zwrotu →',
       viewSample: 'Zobacz przykładowy projekt',
       scope: 'Co robimy',
@@ -302,7 +439,8 @@ export const translations = {
       engagements: {
         customerSuccess: {
           pill: 'Współpraca z klientami · US/EU i globalnie',
-          headline: '-30–60% kosztów obsługi, szybszy start i krótszy czas odpowiedzi',
+          headline: '-30–60% kosztów obsługi',
+          subheadline: 'Szybszy start i krótszy czas odpowiedzi',
           mechanism: 'Asystent AI prowadzi nowych klientów krok po kroku od momentu startu współpracy i przejmuje pierwszą linię wsparcia. Odpowiada na proste pytania, porządkuje zgłoszenia, zbiera dane potrzebne do uruchomienia usługi i przekazuje trudniejsze sprawy do właściwych osób w Twoim zespole.',
           scope: 'Pierwsza linia wsparcia oraz onboarding nowych klientów (podstawowe i bardziej złożone pytania, prowadzenie krok po kroku)',
           stack: 'Slack, Jira, Twoja baza wiedzy, integracje z płatnościami (np. Stripe), weryfikacją danych (np. Plaid) i Twoimi systemami wewnętrznymi',
@@ -319,6 +457,7 @@ export const translations = {
         revenue: {
           pill: 'Sprzedaż i przychody · globalnie',
           headline: '+25–40% więcej szans sprzedażowych',
+          subheadline: 'Wyższy współczynnik konwersji i obsługa leadów 24/7',
           mechanism: 'Asystent AI sprawdza dane o potencjalnych klientach, przydziela ich do odpowiednich handlowców i pilnuje follow‑upów, żeby nikt nie został pominięty.',
           scope: 'Kwalifikacja i routing leadów sprzedażowych',
           stack: 'HubSpot/Salesforce, Clearbit, email',
@@ -334,7 +473,8 @@ export const translations = {
         },
         content: {
           pill: 'Marketing i content · globalnie',
-          headline: '+30–50% więcej treści wysokiej jakości bez zwiększania zespołu',
+          headline: '+30–50% więcej treści wysokiej jakości',
+          subheadline: 'Spójny głos marki i zautomatyzowana dystrybucja',
           mechanism: 'Asystent AI przygotowuje posty na LinkedIn, Instagram, X/Twitter czy newslettery, dopasowane do Twojej marki i grupy docelowej. Pomaga zarówno firmom B2B, jak i twórcom/influencerom – od pomysłów po gotowe posty do publikacji.',
           scope: 'Generowanie treści na social media, blogi i newslettery',
           stack: 'LinkedIn, Instagram, X/Twitter, narzędzia email marketingu (MailerLite, Mailchimp), Twoje repozytorium wiedzy (blog, podcasty, video)',
@@ -357,6 +497,98 @@ export const translations = {
       cta: 'Rozpocznij',
       or: 'Lub',
       bookCall: 'umów bezpłatną 20-min rozmowę',
+    },
+    // Architecture Section
+    architecture: {
+      badge: 'Programowalna inteligencja',
+      title: 'Projektujemy logikę.',
+      titleAccent: 'Ty zbierasz rezultaty.',
+      description: 'Nasza metodologia polega na głębokim zrozumieniu logiki Twojego biznesu i zakodowaniu jej w wyrafinowane prompty systemowe. Nie tylko "używamy AI" — projektujemy niestandardowe warstwy poznawcze, które działają na Twoim istniejącym stosie technologicznym.',
+      features: {
+        promptEngineering: {
+          title: 'Inżynieria promptów',
+          description: 'Zaawansowane prompty chain-of-thought zapewniające wysokiej jakości wyniki i ścisłe przestrzeganie wytycznych marki.',
+        },
+        modularIntegration: {
+          title: 'Modularna integracja',
+          description: 'Bezproblemowe połączenie z CRM, bazami danych i punktami końcowymi API bez zakłócania obecnego workflow.',
+        },
+      },
+    },
+    // About Section
+    about: {
+      title: 'Precyzja inżynieryjna.',
+      titleAccent: 'Dusza projektanta.',
+      description: 'Jesteśmy zespołem zaangażowanych deweloperów, kreatywnych projektantów i strategicznych myślicieli. Nie tylko piszemy kod — tworzymy doświadczenia. Podczas gdy nasi inżynierowie zapewniają niezawodność na poziomie militarnym, nasi projektanci dbają, aby Twoja automatyzacja była ludzka, intuicyjna i bezbłędna. Budujemy systemy, które działają pięknie.',
+      workspaceTitle: 'Nasze narzędzia',
+      competencies: {
+        engineering: {
+          title: 'Rdzeń inżynieryjny',
+          description: 'Niezawodność na poziomie militarnym. Budujemy samonaprawiające się systemy gotowe na masową skalę.',
+        },
+        creative: {
+          title: 'Studio kreatywne',
+          description: 'Obsesyjne podejście do każdej interakcji. Automatyzacja nie powinna być robotyczna — powinna być magiczna.',
+        },
+        strategy: {
+          title: 'Laboratorium strategii',
+          description: 'Łączymy technologię z przychodami. Zapewniamy ROI od pierwszego dnia.',
+        },
+      },
+    },
+    // Pricing Section
+    pricing: {
+      title: 'Wybierz swoją',
+      titleAccent: 'skalę',
+      subtitle: 'Elastyczne struktury zaprojektowane, by rosnąć wraz z Twoimi ambicjami.',
+      packages: {
+        conversionCore: {
+          name: 'Conversion Core',
+          category: 'Dla operacji i wsparcia',
+          description: 'Zamień ruch na przychody. Automatyzujemy nudne rzeczy, żebyś nigdy nie przegapił leada.',
+          setupNote: '+ Jednorazowa opłata za setup',
+          features: [
+            'Recepcjonista AI 24/7',
+            'Natychmiastowa kwalifikacja leadów',
+            'Synchronizacja z CRM',
+            'Automatyzacja recenzji',
+          ],
+          cta: 'Zautomatyzuj operacje',
+        },
+        visibilityEngine: {
+          name: 'Visibility Engine',
+          category: 'Dla contentu i outreach',
+          description: 'Bądź wszędzie naraz. Zautomatyzowana maszyna contentowa, która utrzymuje Twoją markę w świadomości odbiorców.',
+          setupNote: 'Bez opłaty za setup • Możesz anulować w dowolnym momencie',
+          features: [
+            'SEO Blog Autopilot',
+            'System newsletterów',
+            'Workflow Video-to-Text',
+            'Generowanie treści multiplatformowych',
+          ],
+          cta: 'Zautomatyzuj marketing',
+        },
+        growthEcosystem: {
+          name: 'Growth Ecosystem',
+          category: 'Operacje + Marketing',
+          description: 'Kompletne rozwiązanie Business-in-a-Box. Skaluj ruch i obsługuj napływ leadów.',
+          badge: 'Najlepsza wartość',
+          savings: 'Oszczędź 800$ na setup',
+          setupNote: 'Wszystko w cenie pilota',
+          features: [
+            'Wszystko z Conversion Core',
+            'Wszystko z Visibility Engine',
+            'Priorytetowe wsparcie',
+            'Zunifikowany dashboard',
+          ],
+          cta: 'Weź pełny system',
+        },
+      },
+      customSection: {
+        title: 'Potrzebujesz czegoś bardziej złożonego? Zbudujmy rozwiązanie na miarę.',
+        description: 'Budujemy niestandardowe architektury AI dla workflow przedsiębiorstw, wewnętrznych botów szkoleniowych i rozwiązań z zastrzeżonym bezpieczeństwem danych.',
+        cta: 'Umów audyt architektury',
+      },
     },
     // Contact Section
     contact: {

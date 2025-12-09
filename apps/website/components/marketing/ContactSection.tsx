@@ -61,164 +61,141 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
   };
 
   return (
-    <section id="contact" className="pt-8 pb-10 md:py-32 bg-slate-50 md:bg-white">
-      <div className="mx-auto px-4 md:px-6 max-w-[1140px]">
-        {/* Header - centered on desktop, left on mobile */}
-        <div className="mb-6 md:mb-16">
-          <h2 className="text-center text-xl md:text-5xl font-bold text-gray-900">{t.contact.title}</h2>
-        </div>
-
-        {/* 2-column layout - aligned to top */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6 lg:gap-16 items-start">
-          {/* LEFT: Info column - hidden on mobile, shown below form */}
-          <div className="hidden lg:block lg:pt-1">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              {t.contact.haveQuestions}
-            </h3>
-            <p className="text-base text-gray-600 leading-relaxed mb-8">
-              {t.contact.notReady}
-            </p>
-
-            {/* Contact info - aligned icons */}
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                </div>
-                <span className="ml-4 text-gray-700">{t.contact.email}</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <span className="ml-4 text-gray-700">{t.contact.responseTime}</span>
-              </div>
-            </div>
+    <section id="contact" className="bg-[#020617] border-t pt-24 pb-24 relative border-slate-900">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="md:p-12 bg-gradient-to-b max-w-6xl border rounded-2xl mx-auto p-8 from-slate-900 to-slate-950 border-slate-800">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
+              {t.contact.title}
+            </h2>
           </div>
 
-          {/* RIGHT: Form */}
-          <div className="bg-white md:bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-8 shadow-sm md:shadow-none border border-slate-200 md:border-0">
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    {t.contact.form.name} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="What is your name?"
-                    required
-                    className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    placeholder={t.contact.form.namePlaceholder}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    {t.contact.form.email} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="What is your email?"
-                    required
-                    className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    placeholder={t.contact.form.emailPlaceholder}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="website"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  {t.contact.form.website}
-                </label>
-                <input
-                  type="url"
-                  id="website"
-                  name="What is your company website?"
-                  className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                  placeholder={t.contact.form.websitePlaceholder}
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  {t.contact.form.message} <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="What can we help you with?"
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-vertical"
-                  placeholder={t.contact.form.messagePlaceholder}
-                ></textarea>
-              </div>
-
+          {/* 2-column layout */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start text-left">
+            {/* LEFT: Info column */}
+            <div className="space-y-10 lg:pt-4">
               <div>
+                <h3 className="text-xl font-bold mb-4 text-white">
+                  {t.contact.haveQuestions}
+                </h3>
+                <p className="leading-relaxed max-w-md text-slate-400 text-lg font-light">
+                  {t.contact.notReady}
+                </p>
+              </div>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 group">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded bg-blue-500/10 text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect width="20" height="16" x="2" y="4" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                  </div>
+                  <span className="text-base text-slate-300">{t.contact.email}</span>
+                </div>
+                <div className="flex items-center gap-4 group">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded bg-blue-500/10 text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </div>
+                  <span className="text-base text-slate-300">{t.contact.responseTime}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: Form */}
+            <div className="border rounded-2xl p-6 md:p-10 backdrop-blur-sm shadow-xl bg-slate-900/40 border-slate-800 shadow-black/20">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-200">
+                      {t.contact.form.name} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="What is your name?"
+                      required
+                      className="w-full border rounded-lg px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm bg-slate-950 border-slate-800 text-slate-200"
+                      placeholder={t.contact.form.namePlaceholder}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-200">
+                      {t.contact.form.email} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="What is your email?"
+                      required
+                      className="w-full border rounded-lg px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm bg-slate-950 border-slate-800 text-slate-200"
+                      placeholder={t.contact.form.emailPlaceholder}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="website" className="block text-sm font-medium text-slate-200">
+                    {t.contact.form.website}
+                  </label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="What is your company website?"
+                    className="w-full border rounded-lg px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm bg-slate-950 border-slate-800 text-slate-200"
+                    placeholder={t.contact.form.websitePlaceholder}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-200">
+                    {t.contact.form.message} <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="What can we help you with?"
+                    required
+                    rows={4}
+                    className="w-full border rounded-lg px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm bg-slate-950 border-slate-800 text-slate-200 resize-none"
+                    placeholder={t.contact.form.messagePlaceholder}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? t.contact.form.submitting : t.contact.form.submit}
                 </button>
-              </div>
 
-              {showSuccess && (
-                <div className="text-center text-green-600">
-                  <p className="font-medium">{t.contact.form.success}</p>
+                {showSuccess && (
+                  <div className="text-center text-emerald-400">
+                    <p className="font-medium">{t.contact.form.success}</p>
+                  </div>
+                )}
+
+                {showError && (
+                  <div className="text-center text-red-400">
+                    <p className="font-medium">{t.contact.form.error}</p>
+                  </div>
+                )}
+
+                {/* Alternative CTA */}
+                <div className="pt-2 text-center">
+                  <p className="text-sm text-slate-400">{t.contact.preferToTalk}</p>
+                  <CalendlyButton
+                    buttonText={t.contact.bookCall}
+                    variant="link"
+                    utmSource="contact_section"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors mt-1"
+                  />
                 </div>
-              )}
-
-              {showError && (
-                <div className="text-center text-red-600">
-                  <p className="font-medium">{t.contact.form.error}</p>
-                </div>
-              )}
-
-              {/* Alternative CTA */}
-              <div className="pt-3 md:pt-4 border-t border-gray-200 text-center">
-                <p className="text-xs md:text-sm text-gray-500 mb-1 md:mb-2">{t.contact.preferToTalk}</p>
-                <CalendlyButton
-                  buttonText={t.contact.bookCall}
-                  variant="link"
-                  utmSource="contact_section"
-                  className="text-blue-600 hover:text-blue-700 text-xs md:text-sm font-medium underline"
-                />
-              </div>
-            </form>
-          </div>
-
-          {/* Mobile: Info section below form */}
-          <div className="lg:hidden mt-6 text-center">
-            <h3 className="text-base font-semibold text-gray-900 mb-2">
-              {t.contact.haveQuestions}
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              {t.contact.email}
-            </p>
-            <p className="text-xs text-slate-500">
-              {t.contact.responseTime}
-            </p>
+              </form>
+            </div>
           </div>
         </div>
       </div>

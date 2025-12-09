@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import NetworkDiagram from "@/components/NetworkDiagram";
-import CalendlyButton from "@/components/CalendlyButton";
+import DigitalBrain from "@/components/marketing/DigitalBrain";
+import HeroBackground from "@/components/marketing/HeroBackground";
 import { getTranslations, type Lang } from "@/lib/translations";
 
 interface HeroProps {
@@ -11,80 +11,53 @@ interface HeroProps {
 
 export default function Hero({ lang = 'en' }: HeroProps) {
   const t = getTranslations(lang);
+
   return (
-    <header className="relative bg-white text-black pt-6 pb-4 md:py-32 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center relative z-10">
-        <div className="text-left md:w-1/2">
-          <h1 className="text-center md:text-left text-3xl sm:text-4xl md:text-7xl font-bold mb-3 md:mb-6 leading-tight">
-            {t.hero.title1}
-            <br />
-            {t.hero.title2}
+    <section className="min-h-screen flex overflow-hidden pt-32 pb-20 relative items-center">
+      {/* Animated Background */}
+      <HeroBackground />
+
+      <div className="grid lg:grid-cols-2 z-10 w-full max-w-7xl mx-auto px-6 relative gap-16 items-center">
+
+        {/* Text Content */}
+        <div className="order-2 lg:order-1 max-w-2xl space-y-8">
+          {/* Badge */}
+          <div className="inline-flex gap-2 uppercase text-xs font-semibold tracking-wider border-cyan-500/20 border rounded-full py-1 px-3 items-center text-cyan-400 bg-cyan-950/30">
+            {t.hero.global}
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-cyan-400" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="leading-[1.1] text-3xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight">
+            {t.hero.titleLine1 || 'Build. Scale. Dominate.'}{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
+              {t.hero.titleAccent || 'AI automation'}
+            </span>{' '}
+            {t.hero.titleLine2 || 'for ambitious businesses'}
           </h1>
-          <p className="text-base md:text-2xl font-light mb-3 md:mb-8 text-gray-700 text-center md:text-left">
+
+          {/* Subheading */}
+          <p className="leading-relaxed text-base md:text-lg font-light text-slate-100 max-w-lg">
             {t.hero.subtitle}
           </p>
-          {/* Badge: Działamy globalnie */}
-          <p className="mb-5 md:mb-8">
-            <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 md:text-base md:px-4 md:py-1.5">
-              {t.hero.global}
-            </span>
-          </p>
-          {/* Dual CTA: Primary (Form) + Secondary (Call) */}
-          <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-5 sm:items-center md:items-start">
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Link
               href="#contact"
-              className="block sm:inline-block text-center bg-blue-600 text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-md hover:bg-blue-700 hover:scale-105 transition-transform text-base md:text-lg shadow-md"
+              className="transition-all transform hover:-translate-y-0.5 hover:bg-white text-base font-semibold text-slate-950 tracking-tight bg-slate-50 rounded-full py-4 px-8 shadow-[0_0_20px_rgba(255,255,255,0.3)] text-center"
             >
               {t.hero.ctaPrimary}
             </Link>
-            <CalendlyButton
-              buttonText={t.hero.ctaSecondary}
-              variant="outline"
-              utmSource="hero"
-              className="text-sm md:text-base w-full sm:w-auto"
-            />
           </div>
         </div>
-        <div className="mt-6 md:mt-0 md:w-1/2 flex justify-center relative">
-          <NetworkDiagram />
-        </div>
-      </div>
 
-      {/* Trust strip - desktop version */}
-      <div className="container mx-auto px-6 mt-12 hidden md:block">
-        <div className="grid grid-cols-3 gap-8 text-center max-w-3xl mx-auto">
-          <div className="border-l-2 border-blue-600 pl-4 text-left">
-            <div className="text-2xl font-bold text-gray-900">{t.hero.trust.roi}</div>
-            <div className="text-gray-600">{t.hero.trust.roiLabel}</div>
-          </div>
-          <div className="border-l-2 border-blue-600 pl-4 text-left">
-            <div className="text-2xl font-bold text-gray-900">{t.hero.trust.deployments}</div>
-            <div className="text-gray-600">{t.hero.trust.deploymentsLabel}</div>
-          </div>
-          <div className="border-l-2 border-blue-600 pl-4 text-left">
-            <div className="text-2xl font-bold text-gray-900">{t.hero.trust.implementation}</div>
-            <div className="text-gray-600">{t.hero.trust.implementationLabel}</div>
-          </div>
-        </div>
+        {/* Visual/Animation Centerpiece */}
+        <DigitalBrain lang={lang} />
       </div>
-
-      {/* Trust strip - mobile version */}
-      <div className="px-4 pt-4 pb-3 border-b border-slate-100 md:hidden">
-        <div className="flex justify-between text-center text-xs text-slate-700">
-          <div className="flex-1">
-            <div className="font-semibold text-gray-900">{t.hero.trust.roi}</div>
-            <div className="text-[11px] text-slate-500">{t.hero.trust.roiLabel}</div>
-          </div>
-          <div className="flex-1">
-            <div className="font-semibold text-gray-900">{t.hero.trust.deployments}</div>
-            <div className="text-[11px] text-slate-500">{t.hero.trust.deploymentsLabel}</div>
-          </div>
-          <div className="flex-1">
-            <div className="font-semibold text-gray-900">{t.hero.trust.implementation}</div>
-            <div className="text-[11px] text-slate-500">{t.hero.trust.implementationLabel}</div>
-          </div>
-        </div>
-      </div>
-    </header>
+    </section>
   );
 }

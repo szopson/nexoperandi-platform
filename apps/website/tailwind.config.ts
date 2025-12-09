@@ -13,7 +13,10 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        mono: ['Geist Mono', 'monospace'],
+        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+        geist: ['Geist Mono', 'monospace'],
       },
     },
   },

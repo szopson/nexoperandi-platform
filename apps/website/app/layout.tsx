@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import VisitorTracking from "@/components/VisitorTracking";
 import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
+import UnicornBackground from "@/components/UnicornBackground";
 
-const inter = Inter({ subsets: ["latin"] });
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.ai'),
@@ -65,7 +75,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+      <body className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} antialiased bg-[#020617] text-slate-300 overflow-x-hidden selection:bg-cyan-500/30`} suppressHydrationWarning>
+        <UnicornBackground />
         <VisitorTracking />
         {children}
         <ChatBotToggle />
