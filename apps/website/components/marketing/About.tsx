@@ -36,15 +36,15 @@ export default function About({ lang = 'en' }: AboutProps) {
                 {t.about?.workspaceTitle || 'Our Workspace'}
               </h4>
               <div className="flex flex-wrap gap-4">
-                {/* Tool 1: VS Code */}
+                {/* Tool 1: Code */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-800 bg-slate-900/50 text-slate-300 text-xs font-mono">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400">
                     <polyline points="16 18 22 12 16 6" />
                     <polyline points="8 6 2 12 8 18" />
                   </svg>
-                  VS Code
+                  Code
                 </div>
-                {/* Tool 2: Figma */}
+                {/* Tool 2: Design */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-800 bg-slate-900/50 text-slate-300 text-xs font-mono">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-fuchsia-400">
                     <path d="M12 19l7-7 3 3-7 7-3-3z" />
@@ -52,15 +52,15 @@ export default function About({ lang = 'en' }: AboutProps) {
                     <path d="m2 2 7.586 7.586" />
                     <circle cx="11" cy="11" r="2" />
                   </svg>
-                  Figma
+                  Design
                 </div>
-                {/* Tool 3: n8n */}
+                {/* Tool 3: Planning */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-800 bg-slate-900/50 text-slate-300 text-xs font-mono">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400">
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                   </svg>
-                  n8n
+                  Planning
                 </div>
               </div>
             </div>

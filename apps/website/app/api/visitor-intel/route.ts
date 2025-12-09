@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 /**
  * Visitor Intelligence API Route
  * Forwards visitor tracking data to n8n workflow
+ *
+ * Performance: Uses AbortController with 5s timeout to prevent
+ * slow n8n responses from blocking resources
  */
 
 const N8N_WEBHOOK_URL = process.env.N8N_VISITOR_INTEL_URL || 'https://n8n.srv1108737.hstgr.cloud/webhook/visitor-intel';
@@ -10,21 +13,26 @@ const N8N_WEBHOOK_URL = process.env.N8N_VISITOR_INTEL_URL || 'https://n8n.srv110
 // Temporary: Enable test mode for debugging
 const TEST_MODE = process.env.VISITOR_INTEL_TEST_MODE === 'true';
 
+// Timeout for n8n webhook (5 seconds) - prevents resource blocking
+const WEBHOOK_TIMEOUT_MS = 5000;
+
 export async function POST(request: NextRequest) {
   try {
     // Parse incoming visitor data
     const data = await request.json();
 
-    console.log('📊 Visitor Intelligence - Received data:', {
-      url: data.url,
-      timeOnPage: data.timeOnPage,
-      device: data.device,
-      timestamp: new Date().toISOString()
-    });
+    // Minimal logging in production for performance
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📊 Visitor Intelligence - Received data:', {
+        url: data.url,
+        timeOnPage: data.timeOnPage,
+        device: data.device,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     // TEST MODE: Return mock response without calling n8n
     if (TEST_MODE) {
-      console.log('🧪 TEST MODE: Skipping n8n webhook, returning mock data');
       return NextResponse.json({
         success: true,
         test_mode: true,
@@ -43,47 +51,58 @@ export async function POST(request: NextRequest) {
       }, { status: 200 });
     }
 
-    // PRODUCTION MODE: Forward to n8n workflow
-    console.log('🔄 Forwarding to n8n webhook:', N8N_WEBHOOK_URL);
+    // PRODUCTION MODE: Forward to n8n workflow with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
 
-    const response = await fetch(N8N_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    console.log('📡 n8n response status:', response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ n8n webhook error:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
+    try {
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        signal: controller.signal,
       });
-      throw new Error(`n8n webhook failed: ${response.status} - ${errorText}`);
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ n8n webhook error:', response.status);
+        throw new Error(`n8n webhook failed: ${response.status} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      return NextResponse.json(result, { status: 200 });
+
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+
+      // Handle timeout specifically
+      if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+        console.warn('⏱️ n8n webhook timeout after', WEBHOOK_TIMEOUT_MS, 'ms');
+        // Return success anyway - don't block user experience for analytics
+        return NextResponse.json({
+          success: true,
+          timeout: true,
+          message: 'Visitor data queued (webhook timeout)',
+        }, { status: 200 });
+      }
+
+      throw fetchError;
     }
 
-    const result = await response.json();
-    console.log('✅ n8n webhook success');
-
-    // Return success with intelligence data
-    return NextResponse.json(result, { status: 200 });
-
   } catch (error) {
-    console.error('❌ Visitor Intelligence Error:', error);
+    console.error('❌ Visitor Intelligence Error:', error instanceof Error ? error.message : 'Unknown');
 
-    // Return error but don't break user experience
+    // Return success anyway to not affect client-side metrics
     return NextResponse.json(
       {
         success: false,
         error: 'Failed to process visitor data',
-        message: error instanceof Error ? error.message : 'Unknown error',
-        hint: 'Make sure n8n workflow is active at: ' + N8N_WEBHOOK_URL
       },
-      { status: 500 }
+      { status: 200 } // Return 200 to prevent client retries
     );
   }
 }

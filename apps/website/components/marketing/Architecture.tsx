@@ -77,8 +77,8 @@ export default function Architecture({ lang = 'en' }: ArchitectureProps) {
             </div>
           </div>
 
-          {/* Right: IDE / Prompt Editor Visualization */}
-          <div className="relative group">
+          {/* Right: IDE / Prompt Editor Visualization - hidden on mobile/tablet */}
+          <div className="relative group hidden lg:block">
             {/* Glow behind IDE */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-1000 group-hover:duration-200" />
 

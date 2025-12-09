@@ -70,13 +70,13 @@ export default function DigitalBrain({ lang = 'en' }: DigitalBrainProps) {
           </div>
         </div>
 
-        {/* Floating Nodes - hidden on very small screens, scaled on small screens */}
+        {/* Floating Nodes - scaled smaller on mobile screens */}
 
         {/* Node 1: Input */}
-        <div className="absolute top-[8%] left-[0%] sm:-left-[5%] animate-float-delayed z-20 hidden sm:block">
-          <div className="glass-card flex gap-2 sm:gap-3 w-28 sm:w-36 md:w-40 rounded-xl p-2 sm:p-3 items-center border-l-2 border-l-blue-500">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 sm:w-4 sm:h-4">
+        <div className="absolute top-[8%] left-[0%] sm:-left-[5%] animate-float-delayed z-20">
+          <div className="glass-card flex gap-1.5 sm:gap-2 md:gap-3 w-24 sm:w-28 md:w-36 lg:w-40 rounded-lg sm:rounded-xl p-1.5 sm:p-2 md:p-3 items-center border-l-2 border-l-blue-500">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-blue-500/10 flex items-center justify-center border border-blue-500/20 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" x2="12" y1="15" y2="3" />
@@ -94,10 +94,10 @@ export default function DigitalBrain({ lang = 'en' }: DigitalBrainProps) {
         </div>
 
         {/* Node 2: Logic */}
-        <div className="absolute top-[0%] right-[0%] sm:-right-[5%] animate-float z-20 hidden sm:block">
-          <div className="glass-card p-2 sm:p-3 rounded-xl border-l-2 border-l-cyan-500 flex items-center gap-2 sm:gap-3 w-32 sm:w-40 md:w-44 shadow-lg shadow-cyan-900/20">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20 shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400 animate-spin-slow sm:w-4 sm:h-4" style={{ animationDuration: '3s' }}>
+        <div className="absolute top-[0%] right-[0%] sm:-right-[5%] animate-float z-20">
+          <div className="glass-card p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl border-l-2 border-l-cyan-500 flex items-center gap-1.5 sm:gap-2 md:gap-3 w-28 sm:w-32 md:w-40 lg:w-44 shadow-lg shadow-cyan-900/20">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400 animate-spin-slow sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" style={{ animationDuration: '3s' }}>
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
@@ -120,10 +120,10 @@ export default function DigitalBrain({ lang = 'en' }: DigitalBrainProps) {
         </div>
 
         {/* Node 3: Execution */}
-        <div className="animate-float-delayed absolute bottom-[15%] right-[0%] sm:-right-[8%] z-20 hidden sm:block">
-          <div className="glass-card p-2 sm:p-3 rounded-xl border-l-2 border-l-indigo-500 flex items-center gap-2 sm:gap-3 w-28 sm:w-36 md:w-40">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400 sm:w-4 sm:h-4">
+        <div className="animate-float-delayed absolute bottom-[15%] right-[0%] sm:-right-[8%] z-20">
+          <div className="glass-card p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl border-l-2 border-l-indigo-500 flex items-center gap-1.5 sm:gap-2 md:gap-3 w-24 sm:w-28 md:w-36 lg:w-40">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4">
                 <path d="M5 12l5 5 9-9" />
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
               </svg>
@@ -140,10 +140,10 @@ export default function DigitalBrain({ lang = 'en' }: DigitalBrainProps) {
         </div>
 
         {/* Node 4: Sync */}
-        <div className="absolute bottom-[5%] left-[0%] sm:-left-[5%] animate-float z-20 hidden sm:block">
-          <div className="glass-card p-2 sm:p-3 rounded-xl border-l-2 border-l-emerald-500 flex items-center gap-2 sm:gap-3 w-32 sm:w-40 md:w-44">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400 sm:w-4 sm:h-4">
+        <div className="absolute bottom-[5%] left-[0%] sm:-left-[5%] animate-float z-20">
+          <div className="glass-card p-1.5 sm:p-2 md:p-3 rounded-lg sm:rounded-xl border-l-2 border-l-emerald-500 flex items-center gap-1.5 sm:gap-2 md:gap-3 w-28 sm:w-32 md:w-40 lg:w-44">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="17 8 12 3 7 8" />
                 <line x1="12" x2="12" y1="3" y2="15" />

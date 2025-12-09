@@ -298,12 +298,24 @@ export default function HeroBackground() {
         <canvas
           ref={canvasRef}
           className="absolute inset-0 z-0 pointer-events-none"
-          style={{ opacity: 0.6 }}
+          style={{
+            opacity: 0.6,
+            willChange: 'contents',
+            transform: 'translateZ(0)',  // Force GPU layer
+            backfaceVisibility: 'hidden',
+          }}
         />
       )}
 
       {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          contain: 'paint',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+        }}
+      >
         {/* Central radial glow - Emerald/Teal/Cyan */}
         <div
           className="absolute inset-0"
@@ -340,7 +352,14 @@ export default function HeroBackground() {
       </div>
 
       {/* Hero glow overlay */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full hero-glow pointer-events-none" />
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full hero-glow pointer-events-none"
+        style={{
+          willChange: 'transform',
+          transform: 'translateX(-50%) translateZ(0)',
+          backfaceVisibility: 'hidden',
+        }}
+      />
     </>
   );
 }

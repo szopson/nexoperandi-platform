@@ -9,7 +9,8 @@ import UnicornBackground from "@/components/UnicornBackground";
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600"],  // Reduced from 6 to 3 weights for performance
+  display: "swap",  // Prevent FOIT (Flash of Invisible Text)
 });
 
 const geistMono = Geist_Mono({
@@ -70,10 +71,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link
-          href="https://assets.calendly.com/assets/external/widget.css"
-          rel="stylesheet"
-        />
+        {/* Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://assets.calendly.com" />
+        <link rel="dns-prefetch" href="https://assets.calendly.com" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+        {/* Calendly CSS - loaded via lazyOnload script to not block render */}
+        <noscript>
+          <link
+            href="https://assets.calendly.com/assets/external/widget.css"
+            rel="stylesheet"
+          />
+        </noscript>
       </head>
       <body className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} antialiased bg-[#020617] text-slate-300 overflow-x-hidden selection:bg-cyan-500/30`} suppressHydrationWarning>
         <UnicornBackground />
@@ -81,10 +90,24 @@ export default function RootLayout({
         {children}
         <ChatBotToggle />
 
-        {/* Calendly Widget Script - Loaded once globally */}
+        {/* Calendly CSS - inject after page load to not block render */}
+        <Script
+          id="calendly-css"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'https://assets.calendly.com/assets/external/widget.css';
+              document.head.appendChild(link);
+            `,
+          }}
+        />
+
+        {/* Calendly Widget Script - Load after page is interactive */}
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       </body>
     </html>

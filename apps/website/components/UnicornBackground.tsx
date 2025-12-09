@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -12,20 +12,42 @@ declare global {
 }
 
 export default function UnicornBackground() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    // Load Unicorn Studio script
-    if (!window.UnicornStudio) {
-      window.UnicornStudio = { isInitialized: false, init: () => {} };
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-      script.onload = () => {
-        if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
-          window.UnicornStudio.init();
-          window.UnicornStudio.isInitialized = true;
-        }
-      };
-      (document.head || document.body).appendChild(script);
+    // Check for low-end device or reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+
+    // Skip heavy WebGL on low-end devices or when reduced motion is preferred
+    if (prefersReducedMotion || isLowEndDevice) {
+      return;
+    }
+
+    // Defer loading until browser is idle to not block LCP
+    const loadScript = () => {
+      if (!window.UnicornStudio) {
+        window.UnicornStudio = { isInitialized: false, init: () => {} };
+        const script = document.createElement("script");
+        script.src =
+          "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+        script.onload = () => {
+          if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
+            window.UnicornStudio.init();
+            window.UnicornStudio.isInitialized = true;
+            setIsLoaded(true);
+          }
+        };
+        (document.head || document.body).appendChild(script);
+      }
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(loadScript, { timeout: 3000 });
+    } else {
+      // Fallback: delay loading by 2 seconds to let critical content render first
+      setTimeout(loadScript, 2000);
     }
   }, []);
 

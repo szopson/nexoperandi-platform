@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import CalendlyButton from "@/components/CalendlyButton";
 import { getTranslations, type Lang } from "@/lib/translations";
 
 interface PricingProps {
@@ -81,12 +81,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <Link
-              href="#contact"
+            <CalendlyButton
+              buttonText={t.pricing?.packages?.conversionCore?.cta || 'Automate Operations'}
+              variant="outline"
+              utmSource="pricing_conversion_core"
               className="w-full py-3 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-colors text-center block"
-            >
-              {t.pricing?.packages?.conversionCore?.cta || 'Automate Operations'}
-            </Link>
+            />
           </div>
 
           {/* Card 2: Visibility Engine */}
@@ -141,12 +141,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <Link
-              href="#contact"
+            <CalendlyButton
+              buttonText={t.pricing?.packages?.visibilityEngine?.cta || 'Automate Marketing'}
+              variant="outline"
+              utmSource="pricing_visibility_engine"
               className="w-full py-3 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-colors text-center block"
-            >
-              {t.pricing?.packages?.visibilityEngine?.cta || 'Automate Marketing'}
-            </Link>
+            />
           </div>
 
           {/* Card 3: Growth Ecosystem (Highlighted) */}
@@ -220,12 +220,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <Link
-              href="#contact"
+            <CalendlyButton
+              buttonText={t.pricing?.packages?.growthEcosystem?.cta || 'Get The Full System'}
+              variant="primary"
+              utmSource="pricing_growth_ecosystem"
               className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5 text-center block"
-            >
-              {t.pricing?.packages?.growthEcosystem?.cta || 'Get The Full System'}
-            </Link>
+            />
           </div>
         </div>
 
@@ -244,12 +244,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
           </div>
 
           <div className="relative z-10 flex-shrink-0">
-            <Link
-              href="#contact"
+            <CalendlyButton
+              buttonText={t.pricing?.customSection?.cta || 'Book Architecture Audit'}
+              variant="outline"
+              utmSource="pricing_custom"
               className="px-8 py-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 transition-all hover:border-slate-500 inline-block"
-            >
-              {t.pricing?.customSection?.cta || 'Book Architecture Audit'}
-            </Link>
+            />
           </div>
         </div>
 

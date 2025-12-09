@@ -33,7 +33,7 @@ export default function Footer({ lang = 'en' }: FooterProps) {
               Twitter
             </Link>
             <Link
-              href="https://linkedin.com/company/nexoperandi"
+              href="https://www.linkedin.com/company/110334923"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-slate-400"
