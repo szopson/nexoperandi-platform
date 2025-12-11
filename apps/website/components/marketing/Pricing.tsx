@@ -62,8 +62,8 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             {/* Pricing Block */}
             <div className="mb-8">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white tracking-tight">$147</span>
-                <span className="text-base font-medium text-slate-500">/ mo</span>
+                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '550 zł' : '$147'}</span>
+                <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
                 {t.pricing?.packages?.conversionCore?.setupNote || '+ One-time Setup Fee'}
@@ -122,8 +122,8 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             {/* Pricing Block */}
             <div className="mb-8">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white tracking-tight">$497</span>
-                <span className="text-base font-medium text-slate-500">/ mo</span>
+                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '1900 zł' : '$497'}</span>
+                <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
                 {t.pricing?.packages?.visibilityEngine?.setupNote || 'No Setup Fee • Cancel anytime'}
@@ -189,11 +189,11 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             <div className="mb-8">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-white tracking-tight">$697</span>
-                  <span className="text-base font-medium text-blue-200/60">/ mo</span>
+                  <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '2650 zł' : '$697'}</span>
+                  <span className="text-base font-medium text-blue-200/60">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
                 </div>
                 <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 tracking-wide uppercase">
-                  {t.pricing?.packages?.growthEcosystem?.savings || 'Save $800 on Setup'}
+                  {t.pricing?.packages?.growthEcosystem?.savings || (lang === 'pl' ? 'Oszczędź 3000 zł' : 'Save $800 on Setup')}
                 </span>
               </div>
               <p className="text-xs font-medium text-blue-200/80">
