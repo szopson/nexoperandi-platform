@@ -282,14 +282,14 @@ export default function ChatBotEnhanced({ isOpen, onClose, lang = 'en' }: ChatBo
               placeholder={t.chatbot.leadCapture.namePlaceholder}
               value={leadInfo.name}
               onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })}
-              className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-400"
             />
             <input
               type="email"
               placeholder={t.chatbot.leadCapture.emailPlaceholder}
               value={leadInfo.email}
               onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })}
-              className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 placeholder:text-gray-400"
             />
             <button
               onClick={handleLeadCapture}
@@ -311,7 +311,7 @@ export default function ChatBotEnhanced({ isOpen, onClose, lang = 'en' }: ChatBo
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder={t.chatbot.placeholder}
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm bg-white text-gray-900 placeholder:text-gray-400"
             disabled={isLoading}
           />
           <button
