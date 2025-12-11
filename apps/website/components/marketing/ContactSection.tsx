@@ -1,8 +1,29 @@
 "use client";
 
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import CalendlyButton from "@/components/CalendlyButton";
 import { getTranslations, type Lang } from "@/lib/translations";
+
+type PlanKey = 'conversionCore' | 'visibilityEngine' | 'growthEcosystem' | 'custom';
+
+const packageNames: Record<PlanKey, { en: string; pl: string }> = {
+  conversionCore: {
+    en: 'The Conversion Core ($147/mo)',
+    pl: 'Conversion Core ($147/mies.)',
+  },
+  visibilityEngine: {
+    en: 'The Visibility Engine ($497/mo)',
+    pl: 'Visibility Engine ($497/mies.)',
+  },
+  growthEcosystem: {
+    en: 'The Growth Ecosystem ($697/mo)',
+    pl: 'Growth Ecosystem ($697/mies.)',
+  },
+  custom: {
+    en: 'Custom Solution',
+    pl: 'Rozwiązanie Dedykowane',
+  },
+};
 
 interface ContactSectionProps {
   lang?: Lang;
@@ -13,7 +34,50 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [prefillMessage, setPrefillMessage] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  // Pre-fill message when plan is selected from pricing
+  useEffect(() => {
+    const handlePlanSelected = (e: CustomEvent<{ plan: PlanKey }>) => {
+      const plan = e.detail.plan;
+      if (plan && packageNames[plan]) {
+        const packageName = packageNames[plan][lang];
+        const prefix = lang === 'pl'
+          ? `Interesuje mnie pakiet ${packageName}.\n\n`
+          : `I'm interested in the ${packageName} package.\n\n`;
+        setPrefillMessage(prefix);
+
+        // Focus on message field after a short delay
+        setTimeout(() => {
+          messageRef.current?.focus();
+        }, 100);
+      }
+    };
+
+    // Check URL param on mount
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') as PlanKey | null;
+    if (plan && packageNames[plan]) {
+      const packageName = packageNames[plan][lang];
+      const prefix = lang === 'pl'
+        ? `Interesuje mnie pakiet ${packageName}.\n\n`
+        : `I'm interested in the ${packageName} package.\n\n`;
+      setPrefillMessage(prefix);
+
+      // Clear the param after reading
+      const url = new URL(window.location.href);
+      url.searchParams.delete('plan');
+      window.history.replaceState({}, '', url);
+    }
+
+    // Listen for plan selection events
+    window.addEventListener('planSelected', handlePlanSelected as EventListener);
+    return () => {
+      window.removeEventListener('planSelected', handlePlanSelected as EventListener);
+    };
+  }, [lang]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,10 +219,13 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
                     {t.contact.form.message} <span className="text-red-500">*</span>
                   </label>
                   <textarea
+                    ref={messageRef}
                     id="message"
                     name="What can we help you with?"
                     required
                     rows={4}
+                    defaultValue={prefillMessage}
+                    key={prefillMessage}
                     className="w-full border rounded-lg px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm bg-slate-950 border-slate-800 text-slate-200 resize-none"
                     placeholder={t.contact.form.messagePlaceholder}
                   />
