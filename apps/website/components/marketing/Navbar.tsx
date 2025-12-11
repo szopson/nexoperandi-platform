@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { getTranslations, type Lang } from "@/lib/translations";
+import { useModal } from "@/context/ModalContext";
 
 interface NavbarProps {
   lang?: Lang;
@@ -13,6 +14,7 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = getTranslations(lang);
   const basePath = lang === 'pl' ? '/pl' : '';
+  const { openQuiz } = useModal();
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
@@ -72,22 +74,22 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
           </div>
 
           {/* CTA Button - Desktop */}
-          <Link
-            href="#contact"
+          <button
+            onClick={openQuiz}
             className="hidden md:flex gap-2 transition-all hover:border-cyan-500/50 group text-xs font-semibold tracking-wide border rounded-full py-2.5 px-5 items-center hover:bg-white/10 text-white bg-white/5 border-white/10"
           >
-            {t.nav.startToday}
+            {t.quiz.cta}
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-0.5 transition-transform">
               <path d="M4 12h16M14 6l6 6-6 6" />
             </svg>
-          </Link>
+          </button>
 
           {/* Mobile: Language switcher + hamburger */}
           <div className="flex items-center gap-4 md:hidden">
             <LanguageSwitcher isMobile />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white focus:outline-none"
+              className="text-white focus:outline-none p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -139,13 +141,15 @@ export default function Navbar({ lang = 'en' }: NavbarProps) {
               </Link>
             </li>
             <li className="pt-3">
-              <Link
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openQuiz();
+                }}
                 className="block w-full text-center border border-white/10 bg-white/5 text-white text-sm font-semibold py-3 rounded-full hover:bg-white/10 transition-colors"
               >
-                {t.nav.startToday}
-              </Link>
+                {t.quiz.cta}
+              </button>
             </li>
           </ul>
         </div>

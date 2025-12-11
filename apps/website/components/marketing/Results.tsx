@@ -129,8 +129,9 @@ export default function Results({ lang = 'en' }: ResultsProps) {
       <section id="results" className="overflow-hidden bg-[#020617] pt-32 pb-32 relative">
         {/* Background effects */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent to-transparent opacity-50 via-slate-800" />
-        <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none bg-blue-600/5" />
+        {/* Decorative orbs - smaller on mobile for performance, hidden overflow by parent */}
+        <div className="absolute top-[20%] right-[-5%] sm:right-[-10%] w-[200px] sm:w-[400px] md:w-[500px] h-[200px] sm:h-[400px] md:h-[500px] bg-cyan-500/5 rounded-full blur-[60px] sm:blur-[100px] md:blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[20%] left-[-5%] sm:left-[-10%] w-[200px] sm:w-[400px] md:w-[500px] h-[200px] sm:h-[400px] md:h-[500px] rounded-full blur-[60px] sm:blur-[100px] md:blur-[120px] pointer-events-none bg-blue-600/5" />
 
         <div className="max-w-7xl z-10 mx-auto px-6 relative">
           {/* Header */}

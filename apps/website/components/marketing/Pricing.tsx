@@ -1,7 +1,23 @@
 "use client";
 
-import CalendlyButton from "@/components/CalendlyButton";
 import { getTranslations, type Lang } from "@/lib/translations";
+// CalendlyButton removed - now using contact form pre-fill
+
+type PlanKey = 'conversionCore' | 'visibilityEngine' | 'growthEcosystem' | 'custom';
+
+function scrollToContactWithPlan(plan: PlanKey) {
+  // Set URL param for contact form to read
+  const url = new URL(window.location.href);
+  url.searchParams.set('plan', plan);
+  url.hash = 'contact';
+  window.history.pushState({}, '', url);
+
+  // Scroll to contact
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+
+  // Dispatch event to notify ContactSection
+  window.dispatchEvent(new CustomEvent('planSelected', { detail: { plan } }));
+}
 
 interface PricingProps {
   lang?: Lang;
@@ -11,7 +27,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
   const t = getTranslations(lang);
 
   return (
-    <section id="pricing" className="bg-[#020617] border-slate-900/50 border-t pt-32 pb-32 relative">
+    <section id="pricing" className="bg-[#020617] border-slate-900/50 border-t pt-32 pb-32 relative overflow-hidden">
       <div className="max-w-7xl z-10 mx-auto px-6 relative">
         {/* Header */}
         <div className="text-center mb-16">
@@ -81,12 +97,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <CalendlyButton
-              buttonText={t.pricing?.packages?.conversionCore?.cta || 'Automate Operations'}
-              variant="outline"
-              utmSource="pricing_conversion_core"
+            <button
+              onClick={() => scrollToContactWithPlan('conversionCore')}
               className="w-full py-3 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-colors text-center block"
-            />
+            >
+              {t.pricing?.packages?.conversionCore?.cta || 'Automate Operations'}
+            </button>
           </div>
 
           {/* Card 2: Visibility Engine */}
@@ -141,12 +157,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <CalendlyButton
-              buttonText={t.pricing?.packages?.visibilityEngine?.cta || 'Automate Marketing'}
-              variant="outline"
-              utmSource="pricing_visibility_engine"
+            <button
+              onClick={() => scrollToContactWithPlan('visibilityEngine')}
               className="w-full py-3 rounded-lg border border-slate-700 text-slate-300 font-semibold text-sm hover:bg-slate-800 transition-colors text-center block"
-            />
+            >
+              {t.pricing?.packages?.visibilityEngine?.cta || 'Automate Marketing'}
+            </button>
           </div>
 
           {/* Card 3: Growth Ecosystem (Highlighted) */}
@@ -220,19 +236,19 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
               </li>
             </ul>
 
-            <CalendlyButton
-              buttonText={t.pricing?.packages?.growthEcosystem?.cta || 'Get The Full System'}
-              variant="primary"
-              utmSource="pricing_growth_ecosystem"
+            <button
+              onClick={() => scrollToContactWithPlan('growthEcosystem')}
               className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5 text-center block"
-            />
+            >
+              {t.pricing?.packages?.growthEcosystem?.cta || 'Get The Full System'}
+            </button>
           </div>
         </div>
 
         {/* Tailored Section */}
         <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#0B1120] to-[#0f172a] border border-slate-800 p-6 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
-          {/* Decorative glow */}
-          <div className="absolute -right-20 -top-20 w-64 h-64 bg-slate-700/20 rounded-full blur-3xl group-hover:bg-slate-600/20 transition-colors" />
+          {/* Decorative glow - hidden on mobile to prevent overflow */}
+          <div className="hidden sm:block absolute -right-20 -top-20 w-64 h-64 bg-slate-700/20 rounded-full blur-3xl group-hover:bg-slate-600/20 transition-colors" />
 
           <div className="relative z-10 max-w-xl text-center md:text-left">
             <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">
@@ -244,12 +260,12 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
           </div>
 
           <div className="relative z-10 flex-shrink-0">
-            <CalendlyButton
-              buttonText={t.pricing?.customSection?.cta || 'Book Architecture Audit'}
-              variant="outline"
-              utmSource="pricing_custom"
+            <button
+              onClick={() => scrollToContactWithPlan('custom')}
               className="px-8 py-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 transition-all hover:border-slate-500 inline-block"
-            />
+            >
+              {t.pricing?.customSection?.cta || 'Book Architecture Audit'}
+            </button>
           </div>
         </div>
 
