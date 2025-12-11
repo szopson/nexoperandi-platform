@@ -303,22 +303,12 @@ export default function Results({ lang = 'en' }: ResultsProps) {
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-[11px] uppercase tracking-wider text-slate-500 mb-1">
-                          {t.results.stack}
-                        </div>
-                        <div className="text-sm text-slate-300">
-                          {engagement.modal.stack}
-                        </div>
+                    <div className="pt-4 border-t border-slate-800">
+                      <div className="text-[11px] uppercase tracking-wider text-slate-500 mb-1">
+                        {t.results.timeToValue}
                       </div>
-                      <div>
-                        <div className="text-[11px] uppercase tracking-wider text-slate-500 mb-1">
-                          {t.results.timeToValue}
-                        </div>
-                        <div className={`text-sm font-semibold ${styles.timeText}`}>
-                          {engagement.modal.timeToValue}
-                        </div>
+                      <div className={`text-sm font-semibold ${styles.timeText}`}>
+                        {engagement.modal.timeToValue}
                       </div>
                     </div>
                   </div>
