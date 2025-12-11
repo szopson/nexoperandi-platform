@@ -29,14 +29,13 @@ html {
   background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15) 0%, rgba(6, 182, 212, 0.05) 40%, transparent 70%);
 }
 
-/* Animated gradient orbs for hero background */
+/* Animated gradient orbs for hero background - OPTIMIZED */
 .hero-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(30px);
   opacity: 0.4;
   pointer-events: none;
-  will-change: transform;
 }
 
 .hero-orb-1 {
@@ -45,7 +44,7 @@ html {
   background: radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%);
   top: -10%;
   left: 20%;
-  animation: orb-float-1 20s ease-in-out infinite;
+  animation: orb-float-1 30s linear infinite;
 }
 
 .hero-orb-2 {
@@ -54,7 +53,7 @@ html {
   background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
   top: 30%;
   right: 10%;
-  animation: orb-float-2 25s ease-in-out infinite;
+  animation: orb-float-2 35s linear infinite;
 }
 
 .hero-orb-3 {
@@ -63,42 +62,43 @@ html {
   background: radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%);
   bottom: 10%;
   left: 30%;
-  animation: orb-float-3 22s ease-in-out infinite;
+  animation: orb-float-3 32s linear infinite;
 }
 
+/* Simplified keyframes - no scale(), only translate() */
 @keyframes orb-float-1 {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0);
   }
   25% {
-    transform: translate(50px, 30px) scale(1.1);
+    transform: translate(50px, 30px);
   }
   50% {
-    transform: translate(20px, -40px) scale(0.95);
+    transform: translate(20px, -40px);
   }
   75% {
-    transform: translate(-30px, 20px) scale(1.05);
+    transform: translate(-30px, 20px);
   }
 }
 
 @keyframes orb-float-2 {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0);
   }
   33% {
-    transform: translate(-40px, 50px) scale(1.08);
+    transform: translate(-40px, 50px);
   }
   66% {
-    transform: translate(30px, -30px) scale(0.92);
+    transform: translate(30px, -30px);
   }
 }
 
 @keyframes orb-float-3 {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate(-50px, -40px) scale(1.15);
+    transform: translate(-50px, -40px);
   }
 }
 
@@ -265,19 +265,71 @@ html {
   animation: fade-in 0.3s ease-out;
 }
 
+/* ===== MODAL ANIMATIONS ===== */
+
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-backdrop-fade-in {
+  animation: backdrop-fade-in 0.2s ease-out;
+}
+
+.animate-modal-scale-in {
+  animation: modal-scale-in 0.3s ease-out;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* Modal container */
+.modal-container {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 60px -15px rgba(56, 189, 248, 0.3);
+}
+
 /* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 640px) {
   .hero-orb-1 {
-    width: 300px;
-    height: 300px;
-  }
-  .hero-orb-2 {
     width: 250px;
     height: 250px;
   }
-  .hero-orb-3 {
+  .hero-orb-2 {
     width: 200px;
     height: 200px;
+  }
+  .hero-orb-3 {
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Reduced blur for better mobile performance */
+  .hero-orb {
+    filter: blur(20px);
+    opacity: 0.3;
   }
 }
 

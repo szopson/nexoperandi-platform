@@ -47,12 +47,12 @@ export default function DigitalBrain({ lang = 'en' }: DigitalBrainProps) {
           {/* Brain Visual */}
           <div className="relative w-[88%] h-[88%] rounded-2xl overflow-hidden bg-[#020617] flex items-center justify-center border border-white/5">
             <div className="absolute inset-0 mix-blend-overlay z-10 bg-cyan-900/30" />
-            {/* Brain Image - optimized */}
+            {/* Brain Image - lazy loaded (decorative, not critical for LCP) */}
             <Image
-              src="/assets/brain.png"
+              src="/assets/brain.webp"
               alt="Digital Brain"
               fill
-              priority
+              loading="lazy"
               sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 208px"
               className="contrast-125 saturate-0 opacity-90 object-cover z-20"
             />

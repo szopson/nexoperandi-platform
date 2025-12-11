@@ -5,11 +5,16 @@ import { useEffect, useRef, useState } from "react";
 export default function HeroBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [canvasReady, setCanvasReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
+
+    // Check if mobile for performance optimization
+    setIsMobile(window.innerWidth < 768);
 
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
@@ -19,9 +24,38 @@ export default function HeroBackground() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+  // Defer canvas initialization to after page is interactive (improves LCP)
+  // Skip on mobile for better performance
   useEffect(() => {
-    // Skip canvas animation if reduced motion is preferred
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || isMobile) return;
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(() => {
+        setCanvasReady(true);
+      }, { timeout: 2000 });
+    } else {
+      timeoutId = setTimeout(() => {
+        setCanvasReady(true);
+      }, 100);
+    }
+
+    return () => {
+      if (idleId !== undefined && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [prefersReducedMotion, isMobile]);
+
+  useEffect(() => {
+    // Skip canvas animation if reduced motion is preferred, canvas not ready, or mobile
+    if (prefersReducedMotion || !canvasReady || isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -289,12 +323,12 @@ export default function HeroBackground() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, canvasReady, isMobile]);
 
   return (
     <>
-      {/* Canvas for particle animation - only render if motion allowed */}
-      {!prefersReducedMotion && (
+      {/* Canvas for particle animation - only render on desktop if motion allowed */}
+      {!prefersReducedMotion && !isMobile && (
         <canvas
           ref={canvasRef}
           className="absolute inset-0 z-0 pointer-events-none"
