@@ -328,6 +328,96 @@ export const translations = {
         },
       },
     },
+    // Quiz
+    quiz: {
+      cta: 'See What You Could Automate',
+      title: 'Find Your Perfect Automation',
+      subtitle: 'Answer 4 quick questions to get a personalized recommendation',
+      progress: 'Question {current} of {total}',
+      questions: {
+        challenge: {
+          title: "What's your biggest operational challenge right now?",
+          options: {
+            support: 'Support team overwhelmed',
+            leads: 'Lead follow-up falling through cracks',
+            content: 'Creating consistent content',
+            workflows: 'Too many manual workflows',
+          },
+        },
+        currentSolution: {
+          title: 'What have you tried to solve this?',
+          options: {
+            staff: 'Hired more staff',
+            automation: 'Used basic automation tools',
+            diy: 'Built DIY solutions',
+            nothing: 'Nothing yet',
+          },
+        },
+        businessStage: {
+          title: 'Where are you in your growth journey?',
+          options: {
+            early: 'Early stage startup',
+            scaling: 'Scaling rapidly',
+            established: 'Established, seeking efficiency',
+            enterprise: 'Enterprise optimization',
+          },
+        },
+        urgency: {
+          title: 'How soon do you need a solution?',
+          options: {
+            asap: 'ASAP (within 2 weeks)',
+            soon: 'Within 1-3 months',
+            exploring: 'Exploring options',
+            researching: 'Just researching',
+          },
+        },
+      },
+      results: {
+        title: 'Your Personalized Recommendation',
+        subtitle: 'Based on your answers, we recommend:',
+        conversionCore: {
+          title: 'The Conversion Core',
+          description: 'Perfect for handling support overflow and never missing a lead. Automate your operations while you focus on growth.',
+        },
+        visibilityEngine: {
+          title: 'The Visibility Engine',
+          description: 'Ideal for scaling your content output. Be everywhere at once with automated content that sounds like you.',
+        },
+        growthEcosystem: {
+          title: 'The Growth Ecosystem',
+          description: 'The complete solution for scaling businesses. Handle both operations and marketing with one unified system.',
+        },
+        custom: {
+          title: 'Custom Solution',
+          description: 'Your needs are unique. Let\'s build a tailored AI architecture that fits your enterprise workflow.',
+        },
+      },
+      ctas: {
+        next: 'Next',
+        back: 'Back',
+        seeResults: 'See My Recommendation',
+        bookCall: 'Book Strategy Call',
+        close: 'Close',
+      },
+      emailCapture: {
+        title: 'Get your personalized automation roadmap',
+        subtitle: 'We\'ll send you a detailed plan based on your answers',
+        namePlaceholder: 'Your name',
+        emailPlaceholder: 'your@email.com',
+        submit: 'Send My Roadmap',
+        skip: 'Skip for now',
+      },
+    },
+    // Exit Intent
+    exitIntent: {
+      title: 'Wait! Before You Go...',
+      subtitle: 'Get our free AI Automation Checklist',
+      description: '5 processes every business should automate (and how to start)',
+      emailPlaceholder: 'your@email.com',
+      cta: 'Send Me The Checklist',
+      dismiss: 'No thanks, I prefer manual work',
+      success: 'Check your inbox!',
+    },
     // Chatbot
     chatbot: {
       welcomeMessage: "Hi! I'm your AI assistant from NexOperandi. We help businesses grow faster with AI automation. How can I help you today?",
@@ -688,6 +778,96 @@ export const translations = {
           ],
         },
       },
+    },
+    // Quiz
+    quiz: {
+      cta: 'Zobacz co możesz zautomatyzować',
+      title: 'Znajdź idealną automatyzację',
+      subtitle: 'Odpowiedz na 4 szybkie pytania, aby otrzymać spersonalizowaną rekomendację',
+      progress: 'Pytanie {current} z {total}',
+      questions: {
+        challenge: {
+          title: 'Jakie jest Twoje największe wyzwanie operacyjne?',
+          options: {
+            support: 'Zespół wsparcia jest przeciążony',
+            leads: 'Leady giną w natłoku zadań',
+            content: 'Tworzenie regularnego contentu',
+            workflows: 'Zbyt dużo ręcznych procesów',
+          },
+        },
+        currentSolution: {
+          title: 'Co próbowałeś zrobić, żeby to rozwiązać?',
+          options: {
+            staff: 'Zatrudniłem więcej osób',
+            automation: 'Używałem podstawowych narzędzi automatyzacji',
+            diy: 'Budowałem własne rozwiązania',
+            nothing: 'Jeszcze nic',
+          },
+        },
+        businessStage: {
+          title: 'Na jakim etapie rozwoju jest Twoja firma?',
+          options: {
+            early: 'Wczesny startup',
+            scaling: 'Szybkie skalowanie',
+            established: 'Stabilna firma szukająca efektywności',
+            enterprise: 'Optymalizacja enterprise',
+          },
+        },
+        urgency: {
+          title: 'Jak szybko potrzebujesz rozwiązania?',
+          options: {
+            asap: 'ASAP (w ciągu 2 tygodni)',
+            soon: 'W ciągu 1-3 miesięcy',
+            exploring: 'Badam opcje',
+            researching: 'Tylko research',
+          },
+        },
+      },
+      results: {
+        title: 'Twoja spersonalizowana rekomendacja',
+        subtitle: 'Na podstawie Twoich odpowiedzi, polecamy:',
+        conversionCore: {
+          title: 'Conversion Core',
+          description: 'Idealny do obsługi przeciążonego supportu i pilnowania każdego leada. Zautomatyzuj operacje, skupiając się na wzroście.',
+        },
+        visibilityEngine: {
+          title: 'Visibility Engine',
+          description: 'Idealny do skalowania produkcji contentu. Bądź wszędzie naraz z automatycznym contentem, który brzmi jak Ty.',
+        },
+        growthEcosystem: {
+          title: 'Growth Ecosystem',
+          description: 'Kompletne rozwiązanie dla skalujących się firm. Obsługuj operacje i marketing jednym zunifikowanym systemem.',
+        },
+        custom: {
+          title: 'Rozwiązanie na miarę',
+          description: 'Twoje potrzeby są wyjątkowe. Zbudujmy dostosowaną architekturę AI dla Twojego workflow enterprise.',
+        },
+      },
+      ctas: {
+        next: 'Dalej',
+        back: 'Wstecz',
+        seeResults: 'Zobacz rekomendację',
+        bookCall: 'Umów rozmowę strategiczną',
+        close: 'Zamknij',
+      },
+      emailCapture: {
+        title: 'Otrzymaj spersonalizowaną mapę automatyzacji',
+        subtitle: 'Wyślemy Ci szczegółowy plan na podstawie Twoich odpowiedzi',
+        namePlaceholder: 'Twoje imię',
+        emailPlaceholder: 'twoj@email.pl',
+        submit: 'Wyślij mi plan',
+        skip: 'Pomiń na razie',
+      },
+    },
+    // Exit Intent
+    exitIntent: {
+      title: 'Poczekaj! Zanim wyjdziesz...',
+      subtitle: 'Pobierz darmową checklistę automatyzacji AI',
+      description: '5 procesów, które każda firma powinna zautomatyzować (i jak zacząć)',
+      emailPlaceholder: 'twoj@email.pl',
+      cta: 'Wyślij mi checklistę',
+      dismiss: 'Nie, wolę pracować ręcznie',
+      success: 'Sprawdź swoją skrzynkę!',
     },
     // Chatbot
     chatbot: {

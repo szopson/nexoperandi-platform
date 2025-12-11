@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
+import { ModalProvider } from "@/context/ModalContext";
+import QuizModal from "@/components/quiz/QuizModal";
+import ExitIntentPopup from "@/components/popup/ExitIntentPopup";
 
 export const metadata: Metadata = {
   title: {
@@ -38,10 +41,12 @@ export default function PLMarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <ModalProvider>
       <Navbar lang="pl" />
       <main>{children}</main>
       <Footer lang="pl" />
-    </>
+      <QuizModal lang="pl" />
+      <ExitIntentPopup lang="pl" />
+    </ModalProvider>
   );
 }
