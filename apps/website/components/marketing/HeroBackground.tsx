@@ -68,9 +68,9 @@ export default function HeroBackground() {
     let connections: Connection[] = [];
 
     // Detect if mobile for reduced particle count
-    const isMobile = window.innerWidth < 768;
-    const MAX_PARTICLES = isMobile ? 20 : 40;
-    const MAX_CONNECTIONS = isMobile ? 8 : 12;
+    const isMobileView = window.innerWidth < 768;
+    const MAX_PARTICLES = isMobileView ? 20 : 40;
+    const MAX_CONNECTIONS = isMobileView ? 8 : 12;
     const CONNECTION_DISTANCE_SQUARED = 150 * 150; // Use squared distance to avoid sqrt
     const MAX_CONNECTIONS_PER_PARTICLE = 3;
 
