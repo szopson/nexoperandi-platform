@@ -25,14 +25,6 @@ export default function Footer({ lang = 'en' }: FooterProps) {
           </p>
           <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-600">
             <Link
-              href="https://twitter.com/nexoperandi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-slate-400"
-            >
-              Twitter
-            </Link>
-            <Link
               href="https://www.linkedin.com/company/110334923"
               target="_blank"
               rel="noopener noreferrer"
