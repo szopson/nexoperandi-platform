@@ -27,7 +27,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
   const t = getTranslations(lang);
 
   return (
-    <section id="pricing" className="bg-[#020617] border-slate-900/50 border-t pt-32 pb-32 relative overflow-hidden">
+    <section id="pricing" className="scroll-mt-24 bg-[#020617] border-slate-900/50 border-t pt-32 pb-32 relative overflow-hidden">
       <div className="max-w-7xl z-10 mx-auto px-6 relative">
         {/* Header */}
         <div className="text-center mb-16">

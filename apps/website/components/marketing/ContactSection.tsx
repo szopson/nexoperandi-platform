@@ -125,7 +125,7 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
   };
 
   return (
-    <section id="contact" className="bg-[#020617] border-t pt-24 pb-24 relative border-slate-900">
+    <section id="contact" className="scroll-mt-24 bg-[#020617] border-t pt-24 pb-24 relative border-slate-900">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="p-6 md:p-8 lg:p-12 bg-gradient-to-b max-w-6xl border rounded-2xl mx-auto from-slate-900 to-slate-950 border-slate-800">
           {/* Header */}

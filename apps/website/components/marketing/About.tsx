@@ -10,7 +10,7 @@ export default function About({ lang = 'en' }: AboutProps) {
   const t = getTranslations(lang);
 
   return (
-    <section id="about" className="py-32 bg-[#020617] border-t border-slate-900/50 relative overflow-hidden">
+    <section id="about" className="scroll-mt-24 py-32 bg-[#020617] border-t border-slate-900/50 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute right-0 bottom-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />

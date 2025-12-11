@@ -10,7 +10,7 @@ export default function Architecture({ lang = 'en' }: ArchitectureProps) {
   const t = getTranslations(lang);
 
   return (
-    <section id="how-it-works" className="py-24 bg-[#020617] border-y border-slate-900/50 relative overflow-hidden">
+    <section id="how-it-works" className="scroll-mt-24 py-24 bg-[#020617] border-y border-slate-900/50 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-900/10 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -126,7 +126,7 @@ export default function Results({ lang = 'en' }: ResultsProps) {
 
   return (
     <>
-      <section id="results" className="overflow-hidden bg-[#020617] pt-32 pb-32 relative">
+      <section id="results" className="scroll-mt-24 overflow-hidden bg-[#020617] pt-32 pb-32 relative">
         {/* Background effects */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent to-transparent opacity-50 via-slate-800" />
         {/* Decorative orbs - smaller on mobile for performance, hidden overflow by parent */}

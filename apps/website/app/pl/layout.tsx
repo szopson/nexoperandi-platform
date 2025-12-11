@@ -43,7 +43,7 @@ export default function PLMarketingLayout({
   return (
     <ModalProvider>
       <Navbar lang="pl" />
-      <main>{children}</main>
+      <main lang="pl">{children}</main>
       <Footer lang="pl" />
       <QuizModal lang="pl" />
       <ExitIntentPopup lang="pl" />
