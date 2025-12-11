@@ -1,0 +1,251 @@
+{
+  "name": "NexOperandi Lead Capture",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-capture",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "lead-capture"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, message: 'Lead captured successfully' }) }}",
+        "options": {}
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "value": "quiz",
+              "operation": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "output": 0
+            },
+            {
+              "value": "exit-intent",
+              "operation": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "output": 1
+            }
+          ],
+          "fallbackOutput": 2
+        },
+        "dataType": "string",
+        "value1": "={{ $json.metadata.submissionType }}"
+      },
+      "id": "router",
+      "name": "Route by Source",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Your Personalized AI Automation Roadmap",
+        "emailType": "html",
+        "message": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;\">\n  <h1 style=\"color: #0ea5e9;\">Hi {{ $json.name || 'there' }}!</h1>\n  \n  <p>Thanks for completing our automation quiz. Based on your answers, here's what we learned:</p>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <p><strong>Your Challenge:</strong> {{ $json.metadata.quizAnswers?.challenge || 'Not specified' }}</p>\n    <p><strong>What You've Tried:</strong> {{ $json.metadata.quizAnswers?.currentSolution || 'Not specified' }}</p>\n    <p><strong>Business Stage:</strong> {{ $json.metadata.quizAnswers?.businessStage || 'Not specified' }}</p>\n    <p><strong>Timeline:</strong> {{ $json.metadata.quizAnswers?.urgency || 'Not specified' }}</p>\n  </div>\n  \n  <h2 style=\"color: #3b82f6;\">Our Recommendation: {{ $json.metadata.recommendation || 'Custom Solution' }}</h2>\n  \n  <p>Based on your specific situation, we believe this package would deliver the best ROI for your business.</p>\n  \n  <div style=\"text-align: center; margin: 30px 0;\">\n    <a href=\"https://calendly.com/nexoperandi/nexoperandi-demo-automation\" style=\"background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;\">Book Your Strategy Call</a>\n  </div>\n  \n  <p>During the call, we'll:</p>\n  <ul>\n    <li>Dive deeper into your specific challenges</li>\n    <li>Show you exactly how automation can solve them</li>\n    <li>Give you a custom implementation roadmap</li>\n  </ul>\n  \n  <p>Best,<br><strong>The NexOperandi Team</strong></p>\n  \n  <hr style=\"border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;\">\n  <p style=\"font-size: 12px; color: #64748b;\">NexOperandi - AI Automation for Serious Businesses</p>\n</div>",
+        "options": {
+          "fromName": "NexOperandi"
+        }
+      },
+      "id": "send-quiz-email",
+      "name": "Send Quiz Roadmap",
+      "type": "n8n-nodes-base.resend",
+      "typeVersion": 1,
+      "position": [900, 100],
+      "credentials": {
+        "resendApi": {
+          "id": "RESEND_CREDENTIAL_ID",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Your AI Automation Checklist is Here!",
+        "emailType": "html",
+        "message": "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;\">\n  <h1 style=\"color: #0ea5e9;\">Your AI Automation Checklist</h1>\n  \n  <p>Thanks for your interest! Here are the <strong>5 processes every business should automate</strong> (and how to start):</p>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <h2 style=\"color: #3b82f6; margin-top: 0;\">1. Lead Follow-up</h2>\n    <p>Respond to new leads within 5 minutes. Studies show this increases conversion by up to 400%.</p>\n    <p><em>How: AI chatbot + automated email sequences</em></p>\n  </div>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <h2 style=\"color: #3b82f6; margin-top: 0;\">2. Customer Onboarding</h2>\n    <p>Guide new customers step-by-step without manual intervention.</p>\n    <p><em>How: Automated welcome sequences + AI assistant</em></p>\n  </div>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <h2 style=\"color: #3b82f6; margin-top: 0;\">3. Support Triage</h2>\n    <p>AI sorts and routes tickets to the right team instantly.</p>\n    <p><em>How: AI classification + smart routing rules</em></p>\n  </div>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <h2 style=\"color: #3b82f6; margin-top: 0;\">4. Content Distribution</h2>\n    <p>Publish once, distribute everywhere automatically.</p>\n    <p><em>How: Content repurposing workflows + scheduled posting</em></p>\n  </div>\n  \n  <div style=\"background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;\">\n    <h2 style=\"color: #3b82f6; margin-top: 0;\">5. Data Entry & Reporting</h2>\n    <p>Eliminate manual data transfer between systems.</p>\n    <p><em>How: API integrations + automated sync workflows</em></p>\n  </div>\n  \n  <div style=\"text-align: center; margin: 30px 0;\">\n    <p><strong>Ready to implement these?</strong></p>\n    <a href=\"https://calendly.com/nexoperandi/nexoperandi-demo-automation\" style=\"background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;\">Book a Free Strategy Call</a>\n  </div>\n  \n  <p>Best,<br><strong>The NexOperandi Team</strong></p>\n  \n  <hr style=\"border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;\">\n  <p style=\"font-size: 12px; color: #64748b;\">NexOperandi - AI Automation for Serious Businesses</p>\n</div>",
+        "options": {
+          "fromName": "NexOperandi"
+        }
+      },
+      "id": "send-checklist-email",
+      "name": "Send Checklist",
+      "type": "n8n-nodes-base.resend",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "credentials": {
+        "resendApi": {
+          "id": "RESEND_CREDENTIAL_ID",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "contact@nexoperandi.cloud",
+        "subject": "=New Lead: {{ $json.metadata?.submissionType || 'contact' }} - {{ $json.email }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family: Arial, sans-serif; padding: 20px;\">\n  <h2 style=\"color: #0ea5e9;\">New {{ $json.metadata?.submissionType || 'Contact' }} Lead</h2>\n  \n  <table style=\"width: 100%; border-collapse: collapse;\">\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Email:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.email }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Name:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.name || 'Not provided' }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Source:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.source }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Timestamp:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.timestamp }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Website:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.website || 'Not provided' }}</td>\n    </tr>\n  </table>\n  \n  {{ $json.metadata?.submissionType === 'quiz' ? '<h3>Quiz Answers:</h3><ul><li><strong>Challenge:</strong> ' + ($json.metadata?.quizAnswers?.challenge || 'N/A') + '</li><li><strong>Current Solution:</strong> ' + ($json.metadata?.quizAnswers?.currentSolution || 'N/A') + '</li><li><strong>Business Stage:</strong> ' + ($json.metadata?.quizAnswers?.businessStage || 'N/A') + '</li><li><strong>Urgency:</strong> ' + ($json.metadata?.quizAnswers?.urgency || 'N/A') + '</li></ul><p><strong>Recommendation:</strong> ' + ($json.metadata?.recommendation || 'N/A') + '</p>' : '' }}\n  \n  {{ $json.message ? '<h3>Message:</h3><p>' + $json.message + '</p>' : '' }}\n</div>",
+        "options": {
+          "fromName": "NexOperandi Leads"
+        }
+      },
+      "id": "notify-owner-quiz",
+      "name": "Notify Owner (Quiz)",
+      "type": "n8n-nodes-base.resend",
+      "typeVersion": 1,
+      "position": [1150, 100],
+      "credentials": {
+        "resendApi": {
+          "id": "RESEND_CREDENTIAL_ID",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "contact@nexoperandi.cloud",
+        "subject": "=New Lead: exit-intent - {{ $json.email }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family: Arial, sans-serif; padding: 20px;\">\n  <h2 style=\"color: #0ea5e9;\">New Exit-Intent Lead</h2>\n  \n  <table style=\"width: 100%; border-collapse: collapse;\">\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Email:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.email }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Source:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.source }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Timestamp:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.timestamp }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Lead Magnet:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.metadata?.leadMagnet || 'automation-checklist' }}</td>\n    </tr>\n  </table>\n</div>",
+        "options": {
+          "fromName": "NexOperandi Leads"
+        }
+      },
+      "id": "notify-owner-exit",
+      "name": "Notify Owner (Exit)",
+      "type": "n8n-nodes-base.resend",
+      "typeVersion": 1,
+      "position": [1150, 300],
+      "credentials": {
+        "resendApi": {
+          "id": "RESEND_CREDENTIAL_ID",
+          "name": "Resend API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "contact@nexoperandi.cloud",
+        "subject": "=New Contact Form: {{ $json.email }}",
+        "emailType": "html",
+        "message": "=<div style=\"font-family: Arial, sans-serif; padding: 20px;\">\n  <h2 style=\"color: #0ea5e9;\">New Contact Form Submission</h2>\n  \n  <table style=\"width: 100%; border-collapse: collapse;\">\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Email:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.email }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Name:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.name || 'Not provided' }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Website:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.website || 'Not provided' }}</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\"><strong>Timestamp:</strong></td>\n      <td style=\"padding: 10px; border-bottom: 1px solid #e2e8f0;\">{{ $json.timestamp }}</td>\n    </tr>\n  </table>\n  \n  <h3>Message:</h3>\n  <div style=\"background: #f1f5f9; padding: 15px; border-radius: 8px;\">\n    {{ $json.message || 'No message' }}\n  </div>\n</div>",
+        "options": {
+          "fromName": "NexOperandi Leads"
+        }
+      },
+      "id": "notify-owner-contact",
+      "name": "Notify Owner (Contact)",
+      "type": "n8n-nodes-base.resend",
+      "typeVersion": 1,
+      "position": [900, 500],
+      "credentials": {
+        "resendApi": {
+          "id": "RESEND_CREDENTIAL_ID",
+          "name": "Resend API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route by Source",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Source": {
+      "main": [
+        [
+          {
+            "node": "Send Quiz Roadmap",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Checklist",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Owner (Contact)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Quiz Roadmap": {
+      "main": [
+        [
+          {
+            "node": "Notify Owner (Quiz)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Checklist": {
+      "main": [
+        [
+          {
+            "node": "Notify Owner (Exit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "pinData": {}
+}
