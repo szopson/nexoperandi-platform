@@ -66,7 +66,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
                 <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
-                {t.pricing?.packages?.conversionCore?.setupNote || '+ One-time Setup Fee'}
+                {t.pricing?.packages?.conversionCore?.setupNote || '+ One-time Setup Fee • Cancel anytime'}
               </p>
             </div>
 
@@ -126,7 +126,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
                 <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
-                {t.pricing?.packages?.visibilityEngine?.setupNote || '+ One-time Setup Fee'}
+                {t.pricing?.packages?.visibilityEngine?.setupNote || '+ One-time Setup Fee • Cancel anytime'}
               </p>
             </div>
 
