@@ -85,7 +85,8 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} antialiased bg-[#020617] text-slate-300 overflow-x-hidden selection:bg-cyan-500/30`} suppressHydrationWarning>
-        <UnicornBackground />
+        {/* UnicornBackground disabled temporarily - may revisit later */}
+        {/* <UnicornBackground /> */}
         <VisitorTracking />
         {children}
         <ChatBotToggle />
