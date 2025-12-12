@@ -25,9 +25,8 @@ export default function HeroBackground() {
   }, []);
 
   // Defer canvas initialization to after page is interactive (improves LCP)
-  // Skip on mobile for better performance
   useEffect(() => {
-    if (prefersReducedMotion || isMobile) return;
+    if (prefersReducedMotion) return;
 
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let idleId: number | undefined;
@@ -51,11 +50,11 @@ export default function HeroBackground() {
         clearTimeout(timeoutId);
       }
     };
-  }, [prefersReducedMotion, isMobile]);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
-    // Skip canvas animation if reduced motion is preferred, canvas not ready, or mobile
-    if (prefersReducedMotion || !canvasReady || isMobile) return;
+    // Skip canvas animation if reduced motion is preferred or canvas not ready
+    if (prefersReducedMotion || !canvasReady) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -327,8 +326,8 @@ export default function HeroBackground() {
 
   return (
     <>
-      {/* Canvas for particle animation - only render on desktop if motion allowed */}
-      {!prefersReducedMotion && !isMobile && (
+      {/* Canvas for particle animation */}
+      {!prefersReducedMotion && (
         <canvas
           ref={canvasRef}
           className="absolute inset-0 z-0 pointer-events-none"
