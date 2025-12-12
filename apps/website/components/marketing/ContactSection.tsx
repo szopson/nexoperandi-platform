@@ -8,16 +8,16 @@ type PlanKey = 'conversionCore' | 'visibilityEngine' | 'growthEcosystem' | 'cust
 
 const packageNames: Record<PlanKey, { en: string; pl: string }> = {
   conversionCore: {
-    en: 'The Conversion Core ($147/mo)',
-    pl: 'Conversion Core ($147/mies.)',
+    en: 'The Conversion Core ($197/mo)',
+    pl: 'Conversion Core (790 zł/mies.)',
   },
   visibilityEngine: {
-    en: 'The Visibility Engine ($497/mo)',
-    pl: 'Visibility Engine ($497/mies.)',
+    en: 'The Visibility Engine ($597/mo)',
+    pl: 'Visibility Engine (2390 zł/mies.)',
   },
   growthEcosystem: {
-    en: 'The Growth Ecosystem ($697/mo)',
-    pl: 'Growth Ecosystem ($697/mies.)',
+    en: 'The Growth Ecosystem ($747/mo)',
+    pl: 'Growth Ecosystem (2990 zł/mies.)',
   },
   custom: {
     en: 'Custom Solution',

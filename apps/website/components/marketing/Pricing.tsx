@@ -62,7 +62,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             {/* Pricing Block */}
             <div className="mb-8">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '550 zł' : '$147'}</span>
+                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '790 zł' : '$197'}</span>
                 <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
@@ -122,11 +122,11 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             {/* Pricing Block */}
             <div className="mb-8">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '1900 zł' : '$497'}</span>
+                <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '2390 zł' : '$597'}</span>
                 <span className="text-base font-medium text-slate-500">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
               </div>
               <p className="text-xs font-medium text-slate-500 mt-2">
-                {t.pricing?.packages?.visibilityEngine?.setupNote || 'No Setup Fee • Cancel anytime'}
+                {t.pricing?.packages?.visibilityEngine?.setupNote || '+ One-time Setup Fee'}
               </p>
             </div>
 
@@ -189,7 +189,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             <div className="mb-8">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '2650 zł' : '$697'}</span>
+                  <span className="text-4xl font-bold text-white tracking-tight">{lang === 'pl' ? '2990 zł' : '$747'}</span>
                   <span className="text-base font-medium text-blue-200/60">{lang === 'pl' ? '/ mies.' : '/ mo'}</span>
                 </div>
                 <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 tracking-wide uppercase">
