@@ -185,7 +185,7 @@ export const translations = {
           name: 'The Conversion Core',
           category: 'For Operations & Support',
           description: 'Turn your traffic into revenue. We automate the boring stuff so you never miss a lead again.',
-          setupNote: '+ One-time Setup Fee',
+          setupNote: '+ One-time Setup Fee • Cancel anytime',
           features: [
             '24/7 AI Receptionist',
             'Instant Lead Qualification',
@@ -198,7 +198,7 @@ export const translations = {
           name: 'The Visibility Engine',
           category: 'For Content & Outreach',
           description: 'Be everywhere, all at once. An automated content machine that keeps your brand top-of-mind.',
-          setupNote: 'No Setup Fee • Cancel anytime',
+          setupNote: '+ One-time Setup Fee • Cancel anytime',
           features: [
             'SEO Blog Autopilot',
             'Newsletter System',
@@ -636,7 +636,7 @@ export const translations = {
           name: 'Conversion Core',
           category: 'Dla operacji i wsparcia',
           description: 'Zamień ruch na przychody. Automatyzujemy nudne rzeczy, żebyś nigdy nie przegapił leada.',
-          setupNote: '+ Jednorazowa opłata za setup',
+          setupNote: '+ Jednorazowa opłata za setup • Anuluj kiedy chcesz',
           features: [
             'Recepcjonista AI 24/7',
             'Natychmiastowa kwalifikacja leadów',
@@ -649,7 +649,7 @@ export const translations = {
           name: 'Visibility Engine',
           category: 'Dla contentu i outreach',
           description: 'Bądź wszędzie naraz. Zautomatyzowana maszyna contentowa, która utrzymuje Twoją markę w świadomości odbiorców.',
-          setupNote: 'Bez opłaty za setup • Możesz anulować w dowolnym momencie',
+          setupNote: '+ Jednorazowa opłata za setup • Anuluj kiedy chcesz',
           features: [
             'SEO Blog Autopilot',
             'System newsletterów',
