@@ -42,6 +42,18 @@ export const translations = {
         implementationLabel: 'implementation',
       },
     },
+    // Founders Section
+    founders: {
+      label: 'About Us',
+      headline: 'Built by engineers. Driven by real-world experience.',
+      paragraph1: 'Founded by a husband-and-wife engineering team, we bring over 15 years of combined experience delivering complex IT systems in demanding, real-world environments.',
+      paragraph2: 'Our work spans banking and financial platforms, cryptocurrency infrastructure, large-scale IT system integration, and software supporting autonomous driving systems — helping companies optimize processes, integrate systems, and improve operational efficiency and profitability.',
+      paragraph3: 'Today, AI is our long-term passion, combined with strong engineering discipline. We build reliable, scalable, and cost-efficient AI automation designed to grow with the business — not break under it.',
+      paragraph4: 'We work as a founder-led team, supported by a trusted network of experienced engineers and specialists, allowing us to scale expertise when projects demand it.',
+      cta: "Let's talk about your system",
+      ctaSubtext: 'A short, no-obligation conversation.',
+      imageAlt: 'Founders of NexOperandi',
+    },
     // Bold Statement
     boldStatement: {
       line1: "We don't sell AI.",
@@ -163,7 +175,7 @@ export const translations = {
       competencies: {
         engineering: {
           title: 'Engineering Core',
-          description: 'Military-grade stability. We build self-healing systems prepared for massive scale.',
+          description: 'Guaranteed stability. We build self-healing systems that scale with your business—no constant oversight required.',
         },
         creative: {
           title: 'Creative Studio',
@@ -226,7 +238,37 @@ export const translations = {
       customSection: {
         title: "Needs are more complex? Let's build Custom.",
         description: 'We build custom AI architectures for enterprise workflows, internal training bots, and proprietary data security.',
-        cta: 'Book Architecture Audit',
+        cta: 'Book Free Architecture Call',
+        ctaSubtext: '30-minute exploratory call. No report, no commitment.',
+        auditLink: 'Need a full assessment with a report?',
+        auditLinkText: 'AI Automation Audit',
+      },
+      auditSection: {
+        badge: 'Step 0 — Decide what\'s worth building',
+        title: 'AI Automation Audit',
+        description: 'For teams that know AI could help, but need a clear, implementation-ready plan: what to automate, how to build it, and what it will cost.',
+        features: [
+          'Process & workflow analysis',
+          'Prioritized automation opportunities',
+          'Technical architecture proposal',
+          'Cost & ROI breakdown',
+          'Implementation roadmap',
+        ],
+        freeCallLink: 'Prefer a quick discussion?',
+        freeCallLinkText: 'Book a free architecture call',
+        cardTitle: 'AI Automation Audit',
+        oneTime: 'one-time',
+        creditBadge: '$1000 credited toward implementation',
+        cardDescription: 'You get a clear decision pack: what to build, what to skip, realistic costs, and a phased plan.',
+        cta: 'Start with an Audit',
+        typicalCost: 'Typical implementations: $2,000–$5,000 one-time',
+        deliverablesTitle: 'Deliverables',
+        deliverablesDescription: 'Report (PDF), opportunity backlog, architecture proposal, cost model, implementation roadmap, and a walkthrough call.',
+        helperTitle: 'Which one should I choose?',
+        helperPlan: '→ Want a plan + costs + report?',
+        helperPlanAnswer: 'AI Audit',
+        helperDirection: '→ Want quick direction?',
+        helperDirectionAnswer: 'Free call',
       },
     },
     // Contact Section
@@ -239,6 +281,16 @@ export const translations = {
       preferToTalk: 'Prefer to talk?',
       bookCall: 'Book a free 20-min call →',
       consultation: 'Free consultation • No commitment • See exactly how we can help',
+      serviceHeadings: {
+        'ai-audit': 'AI Automation Audit',
+        'free-architecture-call': 'Free Architecture Call',
+        default: 'Work With Us',
+      },
+      serviceSubheadings: {
+        'ai-audit': 'Full process assessment + implementation-ready roadmap + cost breakdown.',
+        'free-architecture-call': '30-minute exploratory call to help you choose the right direction.',
+        default: 'Tell us about your project and how we can help.',
+      },
       form: {
         name: 'What is your name?',
         namePlaceholder: 'Your full name',
@@ -493,6 +545,18 @@ export const translations = {
         implementationLabel: 'realizacja',
       },
     },
+    // Founders Section
+    founders: {
+      label: 'O nas',
+      headline: 'Zbudowane przez inżynierów. Napędzane doświadczeniem.',
+      paragraph1: 'Założone przez małżeński zespół inżynierów, wnosimy ponad 15 lat łącznego doświadczenia w dostarczaniu złożonych systemów IT w wymagających, rzeczywistych środowiskach.',
+      paragraph2: 'Nasza praca obejmuje platformy bankowe i finansowe, infrastrukturę kryptowalutową, integrację systemów IT na dużą skalę oraz oprogramowanie wspierające systemy jazdy autonomicznej — pomagając firmom optymalizować procesy, integrować systemy i poprawiać efektywność operacyjną oraz rentowność.',
+      paragraph3: 'Dziś AI to nasza długoterminowa pasja, połączona z silną dyscypliną inżynierską. Budujemy niezawodną, skalowalną i kosztowo efektywną automatyzację AI zaprojektowaną tak, by rosła razem z biznesem — nie łamała się pod jego ciężarem.',
+      paragraph4: 'Działamy jako zespół prowadzony przez założycieli, wspierany przez zaufaną sieć doświadczonych inżynierów i specjalistów, co pozwala nam skalować ekspertyzę, gdy projekty tego wymagają.',
+      cta: 'Porozmawiajmy o Twoim systemie',
+      ctaSubtext: 'Krótka rozmowa, bez zobowiązań.',
+      imageAlt: 'Założyciele NexOperandi',
+    },
     // Bold Statement
     boldStatement: {
       line1: 'Nie sprzedajemy AI.',
@@ -614,7 +678,7 @@ export const translations = {
       competencies: {
         engineering: {
           title: 'Rdzeń inżynieryjny',
-          description: 'Niezawodność na poziomie militarnym. Budujemy samonaprawiające się systemy gotowe na masową skalę.',
+          description: 'Gwarancja stabilności. Budujemy systemy, które same naprawiają błędy i rosną razem z Twoją firmą, bez potrzeby ciągłego nadzoru.',
         },
         creative: {
           title: 'Studio kreatywne',
@@ -677,7 +741,37 @@ export const translations = {
       customSection: {
         title: 'Potrzebujesz czegoś bardziej złożonego? Zbudujmy rozwiązanie na miarę.',
         description: 'Budujemy niestandardowe architektury AI dla workflow przedsiębiorstw, wewnętrznych botów szkoleniowych i rozwiązań z zastrzeżonym bezpieczeństwem danych.',
-        cta: 'Umów audyt architektury',
+        cta: 'Umów bezpłatną rozmowę',
+        ctaSubtext: '30-minutowa rozmowa eksploracyjna. Bez raportu, bez zobowiązań.',
+        auditLink: 'Potrzebujesz pełnej oceny z raportem?',
+        auditLinkText: 'Audyt Automatyzacji AI',
+      },
+      auditSection: {
+        badge: 'Krok 0 — Zdecyduj co warto zbudować',
+        title: 'Audyt Automatyzacji AI',
+        description: 'Dla zespołów, które wiedzą że AI może pomóc, ale potrzebują jasnego planu gotowego do wdrożenia: co zautomatyzować, jak to zbudować i ile to będzie kosztować.',
+        features: [
+          'Analiza procesów i workflow',
+          'Priorytetyzowane możliwości automatyzacji',
+          'Propozycja architektury technicznej',
+          'Analiza kosztów i ROI',
+          'Plan wdrożenia',
+        ],
+        freeCallLink: 'Wolisz szybką rozmowę?',
+        freeCallLinkText: 'Umów bezpłatną rozmowę',
+        cardTitle: 'Audyt Automatyzacji AI',
+        oneTime: 'jednorazowo',
+        creditBadge: '3690 zł zaliczane na wdrożenie',
+        cardDescription: 'Otrzymujesz jasny pakiet decyzyjny: co zbudować, co pominąć, realistyczne koszty i plan etapowy.',
+        cta: 'Zacznij od audytu',
+        typicalCost: 'Typowe wdrożenia: 8 000–20 000 zł jednorazowo',
+        deliverablesTitle: 'Co otrzymujesz',
+        deliverablesDescription: 'Raport (PDF), backlog możliwości, propozycja architektury, model kosztów, plan wdrożenia i rozmowa omawiająca.',
+        helperTitle: 'Który wybrać?',
+        helperPlan: '→ Chcesz plan + koszty + raport?',
+        helperPlanAnswer: 'Audyt AI',
+        helperDirection: '→ Chcesz szybkie kierunki?',
+        helperDirectionAnswer: 'Bezpłatna rozmowa',
       },
     },
     // Contact Section
@@ -690,6 +784,16 @@ export const translations = {
       preferToTalk: 'Wolisz porozmawiać?',
       bookCall: 'Umów bezpłatną 20-min rozmowę →',
       consultation: 'Bezpłatna konsultacja • Bez zobowiązań • Zobacz dokładnie, jak możemy pomóc',
+      serviceHeadings: {
+        'ai-audit': 'Audyt Automatyzacji AI',
+        'free-architecture-call': 'Bezpłatna rozmowa o architekturze',
+        default: 'Współpracuj z nami',
+      },
+      serviceSubheadings: {
+        'ai-audit': 'Pełna ocena procesów + plan wdrożenia + analiza kosztów.',
+        'free-architecture-call': '30-minutowa rozmowa eksploracyjna, która pomoże Ci wybrać właściwy kierunek.',
+        default: 'Opowiedz nam o swoim projekcie i jak możemy pomóc.',
+      },
       form: {
         name: 'Jak masz na imię?',
         namePlaceholder: 'Twoje imię i nazwisko',
