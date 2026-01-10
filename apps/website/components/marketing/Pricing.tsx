@@ -266,7 +266,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
 
           <div className="relative z-10 flex-shrink-0 text-center">
             <Link
-              href="/contact?service=free-architecture-call"
+              href={lang === 'pl' ? '/pl/contact?service=free-architecture-call' : '/contact?service=free-architecture-call'}
               className="px-8 py-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 transition-all hover:border-slate-500 inline-block"
             >
               {t.pricing?.customSection?.cta || 'Book Free Architecture Call'}
@@ -277,7 +277,7 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             <p className="mt-3 text-xs text-slate-500">
               {t.pricing?.customSection?.auditLink || 'Need a full assessment with a report?'}{" "}
               <Link
-                href="/contact?service=ai-audit"
+                href={lang === 'pl' ? '/pl/contact?service=ai-audit' : '/contact?service=ai-audit'}
                 className="text-slate-300 underline underline-offset-4 hover:text-white transition-colors"
               >
                 {t.pricing?.customSection?.auditLinkText || 'AI Automation Audit'} →
