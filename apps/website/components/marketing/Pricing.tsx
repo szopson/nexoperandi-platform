@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { getTranslations, type Lang } from "@/lib/translations";
+import AIAutomationAuditSection from "./AIAutomationAuditSection";
 // CalendlyButton removed - now using contact form pre-fill
 
 type PlanKey = 'conversionCore' | 'visibilityEngine' | 'growthEcosystem' | 'custom';
@@ -245,8 +247,11 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
           </div>
         </div>
 
-        {/* Tailored Section */}
-        <div className="mt-20 rounded-2xl bg-gradient-to-r from-[#0B1120] to-[#0f172a] border border-slate-800 p-6 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
+        {/* AI Automation Audit Section */}
+        <AIAutomationAuditSection lang={lang} />
+
+        {/* Custom / Free Architecture Call Section */}
+        <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#0B1120] to-[#0f172a] border border-slate-800 p-6 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
           {/* Decorative glow - hidden on mobile to prevent overflow */}
           <div className="hidden sm:block absolute -right-20 -top-20 w-64 h-64 bg-slate-700/20 rounded-full blur-3xl group-hover:bg-slate-600/20 transition-colors" />
 
@@ -259,13 +264,25 @@ export default function Pricing({ lang = 'en' }: PricingProps) {
             </p>
           </div>
 
-          <div className="relative z-10 flex-shrink-0">
-            <button
-              onClick={() => scrollToContactWithPlan('custom')}
+          <div className="relative z-10 flex-shrink-0 text-center">
+            <Link
+              href="/contact?service=free-architecture-call"
               className="px-8 py-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 transition-all hover:border-slate-500 inline-block"
             >
-              {t.pricing?.customSection?.cta || 'Book Architecture Audit'}
-            </button>
+              {t.pricing?.customSection?.cta || 'Book Free Architecture Call'}
+            </Link>
+            <p className="mt-3 text-xs text-slate-500">
+              {t.pricing?.customSection?.ctaSubtext || '30-minute exploratory call. No report, no commitment.'}
+            </p>
+            <p className="mt-3 text-xs text-slate-500">
+              {t.pricing?.customSection?.auditLink || 'Need a full assessment with a report?'}{" "}
+              <Link
+                href="/contact?service=ai-audit"
+                className="text-slate-300 underline underline-offset-4 hover:text-white transition-colors"
+              >
+                {t.pricing?.customSection?.auditLinkText || 'AI Automation Audit'} →
+              </Link>
+            </p>
           </div>
         </div>
 

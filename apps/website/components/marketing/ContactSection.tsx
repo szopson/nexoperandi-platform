@@ -5,6 +5,7 @@ import CalendlyButton from "@/components/CalendlyButton";
 import { getTranslations, type Lang } from "@/lib/translations";
 
 type PlanKey = 'conversionCore' | 'visibilityEngine' | 'growthEcosystem' | 'custom';
+type ServiceKey = 'ai-audit' | 'free-architecture-call' | '';
 
 const packageNames: Record<PlanKey, { en: string; pl: string }> = {
   conversionCore: {
@@ -25,6 +26,21 @@ const packageNames: Record<PlanKey, { en: string; pl: string }> = {
   },
 };
 
+const serviceMessages: Record<ServiceKey, { en: string; pl: string }> = {
+  'ai-audit': {
+    en: "I'm interested in the AI Automation Audit ($1000).\n\nPlease reach out to schedule the kickoff.",
+    pl: "Interesuje mnie Audyt Automatyzacji AI (3690 zł).\n\nProszę o kontakt w celu umówienia spotkania.",
+  },
+  'free-architecture-call': {
+    en: "I'd like to book a free 30-minute architecture call.\n\nHere's what I'd like to discuss:",
+    pl: "Chciałbym umówić bezpłatną 30-minutową rozmowę o architekturze.\n\nOto co chciałbym omówić:",
+  },
+  '': {
+    en: '',
+    pl: '',
+  },
+};
+
 interface ContactSectionProps {
   lang?: Lang;
 }
@@ -35,10 +51,23 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [prefillMessage, setPrefillMessage] = useState('');
+  const [currentService, setCurrentService] = useState<ServiceKey>('');
   const formRef = useRef<HTMLFormElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  // Pre-fill message when plan is selected from pricing
+  // Get dynamic title based on service
+  const serviceHeadings = t.contact?.serviceHeadings as Record<string, string> | undefined;
+  const serviceSubheadings = t.contact?.serviceSubheadings as Record<string, string> | undefined;
+
+  const contactTitle = currentService && serviceHeadings?.[currentService]
+    ? serviceHeadings[currentService]
+    : t.contact.title;
+
+  const contactSubheading = currentService && serviceSubheadings?.[currentService]
+    ? serviceSubheadings[currentService]
+    : serviceSubheadings?.default || '';
+
+  // Pre-fill message when plan is selected from pricing or service param is present
   useEffect(() => {
     const handlePlanSelected = (e: CustomEvent<{ plan: PlanKey }>) => {
       const plan = e.detail.plan;
@@ -48,6 +77,7 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
           ? `Interesuje mnie pakiet ${packageName}.\n\n`
           : `I'm interested in the ${packageName} package.\n\n`;
         setPrefillMessage(prefix);
+        setCurrentService('');
 
         // Focus on message field after a short delay
         setTimeout(() => {
@@ -56,20 +86,40 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
       }
     };
 
-    // Check URL param on mount
+    // Check URL params on mount
     const params = new URLSearchParams(window.location.search);
-    const plan = params.get('plan') as PlanKey | null;
-    if (plan && packageNames[plan]) {
-      const packageName = packageNames[plan][lang];
-      const prefix = lang === 'pl'
-        ? `Interesuje mnie pakiet ${packageName}.\n\n`
-        : `I'm interested in the ${packageName} package.\n\n`;
-      setPrefillMessage(prefix);
+
+    // Check for service param first (audit or free call)
+    const service = params.get('service') as ServiceKey | null;
+    if (service && serviceMessages[service]) {
+      const message = serviceMessages[service][lang];
+      setPrefillMessage(message);
+      setCurrentService(service);
 
       // Clear the param after reading
       const url = new URL(window.location.href);
-      url.searchParams.delete('plan');
+      url.searchParams.delete('service');
       window.history.replaceState({}, '', url);
+
+      // Focus on message field after a short delay
+      setTimeout(() => {
+        messageRef.current?.focus();
+      }, 100);
+    } else {
+      // Check for plan param (from pricing cards)
+      const plan = params.get('plan') as PlanKey | null;
+      if (plan && packageNames[plan]) {
+        const packageName = packageNames[plan][lang];
+        const prefix = lang === 'pl'
+          ? `Interesuje mnie pakiet ${packageName}.\n\n`
+          : `I'm interested in the ${packageName} package.\n\n`;
+        setPrefillMessage(prefix);
+
+        // Clear the param after reading
+        const url = new URL(window.location.href);
+        url.searchParams.delete('plan');
+        window.history.replaceState({}, '', url);
+      }
     }
 
     // Listen for plan selection events
@@ -131,8 +181,13 @@ export default function ContactSection({ lang = 'en' }: ContactSectionProps) {
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
-              {t.contact.title}
+              {contactTitle}
             </h2>
+            {contactSubheading && (
+              <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
+                {contactSubheading}
+              </p>
+            )}
           </div>
 
           {/* 2-column layout */}
