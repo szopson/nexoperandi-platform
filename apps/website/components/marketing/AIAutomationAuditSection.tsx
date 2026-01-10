@@ -48,7 +48,7 @@ export default function AIAutomationAuditSection({ lang = 'en', className = "" }
             <p className="mt-6 text-sm text-slate-500">
               {audit?.freeCallLink || 'Prefer a quick discussion?'}{" "}
               <Link
-                href="/contact?service=free-architecture-call"
+                href={lang === 'pl' ? '/pl/contact?service=free-architecture-call' : '/contact?service=free-architecture-call'}
                 className="text-slate-300 underline underline-offset-4 hover:text-white transition-colors"
               >
                 {audit?.freeCallLinkText || 'Book a free architecture call'} →
@@ -74,7 +74,7 @@ export default function AIAutomationAuditSection({ lang = 'en', className = "" }
               </div>
 
               <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 whitespace-nowrap">
-                {audit?.creditBadge || (lang === 'pl' ? '4000 zł zaliczane na wdrożenie' : '$1000 credited toward implementation')}
+                {audit?.creditBadge || (lang === 'pl' ? '3690 zł zaliczane na wdrożenie' : '$1000 credited toward implementation')}
               </span>
             </div>
 
@@ -84,7 +84,7 @@ export default function AIAutomationAuditSection({ lang = 'en', className = "" }
 
             <div className="mt-6">
               <Link
-                href="/contact?service=ai-audit"
+                href={lang === 'pl' ? '/pl/contact?service=ai-audit' : '/contact?service=ai-audit'}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-3.5 text-sm font-semibold text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
               >
                 {audit?.cta || 'Start with an Audit'}
