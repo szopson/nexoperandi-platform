@@ -16,6 +16,22 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
+  // Redirects: old routes → new routes
+  async redirects() {
+    return [
+      {
+        source: '/demos',
+        destination: '/demo',
+        permanent: true,
+      },
+      {
+        source: '/pl/demos',
+        destination: '/pl/demo',
+        permanent: true,
+      },
+    ];
+  },
+
   // Security headers
   async headers() {
     return [

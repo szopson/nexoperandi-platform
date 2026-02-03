@@ -1,154 +1,196 @@
 import Link from "next/link";
+import { getTranslations } from "@/lib/translations";
+
+const videoDeoms = [
+  {
+    id: "lead-to-proposal",
+    youtubeId: "vHOyG3RncXk",
+    translationKey: "leadToProposal" as const,
+  },
+];
 
 const agents = [
   {
     id: "customer-service",
-    name: "AI Customer Service Agent",
-    description: "24/7 autonomous support with 70-90% inquiry resolution",
-    roi: "$3.50 return per $1 invested",
-    features: [
-      "Multi-language support (50+ languages)",
-      "Sentiment analysis & escalation",
-      "Omnichannel deployment",
-      "Smart handoff to humans",
-    ],
-    status: "coming-soon", // Will be "live" once workflow is integrated
+    translationKey: "customerService" as const,
+    status: "coming-soon",
   },
   {
     id: "lead-generation",
-    name: "B2B Lead Generation Agent",
-    description: "7x improvement in conversion rates with hyper-personalization",
-    roi: "40-60% lead quality improvement",
-    features: [
-      "175M+ B2B contacts database",
-      "3,000+ buying signals tracked",
-      "Predictive lead scoring",
-      "Multi-channel outreach",
-    ],
+    translationKey: "leadGeneration" as const,
     status: "coming-soon",
   },
   {
     id: "meeting-scheduler",
-    name: "Meeting Scheduler Agent",
-    description: "Saves 11+ hours per week per sales rep",
-    roi: "30-40% rep productivity increase",
-    features: [
-      "Intelligent scheduling",
-      "Automated follow-ups",
-      "Meeting preparation",
-      "Post-meeting summaries",
-    ],
+    translationKey: "meetingScheduler" as const,
     status: "coming-soon",
   },
   {
     id: "document-generator",
-    name: "Document Generator Agent",
-    description: "80% reduction in proposal creation time",
-    roi: "15-25% win rate improvement",
-    features: [
-      "Template intelligence",
-      "Dynamic pricing automation",
-      "Compliance checking",
-      "Multi-format export",
-    ],
+    translationKey: "documentGenerator" as const,
     status: "coming-soon",
   },
   {
     id: "visitor-intelligence",
-    name: "Visitor Intelligence Agent",
-    description: "3-5x more visitors to qualified leads",
-    roi: "40-60% engagement rate increase",
-    features: [
-      "Visitor identification",
-      "Behavioral analytics",
-      "Triggered engagement",
-      "Intent prediction",
-    ],
+    translationKey: "visitorIntelligence" as const,
     status: "coming-soon",
   },
 ];
 
 export default function DemosPage() {
+  const t = getTranslations("en");
+
   return (
-    <div className="py-16">
+    <div className="min-h-screen bg-black pt-24 pb-16">
       {/* Header */}
-      <div className="container mx-auto px-6 text-center mb-16">
-        <h1 className="text-5xl font-bold mb-4">Live AI Agent Demos</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Experience our AI automation agents in action. Each demo uses real workflows
-          powered by n8n and advanced AI models.
+      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+          {t.demos.title}
+        </h1>
+        <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+          {t.demos.subtitle}
         </p>
       </div>
 
-      {/* Agent Grid */}
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {agents.map((agent) => (
-            <div
-              key={agent.id}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-            >
-              {/* Status Badge */}
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                    agent.status === "live"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {agent.status === "live" ? "Live Demo" : "Coming Soon"}
-                </span>
+      {/* Video Demos Section */}
+      <div className="max-w-7xl mx-auto px-6 mb-20">
+        <div className="mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            {t.demos.videoDemos.title}
+          </h2>
+          <p className="text-slate-400">
+            {t.demos.videoDemos.subtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {videoDeoms.map((video) => {
+            const videoT = t.demos.videos[video.translationKey];
+            return (
+              <div
+                key={video.id}
+                className="bg-gray-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all"
+              >
+                {/* YouTube Embed */}
+                <div className="aspect-video">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                    title={videoT.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+                {/* Video Info */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
+                      {t.demos.liveDemo}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {videoT.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm">
+                    {videoT.description}
+                  </p>
+                </div>
               </div>
+            );
+          })}
+        </div>
+      </div>
 
-              <h3 className="text-2xl font-bold mb-2">{agent.name}</h3>
-              <p className="text-gray-600 mb-4">{agent.description}</p>
+      {/* Divider */}
+      <div className="max-w-7xl mx-auto px-6 mb-16">
+        <div className="border-t border-white/10" />
+      </div>
 
-              <div className="bg-blue-50 rounded-md p-3 mb-4">
-                <p className="text-sm font-semibold text-blue-900">ROI: {agent.roi}</p>
+      {/* Agent Demos Grid */}
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            Interactive Agent Demos
+          </h2>
+          <p className="text-slate-400">
+            Try our AI agents directly in your browser.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {agents.map((agent) => {
+            const agentT = t.demos.agents[agent.translationKey];
+            return (
+              <div
+                key={agent.id}
+                className="bg-gray-900/50 border border-white/10 rounded-2xl p-6 hover:border-blue-500/30 transition-all"
+              >
+                {/* Status Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                      agent.status === "live"
+                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                        : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                    }`}
+                  >
+                    {agent.status === "live" ? t.demos.liveDemo : t.demos.comingSoon}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white mb-2">{agentT.name}</h3>
+                <p className="text-slate-400 text-sm mb-4">{agentT.description}</p>
+
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-4">
+                  <p className="text-sm font-semibold text-blue-400">
+                    {t.demos.roi}: {agentT.roi}
+                  </p>
+                </div>
+
+                <ul className="space-y-2 mb-6">
+                  {agentT.features.map((feature, index) => (
+                    <li key={index} className="text-sm text-slate-300 flex items-start">
+                      <span className="text-blue-400 mr-2">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {agent.status === "live" ? (
+                  <Link
+                    href={`/demos/${agent.id}`}
+                    className="block w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-500 transition"
+                  >
+                    {t.demos.tryDemo}
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="block w-full text-center bg-white/5 text-slate-500 font-semibold py-3 rounded-lg border border-white/10 cursor-not-allowed"
+                  >
+                    {t.demos.comingSoon}
+                  </button>
+                )}
               </div>
-
-              <ul className="space-y-2 mb-6">
-                {agent.features.map((feature, index) => (
-                  <li key={index} className="text-sm text-gray-700 flex items-start">
-                    <span className="text-blue-600 mr-2">✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {agent.status === "live" ? (
-                <Link
-                  href={`/demos/${agent.id}`}
-                  className="block w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition"
-                >
-                  Try Demo
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="block w-full text-center bg-gray-200 text-gray-500 font-semibold py-3 rounded-md cursor-not-allowed"
-                >
-                  Coming Soon
-                </button>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="container mx-auto px-6 mt-16">
-        <div className="bg-black text-white rounded-lg p-12 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Deploy These Agents?</h2>
-          <p className="text-xl mb-8 text-gray-300">
-            Get started with a free consultation and ROI analysis.
+      <div className="max-w-7xl mx-auto px-6 mt-20">
+        <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/10 rounded-2xl p-12 text-center backdrop-blur-sm">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            {t.demos.ctaTitle}
+          </h2>
+          <p className="text-lg text-slate-300 mb-8">
+            {t.demos.ctaSubtitle}
           </p>
           <Link
             href="/#contact"
-            className="inline-block bg-white text-black font-semibold py-4 px-8 rounded-md hover:bg-gray-100 transition"
+            className="inline-block bg-white text-gray-900 font-semibold py-4 px-8 rounded-full hover:bg-gray-100 transition"
           >
-            Schedule Consultation
+            {t.demos.ctaButton}
           </Link>
         </div>
       </div>

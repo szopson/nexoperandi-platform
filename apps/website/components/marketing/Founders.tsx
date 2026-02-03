@@ -12,7 +12,7 @@ export default function Founders({ lang = 'en' }: FoundersProps) {
   const f = t.founders;
 
   return (
-    <section className="pt-32 pb-24 bg-[#020617] border-t border-slate-900/50 relative overflow-hidden">
+    <section className="pt-32 pb-24 bg-black border-t border-slate-900/50 relative overflow-hidden">
       {/* Subtle background glow */}
       <div className="absolute right-0 top-1/3 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
 

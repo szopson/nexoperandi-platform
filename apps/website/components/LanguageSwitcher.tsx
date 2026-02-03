@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { getLocalizedPath } from '@/lib/routes';
 
 interface LanguageSwitcherProps {
   isMobile?: boolean;
@@ -16,12 +17,10 @@ export function LanguageSwitcher({ isMobile = false }: LanguageSwitcherProps) {
     // Save cookie
     document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000`;
 
-    // Switch URL
-    if (lang === 'pl' && !isPolish) {
-      router.push(`/pl${pathname}`);
-    } else if (lang === 'en' && isPolish) {
-      const newPath = pathname.replace(/^\/pl/, '') || '/';
-      router.push(newPath);
+    // Use route map for localized slug switching
+    const targetPath = getLocalizedPath(pathname, lang);
+    if (targetPath !== pathname) {
+      router.push(targetPath);
     }
   };
 
@@ -33,7 +32,7 @@ export function LanguageSwitcher({ isMobile = false }: LanguageSwitcherProps) {
           onClick={() => switchLanguage('en')}
           className={`transition-colors ${
             !isPolish
-              ? 'font-semibold text-cyan-400'
+              ? 'font-semibold text-blue-400'
               : 'font-medium text-slate-400'
           }`}
           aria-label="Switch to English"
@@ -45,7 +44,7 @@ export function LanguageSwitcher({ isMobile = false }: LanguageSwitcherProps) {
           onClick={() => switchLanguage('pl')}
           className={`transition-colors ${
             isPolish
-              ? 'font-semibold text-cyan-400'
+              ? 'font-semibold text-blue-400'
               : 'font-medium text-slate-400'
           }`}
           aria-label="Przełącz na polski"
@@ -63,7 +62,7 @@ export function LanguageSwitcher({ isMobile = false }: LanguageSwitcherProps) {
         onClick={() => switchLanguage('en')}
         className={`px-2 py-1 rounded transition-colors ${
           !isPolish
-            ? 'font-semibold text-cyan-400'
+            ? 'font-semibold text-blue-400'
             : 'text-slate-400 hover:text-white'
         }`}
         aria-label="Switch to English"
@@ -75,7 +74,7 @@ export function LanguageSwitcher({ isMobile = false }: LanguageSwitcherProps) {
         onClick={() => switchLanguage('pl')}
         className={`px-2 py-1 rounded transition-colors ${
           isPolish
-            ? 'font-semibold text-cyan-400'
+            ? 'font-semibold text-blue-400'
             : 'text-slate-400 hover:text-white'
         }`}
         aria-label="Przełącz na polski"
