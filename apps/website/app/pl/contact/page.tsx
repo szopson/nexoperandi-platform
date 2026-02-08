@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PLContactPage() {
   return (
-    <div className="min-h-screen bg-[#020617]">
+    <div className="min-h-screen bg-black">
       <ContactSection lang="pl" />
     </div>
   );

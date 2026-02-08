@@ -3,6 +3,7 @@ import Footer from "@/components/marketing/Footer";
 import { ModalProvider } from "@/context/ModalContext";
 import QuizModal from "@/components/quiz/QuizModal";
 import ExitIntentPopup from "@/components/popup/ExitIntentPopup";
+import VideoModal from "@/components/marketing/VideoModal";
 
 export default function MarketingLayout({
   children,
@@ -16,6 +17,7 @@ export default function MarketingLayout({
       <Footer lang="en" />
       <QuizModal lang="en" />
       <ExitIntentPopup lang="en" />
+      <VideoModal />
     </ModalProvider>
   );
 }

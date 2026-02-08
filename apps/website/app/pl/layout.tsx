@@ -4,6 +4,7 @@ import Footer from "@/components/marketing/Footer";
 import { ModalProvider } from "@/context/ModalContext";
 import QuizModal from "@/components/quiz/QuizModal";
 import ExitIntentPopup from "@/components/popup/ExitIntentPopup";
+import VideoModal from "@/components/marketing/VideoModal";
 
 export const metadata: Metadata = {
   title: {
@@ -47,6 +48,7 @@ export default function PLMarketingLayout({
       <Footer lang="pl" />
       <QuizModal lang="pl" />
       <ExitIntentPopup lang="pl" />
+      <VideoModal />
     </ModalProvider>
   );
 }

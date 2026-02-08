@@ -1,36 +1,26 @@
 import dynamic from "next/dynamic";
-import Hero from "@/components/marketing/Hero";
+import HeroNew from "@/components/marketing/sections/HeroNew";
 
-// Lazy load below-fold sections to improve LCP
-const Founders = dynamic(() => import("@/components/marketing/Founders"), {
-  ssr: true,
-});
-const Pricing = dynamic(() => import("@/components/marketing/Pricing"), {
-  ssr: true,
-});
-const Architecture = dynamic(() => import("@/components/marketing/Architecture"), {
-  ssr: true,
-});
-const Results = dynamic(() => import("@/components/marketing/Results"), {
-  ssr: true,
-});
-const CTABanner = dynamic(() => import("@/components/marketing/CTABanner"), {
-  ssr: true,
-});
-const ContactSection = dynamic(() => import("@/components/marketing/ContactSection"), {
-  ssr: true,
-});
+// Lazy load below-fold sections for performance
+const Problem = dynamic(() => import("@/components/marketing/sections/Problem"), { ssr: true });
+const Solution = dynamic(() => import("@/components/marketing/sections/Solution"), { ssr: true });
+const DemoEmbed = dynamic(() => import("@/components/marketing/sections/DemoEmbed"), { ssr: true });
+const Founders = dynamic(() => import("@/components/marketing/Founders"), { ssr: true });
+const PricingOverview = dynamic(() => import("@/components/marketing/sections/PricingOverview"), { ssr: true });
+const FAQ = dynamic(() => import("@/components/marketing/sections/FAQ"), { ssr: true });
+const ContactSection = dynamic(() => import("@/components/marketing/ContactSection"), { ssr: true });
 
 export default function PLHomePage() {
   return (
     <>
-      <Hero lang="pl" />
-      <Results lang="pl" />        {/* Dowody */}
-      <Pricing lang="pl" />        {/* Usługi */}
-      <Architecture lang="pl" />   {/* Proces */}
-      <Founders lang="pl" />       {/* O nas */}
-      <CTABanner lang="pl" />      {/* CTA */}
-      <ContactSection lang="pl" /> {/* Kontakt */}
+      <HeroNew lang="pl" />
+      <Problem lang="pl" />
+      <Solution lang="pl" />
+      <DemoEmbed lang="pl" />
+      <Founders lang="pl" />
+      <PricingOverview lang="pl" />
+      <FAQ lang="pl" />
+      <ContactSection lang="pl" />
     </>
   );
 }

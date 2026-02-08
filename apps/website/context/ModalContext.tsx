@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 
-type ModalType = "quiz" | "exitIntent" | null;
+type ModalType = "quiz" | "exitIntent" | "demoVideo" | null;
 
 interface ModalContextType {
   activeModal: ModalType;
@@ -10,6 +10,8 @@ interface ModalContextType {
   closeQuiz: () => void;
   openExitIntent: () => void;
   closeExitIntent: () => void;
+  openDemoVideo: () => void;
+  closeDemoVideo: () => void;
   closeAll: () => void;
 }
 
@@ -45,6 +47,16 @@ export function ModalProvider({ children }: ModalProviderProps) {
     }
   }, [activeModal]);
 
+  const openDemoVideo = useCallback(() => {
+    setActiveModal("demoVideo");
+  }, []);
+
+  const closeDemoVideo = useCallback(() => {
+    if (activeModal === "demoVideo") {
+      setActiveModal(null);
+    }
+  }, [activeModal]);
+
   const closeAll = useCallback(() => {
     setActiveModal(null);
   }, []);
@@ -57,6 +69,8 @@ export function ModalProvider({ children }: ModalProviderProps) {
         closeQuiz,
         openExitIntent,
         closeExitIntent,
+        openDemoVideo,
+        closeDemoVideo,
         closeAll,
       }}
     >

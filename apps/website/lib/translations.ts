@@ -10,6 +10,7 @@ export const translations = {
       about: 'About Us',
       pricing: 'Pricing',
       contact: 'Contact',
+      demo: 'Demo',
     },
     // Hero
     hero: {
@@ -51,8 +52,22 @@ export const translations = {
       paragraph3: 'Today, AI is our long-term passion, combined with strong engineering discipline. We build reliable, scalable, and cost-efficient AI automation designed to grow with the business — not break under it.',
       paragraph4: 'We work as a founder-led team, supported by a trusted network of experienced engineers and specialists, allowing us to scale expertise when projects demand it.',
       cta: "Let's talk about your system",
-      ctaSubtext: 'A short, no-obligation conversation.',
+      ctaSubtext: 'Short call, no obligations.',
       imageAlt: 'Founders of NexOperandi',
+      differentiators: [
+        {
+          title: 'Everything in One Place',
+          description: 'AI works where you work — your calendar, email, and phone. No new software to learn, no changing habits.',
+        },
+        {
+          title: 'More Bookings, Less Work',
+          description: 'We focus on results: how many new appointments your assistant booked and hours saved. You get a clear weekly report.',
+        },
+        {
+          title: 'A to Z Care',
+          description: 'From first contact to appointment reminders. A system that grows with your business and never calls in sick.',
+        },
+      ],
     },
     // Bold Statement
     boldStatement: {
@@ -66,19 +81,19 @@ export const translations = {
       titleAccent: 'Measurable Scale.',
       subtitle: 'SaaS · Fintech · Professional Services',
       subtitleNew: "We don't just optimize. We transform operations.",
-      guaranteeLink: '90-day money-back guarantee →',
+      guaranteeLink: '',
       viewSample: 'View example project',
       scope: 'What we do',
       stack: 'Tools',
       timeToValue: 'Time to results',
       disclaimer: "Results based on our benchmarks and pilot projects. Actual impact depends on your data, processes, and team adoption. We define success metrics together and share progress dashboards.",
       guarantee: {
-        title: '90-day money-back guarantee',
-        description: "If we don't hit the target we agree on (e.g., -25% support cost or +15% sales leads), you don't pay for the pilot.",
+        title: '',
+        description: '',
         item1: 'Clear scope and full transparency',
         item2: 'Safety measures and rollback plan',
         item3: 'Weekly progress reports',
-        cta: 'See guarantee terms',
+        cta: '',
       },
       modal: {
         illustrative: 'Example (not actual client data)',
@@ -322,6 +337,16 @@ export const translations = {
       ctaTitle: 'Ready to Deploy These Agents?',
       ctaSubtitle: 'Get started with a free consultation and ROI analysis.',
       ctaButton: 'Schedule Consultation',
+      videoDemos: {
+        title: 'Watch Our Builds in Action',
+        subtitle: 'See real AI automation workflows we have built for our clients.',
+      },
+      videos: {
+        leadToProposal: {
+          title: 'From Lead to Proposal in 3 Minutes',
+          description: 'Full Voice AI Automation using n8n + VAPI. Watch how we built a complete lead qualification and proposal generation system that works 24/7.',
+        },
+      },
       agents: {
         customerService: {
           name: 'AI Customer Service Agent',
@@ -513,6 +538,7 @@ export const translations = {
       about: 'O nas',
       pricing: 'Cennik',
       contact: 'Kontakt',
+      demo: 'Demo',
     },
     // Hero
     hero: {
@@ -556,6 +582,20 @@ export const translations = {
       cta: 'Porozmawiajmy o Twoim systemie',
       ctaSubtext: 'Krótka rozmowa, bez zobowiązań.',
       imageAlt: 'Założyciele NexOperandi',
+      differentiators: [
+        {
+          title: 'Wszystko w jednym miejscu',
+          description: 'AI pracuje tam, gdzie Ty – w kalendarzu, mailu i telefonie. Bez nauki nowych programów i zmieniania nawyków.',
+        },
+        {
+          title: 'Więcej wizyt, mniej pracy',
+          description: 'Skupiamy się na efektach: ile nowych wizyt umówił asystent i ile godzin pracy zaoszczędziłeś. Co tydzień otrzymasz jasny raport.',
+        },
+        {
+          title: 'Opieka od A do Z',
+          description: 'Od pierwszego kontaktu po przypomnienie o wizycie. Budujemy system, który rośnie razem z Twoją firmą i nigdy nie choruje.',
+        },
+      ],
     },
     // Bold Statement
     boldStatement: {
@@ -569,19 +609,19 @@ export const translations = {
       titleAccent: 'Mierzalna skala.',
       subtitle: 'SaaS · Fintech · Usługi profesjonalne',
       subtitleNew: 'Nie tylko optymalizujemy. Transformujemy operacje.',
-      guaranteeLink: '90-dniowa gwarancja zwrotu →',
+      guaranteeLink: '',
       viewSample: 'Zobacz przykładowy projekt',
       scope: 'Co robimy',
       stack: 'Narzędzia',
       timeToValue: 'Czas do rezultatu',
       disclaimer: 'Podane liczby opierają się na naszych dotychczasowych projektach. Rzeczywisty efekt zależy m.in. od jakości danych i tego, jak dziś działa Twój proces. Na starcie wspólnie ustalamy jasne wskaźniki sukcesu i na bieżąco pokazujemy wyniki w przejrzystych raportach.',
       guarantee: {
-        title: '90-dniowa gwarancja zwrotu',
-        description: 'Jeśli w ciągu 90 dni nie osiągniemy wspólnie ustalonego wyniku (np. -25% kosztów obsługi lub +15% więcej szans sprzedażowych), nie płacisz za wdrożenie pilotażowe.',
+        title: '',
+        description: '',
         item1: 'Jasny zakres i pełna transparentność',
         item2: 'Zabezpieczenia i plan wycofania',
         item3: 'Cotygodniowe raporty postępu',
-        cta: 'Zobacz warunki gwarancji',
+        cta: '',
       },
       modal: {
         illustrative: 'Przykład (nie rzeczywiste dane klienta)',
@@ -825,6 +865,16 @@ export const translations = {
       ctaTitle: 'Gotowy wdrożyć tych agentów?',
       ctaSubtitle: 'Rozpocznij od bezpłatnej konsultacji i analizy ROI.',
       ctaButton: 'Umów konsultację',
+      videoDemos: {
+        title: 'Zobacz nasze realizacje w akcji',
+        subtitle: 'Obejrzyj prawdziwe workflow automatyzacji AI, które zbudowaliśmy dla naszych klientów.',
+      },
+      videos: {
+        leadToProposal: {
+          title: 'Od leada do oferty w 3 minuty',
+          description: 'Pełna automatyzacja głosowa AI z n8n + VAPI. Zobacz jak zbudowaliśmy kompletny system kwalifikacji leadów i generowania ofert działający 24/7.',
+        },
+      },
       agents: {
         customerService: {
           name: 'Agent obsługi klienta AI',

@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import VisitorTracking from "@/components/VisitorTracking";
 import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
 import UnicornBackground from "@/components/UnicornBackground";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-jakarta",
-  weight: ["400", "500", "600"],  // Reduced from 6 to 3 weights for performance
-  display: "swap",  // Prevent FOIT (Flash of Invisible Text)
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-jetbrains",
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -84,7 +86,7 @@ export default function RootLayout({
           />
         </noscript>
       </head>
-      <body className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} antialiased bg-[#020617] text-slate-300 overflow-x-hidden selection:bg-cyan-500/30`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-black text-slate-300 overflow-x-hidden selection:bg-blue-500/30`} suppressHydrationWarning>
         {/* UnicornBackground disabled temporarily - may revisit later */}
         {/* <UnicornBackground /> */}
         <VisitorTracking />
