@@ -52,20 +52,20 @@ export const translations = {
       paragraph3: 'Today, AI is our long-term passion, combined with strong engineering discipline. We build reliable, scalable, and cost-efficient AI automation designed to grow with the business — not break under it.',
       paragraph4: 'We work as a founder-led team, supported by a trusted network of experienced engineers and specialists, allowing us to scale expertise when projects demand it.',
       cta: "Let's talk about your system",
-      ctaSubtext: 'A short, no-obligation conversation.',
+      ctaSubtext: 'Short call, no obligations.',
       imageAlt: 'Founders of NexOperandi',
       differentiators: [
         {
           title: 'Everything in One Place',
-          description: 'AI works where you work — your calendar and phone. No new software to learn.',
+          description: 'AI works where you work — your calendar, email, and phone. No new software to learn, no changing habits.',
         },
         {
           title: 'More Bookings, Less Work',
-          description: 'We focus on results: new appointments booked and time saved. Weekly reports included.',
+          description: 'We focus on results: how many new appointments your assistant booked and hours saved. You get a clear weekly report.',
         },
         {
-          title: 'A to Z Support',
-          description: 'From first contact to appointment reminders. A system that grows with you and never calls in sick.',
+          title: 'A to Z Care',
+          description: 'From first contact to appointment reminders. A system that grows with your business and never calls in sick.',
         },
       ],
     },
@@ -585,15 +585,15 @@ export const translations = {
       differentiators: [
         {
           title: 'Wszystko w jednym miejscu',
-          description: 'AI pracuje tam, gdzie Ty – w kalendarzu i telefonie. Bez nauki nowych programów.',
+          description: 'AI pracuje tam, gdzie Ty – w kalendarzu, mailu i telefonie. Bez nauki nowych programów i zmieniania nawyków.',
         },
         {
           title: 'Więcej wizyt, mniej pracy',
-          description: 'Skupiamy się na efektach: nowe wizyty i zaoszczędzony czas. Co tydzień jasny raport.',
+          description: 'Skupiamy się na efektach: ile nowych wizyt umówił asystent i ile godzin pracy zaoszczędziłeś. Co tydzień otrzymasz jasny raport.',
         },
         {
           title: 'Opieka od A do Z',
-          description: 'Od pierwszego kontaktu po przypomnienie o wizycie. System, który rośnie z Tobą i nigdy nie choruje.',
+          description: 'Od pierwszego kontaktu po przypomnienie o wizycie. Budujemy system, który rośnie razem z Twoją firmą i nigdy nie choruje.',
         },
       ],
     },
