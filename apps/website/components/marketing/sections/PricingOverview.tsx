@@ -22,6 +22,11 @@ export default function PricingOverview({ lang = "en" }: PricingOverviewProps) {
           <p className="text-slate-400 text-lg">
             {t.subheadline}
           </p>
+          {"promoMessage" in t && t.promoMessage && (
+            <div className="mt-6 inline-block bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-lg px-6 py-2">
+              <span className="text-sm font-medium text-blue-400">{t.promoMessage}</span>
+            </div>
+          )}
         </div>
 
         {/* Pricing Cards */}
@@ -54,6 +59,9 @@ export default function PricingOverview({ lang = "en" }: PricingOverviewProps) {
                   <span className="text-3xl font-bold text-white">{tier.monthlyPrice}</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
+                  {"originalSetupPrice" in tier && tier.originalSetupPrice && (
+                    <span className="line-through text-slate-600 mr-2">{tier.originalSetupPrice}</span>
+                  )}
                   + {tier.setupPrice} setup
                 </p>
               </div>

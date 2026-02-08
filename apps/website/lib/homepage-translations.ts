@@ -97,136 +97,24 @@ export const homepageTranslations = {
       ],
     },
 
-    // Section 5: Solutions Cards
-    solutionsCards: {
-      headline: 'Three Products. One Goal.',
-      subheadline: 'Choose what fits your business — or combine them.',
-      cards: [
-        {
-          title: 'AI Sales Autopilot',
-          subtitle: 'Lead-to-Contract',
-          description: 'Automate your entire sales pipeline from lead capture to signed contract.',
-          features: [
-            'Voice AI qualification calls',
-            'Automated proposal generation',
-            'CRM integration & pipeline tracking',
-            'Full audit trail & analytics',
-          ],
-          badge: 'Most Popular',
-          cta: 'See How It Works',
-        },
-        {
-          title: 'AI Voice & Booking Concierge',
-          subtitle: 'For Clinics & Service Businesses',
-          description: 'AI receptionist that answers calls, books appointments, and handles inquiries 24/7.',
-          features: [
-            '24/7 phone answering',
-            'Appointment scheduling',
-            'Multi-language support',
-            'Patient/client intake automation',
-          ],
-          badge: '',
-          cta: 'Learn More',
-        },
-        {
-          title: 'AI Content Engine',
-          subtitle: 'Marketing Automation',
-          description: 'Consistent, on-brand content across all channels — automated from your knowledge base.',
-          features: [
-            'LinkedIn, X, Instagram posts',
-            'Newsletter generation',
-            'SEO blog autopilot',
-            'Brand voice consistency',
-          ],
-          badge: '',
-          cta: 'Learn More',
-        },
-      ],
-    },
-
-    // Section 6: How It Works
-    howItWorks: {
-      headline: 'From Zero to Autopilot in 6 Steps',
-      steps: [
-        {
-          title: 'Discovery Call',
-          description: 'We map your current sales process, tools, and bottlenecks.',
-        },
-        {
-          title: 'Architecture Design',
-          description: 'We design the automation workflow tailored to your stack.',
-        },
-        {
-          title: 'Build & Configure',
-          description: 'We build the AI agents, integrations, and dashboards.',
-        },
-        {
-          title: 'Test & Validate',
-          description: 'End-to-end testing with your real data and processes.',
-        },
-        {
-          title: 'Deploy & Train',
-          description: 'Go live with your team trained on the new system.',
-        },
-        {
-          title: 'Optimize & Scale',
-          description: 'Continuous improvement based on real performance data.',
-        },
-      ],
-    },
-
-    // Section 7: Why NexOperandi
-    whyUs: {
-      headline: 'Why Teams Choose NexOperandi',
-      items: [
-        {
-          title: 'Real Integrations',
-          description: 'We connect to your actual tools — CRM, email, Slack, calendars. Not just screenshots.',
-        },
-        {
-          title: 'Measurable Outcomes',
-          description: 'Clear KPIs defined upfront. Weekly reports. Full transparency.',
-        },
-        {
-          title: 'Full Auditability',
-          description: 'Every AI decision logged. Call transcripts, scoring rationale, full conversation history.',
-        },
-        {
-          title: 'Built by Engineers',
-          description: '15+ years in banking, fintech, and autonomous systems. Not a no-code agency.',
-        },
-      ],
-    },
-
-    // Section 8: Security
-    security: {
-      headline: 'Security & Compliance',
-      subheadline: 'Your data, your rules.',
-      items: [
-        { title: 'GDPR Compliant', description: 'Full data processing agreements. Right to deletion. Consent management.' },
-        { title: 'End-to-End Encryption', description: 'All data encrypted in transit and at rest. No plaintext storage.' },
-        { title: 'Complete Audit Logs', description: 'Every AI action logged with timestamp, input, output, and decision rationale.' },
-        { title: 'EU Data Residency', description: 'Data stored in EU data centers. No transatlantic transfers without consent.' },
-        { title: 'Opt-Out Controls', description: 'Leads can opt out at any time. AI identifies and respects do-not-contact signals.' },
-      ],
-    },
-
-    // Section 10: Pricing Overview
+    // Section 5: Pricing Overview
     pricingOverview: {
       headline: 'Transparent Pricing',
       subheadline: 'No hidden fees. Setup + monthly. Cancel anytime.',
+      promoMessage: 'Launch promo — 50% off setup, limited time!',
       tiers: [
         {
           name: 'Starter',
           description: 'For teams starting with AI automation.',
           setupPrice: '£1,500',
+          originalSetupPrice: '£3,000',
           monthlyPrice: '£150/mo',
           features: [
-            'Lead capture automation',
-            'AI chat qualification',
-            'Basic CRM sync',
-            'Email support',
-            'Basic dashboard',
+            'AI chatbot answering inquiries 24/7',
+            'Automatic lead capture from forms',
+            'Lead scoring and qualification',
+            'CRM sync (HubSpot, Pipedrive, etc.)',
+            'Email support within 24 hours',
           ],
           cta: 'Get Started',
           highlighted: false,
@@ -235,18 +123,19 @@ export const homepageTranslations = {
           name: 'Pro',
           description: 'Full pipeline automation with voice AI.',
           setupPrice: '£2,500',
+          originalSetupPrice: '£5,000',
           monthlyPrice: '£250/mo',
           features: [
             'Everything in Starter',
-            'AI voice calls (VAPI)',
-            'Automated proposals',
-            'Advanced dashboard',
-            'Priority support',
-            'Slack notifications',
+            'AI phone calls — qualification in under 60 seconds',
+            'Automated proposal generation (PDF)',
+            'Dedicated AI agent for your business',
+            'Priority support — response within 4 hours',
+            'Slack/Teams notifications',
           ],
           cta: 'Book Audit',
           highlighted: true,
-          badge: 'Recommended',
+          badge: '50% off setup',
         },
         {
           name: 'Enterprise',
@@ -255,11 +144,11 @@ export const homepageTranslations = {
           monthlyPrice: 'Custom',
           features: [
             'Everything in Pro',
-            'Contract automation',
-            'Custom integrations',
+            'Automatic contract generation',
+            'Custom integrations with your systems',
             'Dedicated account manager',
-            '24/7 support + SLA',
-            'On-premise option',
+            'Round-the-clock support — response within 2 hours',
+            'Installation on your servers (full data control)',
           ],
           cta: 'Contact Us',
           highlighted: false,
@@ -303,32 +192,6 @@ export const homepageTranslations = {
         {
           question: 'Can I try it before committing?',
           answer: 'Yes. Book a free Pipeline Audit — we will analyze your current process, identify leak points, and show you a working demo with your use case. No obligation.',
-        },
-      ],
-    },
-
-    // Section 12: Final CTA
-    finalCta: {
-      headline: 'Want to See What Leaks in Your Pipeline?',
-      subheadline: 'Choose your next step.',
-      options: [
-        {
-          title: 'Watch Demo',
-          description: 'See the full Lead-to-Contract Autopilot in action.',
-          cta: 'Watch 90s Demo',
-          href: '/demo',
-        },
-        {
-          title: 'Book Pipeline Audit',
-          description: 'Free 15-min analysis of your current sales process.',
-          cta: 'Book Free Audit',
-          href: '/pipeline-audit',
-        },
-        {
-          title: 'Talk to Us',
-          description: 'Have questions? Send us a message.',
-          cta: 'Contact',
-          href: '#contact',
         },
       ],
     },
@@ -426,169 +289,58 @@ export const homepageTranslations = {
       ],
     },
 
-    // Section 5: Solutions Cards
-    solutionsCards: {
-      headline: 'Trzy produkty. Jeden cel.',
-      subheadline: 'Wybierz co pasuje do Twojego biznesu — lub połącz je.',
-      cards: [
-        {
-          title: 'AI Sales Autopilot',
-          subtitle: 'Od leada do umowy',
-          description: 'Zautomatyzuj cały lejek sprzedażowy od pozyskania leada do podpisanej umowy.',
-          features: [
-            'Głosowa kwalifikacja AI',
-            'Automatyczne generowanie ofert',
-            'Integracja z CRM i śledzenie pipeline',
-            'Pełna ścieżka audytu i analityka',
-          ],
-          badge: 'Najpopularniejszy',
-          cta: 'Zobacz jak działa',
-        },
-        {
-          title: 'AI Voice & Booking Concierge',
-          subtitle: 'Dla klinik i firm usługowych',
-          description: 'Recepcjonista AI, który odbiera telefony, rezerwuje wizyty i obsługuje zapytania 24/7.',
-          features: [
-            'Odbieranie telefonów 24/7',
-            'Rezerwacja wizyt',
-            'Wsparcie wielojęzyczne',
-            'Automatyzacja przyjęć pacjentów/klientów',
-          ],
-          badge: '',
-          cta: 'Dowiedz się więcej',
-        },
-        {
-          title: 'AI Content Engine',
-          subtitle: 'Automatyzacja marketingu',
-          description: 'Spójny, zgodny z marką content na wszystkich kanałach — automatycznie z Twojej bazy wiedzy.',
-          features: [
-            'Posty na LinkedIn, X, Instagram',
-            'Generowanie newsletterów',
-            'SEO Blog Autopilot',
-            'Spójność tonu marki',
-          ],
-          badge: '',
-          cta: 'Dowiedz się więcej',
-        },
-      ],
-    },
-
-    // Section 6: How It Works
-    howItWorks: {
-      headline: 'Od zera do autopilota w 6 krokach',
-      steps: [
-        {
-          title: 'Rozmowa discovery',
-          description: 'Mapujemy Twój obecny proces sprzedaży, narzędzia i wąskie gardła.',
-        },
-        {
-          title: 'Projekt architektury',
-          description: 'Projektujemy workflow automatyzacji dopasowany do Twojego stosu technologicznego.',
-        },
-        {
-          title: 'Budowa i konfiguracja',
-          description: 'Budujemy agentów AI, integracje i dashboardy.',
-        },
-        {
-          title: 'Testy i walidacja',
-          description: 'Kompleksowe testy z Twoimi prawdziwymi danymi i procesami.',
-        },
-        {
-          title: 'Wdrożenie i szkolenie',
-          description: 'Start produkcyjny z przeszkolonym zespołem.',
-        },
-        {
-          title: 'Optymalizacja i skalowanie',
-          description: 'Ciągłe doskonalenie na podstawie rzeczywistych danych wydajnościowych.',
-        },
-      ],
-    },
-
-    // Section 7: Why NexOperandi
-    whyUs: {
-      headline: 'Dlaczego zespoły wybierają NexOperandi',
-      items: [
-        {
-          title: 'Prawdziwe integracje',
-          description: 'Łączymy się z Twoimi prawdziwymi narzędziami — CRM, email, Slack, kalendarze. Nie tylko screenshoty.',
-        },
-        {
-          title: 'Mierzalne rezultaty',
-          description: 'Jasne KPI ustalone z góry. Cotygodniowe raporty. Pełna transparentność.',
-        },
-        {
-          title: 'Pełna audytowalność',
-          description: 'Każda decyzja AI zalogowana. Transkrypcje rozmów, uzasadnienia scoringu, pełna historia.',
-        },
-        {
-          title: 'Zbudowane przez inżynierów',
-          description: '15+ lat w bankowości, fintechu i systemach autonomicznych. Nie agencja no-code.',
-        },
-      ],
-    },
-
-    // Section 8: Security
-    security: {
-      headline: 'Bezpieczeństwo i zgodność',
-      subheadline: 'Twoje dane, Twoje zasady.',
-      items: [
-        { title: 'Zgodność z RODO', description: 'Pełne umowy powierzenia danych. Prawo do usunięcia. Zarządzanie zgodami.' },
-        { title: 'Szyfrowanie end-to-end', description: 'Wszystkie dane szyfrowane w transmisji i w spoczynku. Brak przechowywania w postaci jawnej.' },
-        { title: 'Kompletne logi audytu', description: 'Każda akcja AI zalogowana ze znacznikiem czasu, danymi wejściowymi, wyjściowymi i uzasadnieniem decyzji.' },
-        { title: 'Rezydencja danych w EU', description: 'Dane przechowywane w europejskich centrach danych. Brak transferów transatlantyckich bez zgody.' },
-        { title: 'Kontrole opt-out', description: 'Leady mogą zrezygnować w każdej chwili. AI identyfikuje i respektuje sygnały do-not-contact.' },
-      ],
-    },
-
-    // Section 10: Pricing Overview
+    // Section 5: Pricing Overview
     pricingOverview: {
       headline: 'Przejrzyste ceny',
       subheadline: 'Bez ukrytych opłat. Setup + abonament. Rezygnacja w każdej chwili.',
+      promoMessage: 'Promocja startowa — 50% taniej na setup!',
       tiers: [
         {
           name: 'Starter',
           description: 'Dla zespołów rozpoczynających automatyzację AI.',
-          setupPrice: '6 000 zł',
+          setupPrice: '1 500 zł',
+          originalSetupPrice: '3 000 zł',
           monthlyPrice: '600 zł/mies.',
           features: [
-            'Automatyzacja pozyskiwania leadów',
-            'Kwalifikacja AI przez czat',
-            'Podstawowa synchronizacja z CRM',
-            'Wsparcie mailowe',
-            'Podstawowy dashboard',
+            'Chatbot AI odpowiadający na zapytania 24/7',
+            'Automatyczne pozyskiwanie leadów z formularzy',
+            'Scoring i kwalifikacja leadów',
+            'Synchronizacja z CRM (HubSpot, Pipedrive, itp.)',
+            'Wsparcie mailowe w ciągu 24 godzin',
           ],
           cta: 'Zacznij',
           highlighted: false,
         },
         {
           name: 'Pro',
-          description: 'Pełna automatyzacja pipeline z głosowym AI.',
-          setupPrice: '10 000 zł',
+          description: 'Pełna automatyzacja lejka z głosowym AI.',
+          setupPrice: '3 000 zł',
+          originalSetupPrice: '6 000 zł',
           monthlyPrice: '1 000 zł/mies.',
           features: [
             'Wszystko ze Starter',
-            'Głosowe rozmowy AI (VAPI)',
-            'Automatyczne oferty',
-            'Zaawansowany dashboard',
-            'Priorytetowe wsparcie',
-            'Powiadomienia Slack',
+            'Telefony AI — kwalifikacja w mniej niż 60 sekund',
+            'Automatyczne generowanie ofert (PDF)',
+            'Dedykowany agent AI dla Twojej firmy',
+            'Priorytetowe wsparcie — odpowiedź w 4 godziny',
+            'Powiadomienia Slack/Teams',
           ],
           cta: 'Umów audyt',
           highlighted: true,
-          badge: 'Rekomendowany',
+          badge: '-50% na setup',
         },
         {
           name: 'Enterprise',
-          description: 'Niestandardowa architektura AI dla złożonych workflow.',
+          description: 'Niestandardowa architektura AI dla złożonych procesów.',
           setupPrice: 'Indywidualnie',
           monthlyPrice: 'Indywidualnie',
           features: [
             'Wszystko z Pro',
-            'Automatyzacja umów',
-            'Niestandardowe integracje',
+            'Automatyczne generowanie umów',
+            'Integracje z Twoimi systemami',
             'Dedykowany opiekun konta',
-            'Wsparcie 24/7 + SLA',
-            'Opcja on-premise',
+            'Wsparcie całodobowe — odpowiedź w 2 godziny',
+            'Instalacja na Twoich serwerach (pełna kontrola danych)',
           ],
           cta: 'Skontaktuj się',
           highlighted: false,
@@ -632,32 +384,6 @@ export const homepageTranslations = {
         {
           question: 'Czy mogę to wypróbować przed podjęciem decyzji?',
           answer: 'Tak. Umów bezpłatny Audyt Pipeline — przeanalizujemy Twój obecny proces, zidentyfikujemy punkty wycieku i pokażemy działające demo dla Twojego przypadku. Bez zobowiązań.',
-        },
-      ],
-    },
-
-    // Section 12: Final CTA
-    finalCta: {
-      headline: 'Chcesz zobaczyć, gdzie Twój pipeline traci pieniądze?',
-      subheadline: 'Wybierz następny krok.',
-      options: [
-        {
-          title: 'Obejrzyj demo',
-          description: 'Zobacz pełny AI Lead-to-Contract Autopilot w akcji.',
-          cta: 'Zobacz demo (90s)',
-          href: '/pl/demo',
-        },
-        {
-          title: 'Umów audyt pipeline',
-          description: 'Bezpłatna 15-min analiza Twojego obecnego procesu sprzedaży.',
-          cta: 'Umów bezpłatny audyt',
-          href: '/pl/audyt-automatyzacji',
-        },
-        {
-          title: 'Porozmawiaj z nami',
-          description: 'Masz pytania? Napisz do nas.',
-          cta: 'Kontakt',
-          href: '/pl#contact',
         },
       ],
     },

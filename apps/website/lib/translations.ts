@@ -54,6 +54,20 @@ export const translations = {
       cta: "Let's talk about your system",
       ctaSubtext: 'A short, no-obligation conversation.',
       imageAlt: 'Founders of NexOperandi',
+      differentiators: [
+        {
+          title: 'Everything in One Place',
+          description: 'AI works where you work — your calendar and phone. No new software to learn.',
+        },
+        {
+          title: 'More Bookings, Less Work',
+          description: 'We focus on results: new appointments booked and time saved. Weekly reports included.',
+        },
+        {
+          title: 'A to Z Support',
+          description: 'From first contact to appointment reminders. A system that grows with you and never calls in sick.',
+        },
+      ],
     },
     // Bold Statement
     boldStatement: {
@@ -568,6 +582,20 @@ export const translations = {
       cta: 'Porozmawiajmy o Twoim systemie',
       ctaSubtext: 'Krótka rozmowa, bez zobowiązań.',
       imageAlt: 'Założyciele NexOperandi',
+      differentiators: [
+        {
+          title: 'Wszystko w jednym miejscu',
+          description: 'AI pracuje tam, gdzie Ty – w kalendarzu i telefonie. Bez nauki nowych programów.',
+        },
+        {
+          title: 'Więcej wizyt, mniej pracy',
+          description: 'Skupiamy się na efektach: nowe wizyty i zaoszczędzony czas. Co tydzień jasny raport.',
+        },
+        {
+          title: 'Opieka od A do Z',
+          description: 'Od pierwszego kontaktu po przypomnienie o wizycie. System, który rośnie z Tobą i nigdy nie choruje.',
+        },
+      ],
     },
     // Bold Statement
     boldStatement: {
