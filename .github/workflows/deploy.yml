@@ -25,9 +25,9 @@ jobs:
           rm -rf apps/website/.next
           cd /root
           # Stop and remove old container to avoid ContainerConfig errors
-          docker-compose stop nextjs || true
-          docker-compose rm -f nextjs || true
+          docker compose stop nextjs || true
+          docker compose rm -f nextjs || true
           # Force rebuild without Docker cache
-          docker-compose build --no-cache nextjs
-          docker-compose up -d nextjs
-          docker-compose logs --tail=30 nextjs
+          docker compose build --no-cache nextjs
+          docker compose up -d nextjs
+          docker compose logs --tail=30 nextjs
