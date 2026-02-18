@@ -81,6 +81,7 @@ export const homepageTranslations = {
       headline: 'Watch a Lead Turn Into a Proposal — Automatically',
       subheadline: 'Real workflow. Real AI. No scripts, no faking.',
       ctaWatch: 'Watch Full Demo',
+      youtubeId: 'vHOyG3RncXk',
       proofTiles: [
         {
           label: 'AI called in <60s',
@@ -275,6 +276,7 @@ export const homepageTranslations = {
       headline: 'Zobacz jak lead zamienia się w ofertę — automatycznie',
       subheadline: 'Prawdziwy workflow. Prawdziwe AI. Bez skryptów, bez udawania.',
       ctaWatch: 'Obejrzyj pełne demo',
+      youtubeId: 'TJu3M-BnIVw',
       proofTiles: [
         {
           label: 'AI zadzwonił w <60s',

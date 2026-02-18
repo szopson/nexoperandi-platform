@@ -12,7 +12,7 @@ export default function DemoEmbed({ lang = "en" }: DemoEmbedProps) {
   const t = homepageTranslations[lang].demo;
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  const youtubeId = "vHOyG3RncXk";
+  const youtubeId = t.youtubeId;
 
   return (
     <section className="py-24 px-6" id="demo">
