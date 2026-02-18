@@ -11,8 +11,12 @@ interface DemoEmbedProps {
 export default function DemoEmbed({ lang = "en" }: DemoEmbedProps) {
   const t = homepageTranslations[lang].demo;
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [useFallbackThumb, setUseFallbackThumb] = useState(false);
 
   const youtubeId = t.youtubeId;
+  const thumbnailUrl = useFallbackThumb
+    ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+    : `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
   return (
     <section className="py-24 px-6" id="demo">
@@ -38,10 +42,11 @@ export default function DemoEmbed({ lang = "en" }: DemoEmbedProps) {
               >
                 {/* Thumbnail background */}
                 <img
-                  src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
+                  src={thumbnailUrl}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
+                  onError={() => setUseFallbackThumb(true)}
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
                 {/* Play button */}

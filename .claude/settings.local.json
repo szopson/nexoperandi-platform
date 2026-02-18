@@ -47,7 +47,8 @@
       "Bash(git pull:*)",
       "Bash(git stash:*)",
       "Bash(git fetch:*)",
-      "WebFetch(domain:nexoperandi.cloud)"
+      "WebFetch(domain:nexoperandi.cloud)",
+      "WebFetch(domain:img.youtube.com)"
     ],
     "deny": [],
     "ask": []
