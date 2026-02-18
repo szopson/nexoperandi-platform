@@ -6,10 +6,14 @@ import type { Lang } from "@/lib/translations";
 
 interface DemoEmbedProps {
   lang?: Lang;
+  demoKey?: 'demo' | 'demo2';
 }
 
-export default function DemoEmbed({ lang = "en" }: DemoEmbedProps) {
-  const t = homepageTranslations[lang].demo;
+export default function DemoEmbed({ lang = "en", demoKey = "demo" }: DemoEmbedProps) {
+  const translations = homepageTranslations[lang];
+  const t = demoKey === 'demo2' && 'demo2' in translations
+    ? (translations as typeof homepageTranslations['pl']).demo2
+    : translations.demo;
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [useFallbackThumb, setUseFallbackThumb] = useState(false);
 
@@ -19,7 +23,7 @@ export default function DemoEmbed({ lang = "en" }: DemoEmbedProps) {
     : `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
   return (
-    <section className="py-24 px-6" id="demo">
+    <section className="py-24 px-6" id={demoKey === 'demo2' ? 'demo2' : 'demo'}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

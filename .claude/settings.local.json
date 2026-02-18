@@ -48,7 +48,9 @@
       "Bash(git stash:*)",
       "Bash(git fetch:*)",
       "WebFetch(domain:nexoperandi.cloud)",
-      "WebFetch(domain:img.youtube.com)"
+      "WebFetch(domain:img.youtube.com)",
+      "WebFetch(domain:www.youtube.com)",
+      "Bash(pnpm --filter website typecheck:*)"
     ],
     "deny": [],
     "ask": []

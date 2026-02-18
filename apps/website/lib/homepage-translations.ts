@@ -271,12 +271,12 @@ export const homepageTranslations = {
       ],
     },
 
-    // Section 4: Demo
+    // Section 4: Demo 1 - Lead to Proposal
     demo: {
       headline: 'Zobacz jak lead zamienia się w ofertę — automatycznie',
       subheadline: 'Prawdziwy workflow. Prawdziwe AI. Bez skryptów, bez udawania.',
-      ctaWatch: 'Obejrzyj pełne demo',
-      youtubeId: 'TJu3M-BnIVw',
+      ctaWatch: 'Obejrzyj demo',
+      youtubeId: 'vHOyG3RncXk',
       proofTiles: [
         {
           label: 'AI zadzwonił w <60s',
@@ -289,6 +289,28 @@ export const homepageTranslations = {
         {
           label: 'CRM + Slack zaktualizowane',
           description: 'Wszystkie systemy powiadomione z pełnym podsumowaniem rozmowy.',
+        },
+      ],
+    },
+
+    // Section 4b: Demo 2 - AI Receptionist
+    demo2: {
+      headline: 'AI Recepcjonista w akcji',
+      subheadline: 'Automatyczne umawianie wizyt, 24/7. Prawdziwe demo.',
+      ctaWatch: 'Obejrzyj demo',
+      youtubeId: 'TJu3M-BnIVw',
+      proofTiles: [
+        {
+          label: 'Wizyta umówiona',
+          description: 'AI odbiera, rozpoznaje potrzeby i rezerwuje termin w kalendarzu.',
+        },
+        {
+          label: 'Google Calendar',
+          description: 'Automatyczna synchronizacja — bez podwójnych rezerwacji.',
+        },
+        {
+          label: 'Dashboard + baza',
+          description: 'Pełny podgląd klientów i wizyt w jednym miejscu.',
         },
       ],
     },

@@ -17,6 +17,7 @@ export default function PLHomePage() {
       <Problem lang="pl" />
       <Solution lang="pl" />
       <DemoEmbed lang="pl" />
+      <DemoEmbed lang="pl" demoKey="demo2" />
       <Founders lang="pl" />
       <PricingOverview lang="pl" />
       <FAQ lang="pl" />
