@@ -17,6 +17,7 @@ export default function HomePage() {
       <Problem />
       <Solution />
       <DemoEmbed />
+      <DemoEmbed lang="en" demoKey="demo2" />
       <Founders />
       <PricingOverview />
       <FAQ />

@@ -98,6 +98,28 @@ export const homepageTranslations = {
       ],
     },
 
+    // Section 4b: Demo 2 - AI Receptionist
+    demo2: {
+      headline: 'AI Receptionist in Action',
+      subheadline: 'Automatic appointment booking, 24/7. Real demo.',
+      ctaWatch: 'Watch Demo',
+      youtubeId: '0HN1cfAi_KI',
+      proofTiles: [
+        {
+          label: 'Appointment booked',
+          description: 'AI answers, identifies needs, and books a slot in your calendar.',
+        },
+        {
+          label: 'Google Calendar',
+          description: 'Automatic sync — no double bookings.',
+        },
+        {
+          label: 'Dashboard + database',
+          description: 'Full overview of clients and appointments in one place.',
+        },
+      ],
+    },
+
     // Section 5: Pricing Overview
     pricingOverview: {
       headline: 'Transparent Pricing',
