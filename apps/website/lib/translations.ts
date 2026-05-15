@@ -347,6 +347,23 @@ export const translations = {
           description: 'Full Voice AI Automation using n8n + VAPI. Watch how we built a complete lead qualification and proposal generation system that works 24/7.',
         },
       },
+      siteDemos: {
+        title: 'Live Websites & Stores We Build',
+        subtitle: 'Dedicated, high-converting sites and online stores — built for buyer comfort and measurable conversion.',
+        viewLive: 'View Live Site',
+      },
+      sites: {
+        ecommerceStore: {
+          title: 'E-commerce Store',
+          description: 'High-conversion online store: fast checkout, trust signals, mobile-first.',
+          url: 'https://demo-shop.nexoperandi.cloud/',
+        },
+        dentalClinic: {
+          title: 'Dental Clinic Website',
+          description: 'Professional clinic site with appointment booking and patient-friendly UX.',
+          url: 'https://demo-dental.nexoperandi.cloud/',
+        },
+      },
       agents: {
         customerService: {
           name: 'AI Customer Service Agent',
@@ -403,6 +420,73 @@ export const translations = {
             'Intent prediction',
           ],
         },
+      },
+    },
+    // Web & Stores page
+    webPage: {
+      hero: {
+        label: 'Web & Stores',
+        headline: 'High-converting websites and online stores — built to work, not just look good.',
+        subheadline: 'We design and build dedicated sites and e-commerce stores that turn visitors into customers. From boutique clinic websites to full WooCommerce stores — production-ready, mobile-first, measurable.',
+        ctaPrimary: 'See live demos →',
+        ctaSecondary: 'Talk to us',
+        badge: 'From €2,500',
+      },
+      whatWeBuild: {
+        title: 'What we build',
+        ecommerce: {
+          title: 'E-commerce stores',
+          description: 'WooCommerce and custom Next.js stores. Fast checkout, trust signals, mobile-first.',
+        },
+        website: {
+          title: 'Business websites',
+          description: 'Clinic, agency, service business. Booking flows, SEO-ready, conversion-optimised.',
+        },
+        landing: {
+          title: 'Landing pages',
+          description: 'Single-product or campaign pages. Built to convert, measured from day one.',
+        },
+      },
+      liveDemos: {
+        title: 'Live demos',
+        subtitle: 'Two real sites we built — explore them end-to-end.',
+        viewLive: 'View live site',
+        ecommerce: {
+          title: 'E-commerce Store',
+          description: 'High-conversion online store with full checkout, product catalog, and trust signals.',
+          url: 'https://demo-shop.nexoperandi.cloud/',
+        },
+        dental: {
+          title: 'Dental Clinic Website',
+          description: 'Professional clinic site with appointment booking and patient-friendly UX.',
+          url: 'https://demo-dental.nexoperandi.cloud/',
+        },
+      },
+      howWeWork: {
+        title: 'How we work',
+        steps: [
+          {
+            step: '01',
+            title: 'Discovery',
+            description: 'We learn your business, customers, and conversion goals.',
+          },
+          {
+            step: '02',
+            title: 'Build',
+            description: 'Design and development in one team. No handovers, no lost context.',
+          },
+          {
+            step: '03',
+            title: 'Measure',
+            description: 'GA4, GTM, heatmaps from day one. You always know what is working.',
+          },
+        ],
+      },
+      cta: {
+        title: 'Ready to build?',
+        subtitle: 'Tell us about your project. We will reply with a concrete scope and timeline.',
+        button: 'Talk to us →',
+        buttonHref: '/contact',
       },
     },
     // Quiz
@@ -875,6 +959,23 @@ export const translations = {
           description: 'Pełna automatyzacja głosowa AI z n8n + VAPI. Zobacz jak zbudowaliśmy kompletny system kwalifikacji leadów i generowania ofert działający 24/7.',
         },
       },
+      siteDemos: {
+        title: 'Sklepy i strony www na żywo',
+        subtitle: 'Dedykowane strony i sklepy internetowe — zaprojektowane pod wysoką konwersję i komfort kupującego.',
+        viewLive: 'Zobacz na żywo',
+      },
+      sites: {
+        ecommerceStore: {
+          title: 'Sklep internetowy',
+          description: 'Sklep zoptymalizowany pod konwersję: szybki checkout, sygnały zaufania, mobile-first.',
+          url: 'https://demo-shop.nexoperandi.cloud/',
+        },
+        dentalClinic: {
+          title: 'Strona dla kliniki dentystycznej',
+          description: 'Profesjonalna strona z rezerwacją wizyt i UX przyjaznym dla pacjenta.',
+          url: 'https://demo-dental.nexoperandi.cloud/',
+        },
+      },
       agents: {
         customerService: {
           name: 'Agent obsługi klienta AI',
@@ -931,6 +1032,73 @@ export const translations = {
             'Predykcja intencji',
           ],
         },
+      },
+    },
+    // Strony i sklepy - podstrona
+    webPage: {
+      hero: {
+        label: 'Strony i sklepy',
+        headline: 'Strony i sklepy internetowe, które sprzedają — nie tylko wyglądają.',
+        subheadline: 'Projektujemy i budujemy dedykowane strony oraz sklepy e-commerce, które zamieniają ruch w klientów. Od stron dla klinik po sklepy WooCommerce — produkcyjne, mobile-first, mierzalne.',
+        ctaPrimary: 'Zobacz demo na żywo →',
+        ctaSecondary: 'Porozmawiajmy',
+        badge: 'Od 11 000 zł',
+      },
+      whatWeBuild: {
+        title: 'Co budujemy',
+        ecommerce: {
+          title: 'Sklepy internetowe',
+          description: 'Sklepy WooCommerce i Next.js. Szybki checkout, sygnały zaufania, mobile-first.',
+        },
+        website: {
+          title: 'Strony firmowe',
+          description: 'Kliniki, agencje, firmy usługowe. Rezerwacja online, SEO-ready, zoptymalizowane pod konwersję.',
+        },
+        landing: {
+          title: 'Landing pages',
+          description: 'Strony produktowe i kampanijne. Zbudowane pod konwersję, mierzone od pierwszego dnia.',
+        },
+      },
+      liveDemos: {
+        title: 'Demo na żywo',
+        subtitle: 'Dwie prawdziwe realizacje — przejrzyj je end-to-end.',
+        viewLive: 'Zobacz na żywo',
+        ecommerce: {
+          title: 'Sklep internetowy',
+          description: 'Sklep zoptymalizowany pod konwersję z pełnym checkoutem, katalogiem produktów i sygnałami zaufania.',
+          url: 'https://demo-shop.nexoperandi.cloud/',
+        },
+        dental: {
+          title: 'Strona dla kliniki dentystycznej',
+          description: 'Profesjonalna strona z rezerwacją wizyt i UX przyjaznym dla pacjenta.',
+          url: 'https://demo-dental.nexoperandi.cloud/',
+        },
+      },
+      howWeWork: {
+        title: 'Jak pracujemy',
+        steps: [
+          {
+            step: '01',
+            title: 'Discovery',
+            description: 'Poznajemy Twój biznes, klientów i cele konwersji.',
+          },
+          {
+            step: '02',
+            title: 'Budujemy',
+            description: 'Design i development w jednym zespole. Bez handoverów, bez utraty kontekstu.',
+          },
+          {
+            step: '03',
+            title: 'Mierzymy',
+            description: 'GA4, GTM, heatmapy od pierwszego dnia. Zawsze wiesz co działa.',
+          },
+        ],
+      },
+      cta: {
+        title: 'Gotowy na budowę?',
+        subtitle: 'Opowiedz nam o projekcie. Odpiszemy z konkretnym zakresem i harmonogramem.',
+        button: 'Porozmawiajmy →',
+        buttonHref: '/pl/contact',
       },
     },
     // Quiz

@@ -76,6 +76,18 @@ export const homepageTranslations = {
       ],
     },
 
+    // Section 3b: Web & Stores
+    webSection: {
+      label: 'Web & Stores',
+      headline: 'High-converting websites and online stores — built to work, not just look good.',
+      subheadline: 'We design and build dedicated sites and e-commerce stores that turn visitors into customers. From boutique clinic websites to full WooCommerce stores — production-ready, mobile-first, measurable.',
+      ctaPrimary: 'See live demos →',
+      ctaPrimaryHref: '/web#live-demos',
+      ctaSecondary: 'Talk to us',
+      ctaSecondaryHref: '/contact',
+      badge: 'From €2,500',
+    },
+
     // Section 4: Demo
     demo: {
       headline: 'Watch a Lead Turn Into a Proposal — Automatically',
@@ -269,6 +281,18 @@ export const homepageTranslations = {
           description: 'CRM zaktualizowany, Slack powiadomiony, dashboard odświeżony. Pełna ścieżka audytu.',
         },
       ],
+    },
+
+    // Section 3b: Strony i sklepy
+    webSection: {
+      label: 'Strony i sklepy',
+      headline: 'Strony i sklepy internetowe, które sprzedają — nie tylko wyglądają.',
+      subheadline: 'Projektujemy i budujemy dedykowane strony oraz sklepy e-commerce, które zamieniają ruch w klientów. Od stron dla klinik po sklepy WooCommerce — produkcyjne, mobile-first, mierzalne.',
+      ctaPrimary: 'Zobacz demo na żywo →',
+      ctaPrimaryHref: '/pl/strony#live-demos',
+      ctaSecondary: 'Porozmawiajmy',
+      ctaSecondaryHref: '/pl/contact',
+      badge: 'Od 11 000 zł',
     },
 
     // Section 4: Demo 1 - Lead to Proposal

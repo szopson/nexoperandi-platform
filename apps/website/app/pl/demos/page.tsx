@@ -9,6 +9,19 @@ const videoDeoms = [
   },
 ];
 
+const siteDemos = [
+  {
+    id: "ecommerce-store",
+    translationKey: "ecommerceStore" as const,
+    image: "/demos/demo-shop-preview.png",
+  },
+  {
+    id: "dental-clinic",
+    translationKey: "dentalClinic" as const,
+    image: "/demos/demo-dental-preview.png",
+  },
+];
+
 const agents = [
   {
     id: "customer-service",
@@ -94,6 +107,52 @@ export default function PLDemosPage() {
                   <p className="text-slate-400 text-sm">
                     {videoT.description}
                   </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Live Websites & Stores Section */}
+      <div className="max-w-7xl mx-auto px-6 mb-20">
+        <div className="mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            {t.demos.siteDemos.title}
+          </h2>
+          <p className="text-slate-400">{t.demos.siteDemos.subtitle}</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {siteDemos.map((demo) => {
+            const siteT = t.demos.sites[demo.translationKey];
+            return (
+              <div
+                key={demo.id}
+                className="bg-gray-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all flex flex-col"
+              >
+                <img
+                  src={demo.image}
+                  alt={siteT.title}
+                  className="w-full aspect-video object-cover object-top"
+                  loading="lazy"
+                />
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
+                      {t.demos.liveDemo}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">{siteT.title}</h3>
+                  <p className="text-slate-400 text-sm mb-6 flex-1">{siteT.description}</p>
+                  <a
+                    href={siteT.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-500 transition"
+                  >
+                    {t.demos.siteDemos.viewLive}
+                  </a>
                 </div>
               </div>
             );

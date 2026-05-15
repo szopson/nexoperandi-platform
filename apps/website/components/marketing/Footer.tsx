@@ -15,6 +15,7 @@ const footerContent = {
       title: 'Product',
       links: [
         { label: 'Solutions', href: '/solutions' },
+        { label: 'Web & Stores', href: '/web' },
         { label: 'Demo', href: '/demo' },
         { label: 'Pricing', href: '/pricing' },
         { label: 'Pipeline Audit', href: '/pipeline-audit' },
@@ -41,6 +42,7 @@ const footerContent = {
       title: 'Produkt',
       links: [
         { label: 'Rozwiązania', href: '/pl/rozwiazania' },
+        { label: 'Strony i sklepy', href: '/pl/strony' },
         { label: 'Demo', href: '/pl/demo' },
         { label: 'Cennik', href: '/pl/cennik' },
         { label: 'Audyt Pipeline', href: '/pl/audyt-automatyzacji' },
