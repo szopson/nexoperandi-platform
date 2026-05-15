@@ -21,13 +21,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.ai'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud'),
   title: {
-    default: "NexOperandi.ai — AI Automation Agency",
-    template: "%s | NexOperandi.ai",
+    default: "NexOperandi — AI Automation Agency | n8n, Voice AI, Workflow Automation",
+    template: "%s | NexOperandi",
   },
-  description: "AI automation for serious businesses. Build. Scale. Dominate. Transform your business with AI-powered automation agents, workflows, and intelligent systems.",
-  keywords: ["AI automation", "business automation", "MVP", "content generation", "optimization", "AI agents", "n8n automation", "voice agents", "chatbot"],
+  description: "We build AI automation systems that qualify leads, book appointments, and close deals — while your team focuses on what matters. Deployed in 3–7 days. GDPR compliant.",
+  keywords: ["AI automation", "business automation", "MVP", "content generation", "optimization", "AI agents", "n8n automation", "voice agents", "chatbot", "web design", "e-commerce development"],
   authors: [{ name: "NexOperandi" }],
   creator: "NexOperandi",
   publisher: "NexOperandi",
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "NexOperandi.ai — AI Automation Agency",
-    description: "AI automation for serious businesses. Build. Scale. Dominate.",
-    siteName: "NexOperandi.ai",
+    title: "NexOperandi — AI Automation Agency",
+    description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days. GDPR compliant.",
+    siteName: "NexOperandi",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexOperandi.ai — AI Automation Agency",
-    description: "AI automation for serious businesses. Build. Scale. Dominate.",
+    title: "NexOperandi — AI Automation Agency",
+    description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days.",
     creator: "@nexoperandi",
   },
   robots: {
@@ -57,10 +57,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://nexoperandi.ai',
+    canonical: 'https://nexoperandi.cloud',
     languages: {
-      'en': 'https://nexoperandi.ai',
-      'pl': 'https://nexoperandi.ai/pl',
+      'en': 'https://nexoperandi.cloud',
+      'pl': 'https://nexoperandi.cloud/pl',
     },
   },
 };

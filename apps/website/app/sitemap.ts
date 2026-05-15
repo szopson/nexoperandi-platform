@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.ai';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud';
   const now = new Date();
 
   return [
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/solutions`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/web`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
@@ -51,6 +57,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/pl/rozwiazania`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pl/strony`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,

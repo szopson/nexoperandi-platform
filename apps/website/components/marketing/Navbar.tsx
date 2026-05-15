@@ -12,6 +12,7 @@ interface NavbarProps {
 const navLinks = {
   en: [
     { href: '/solutions', label: 'Solutions' },
+    { href: '/web', label: 'Web & Stores' },
     { href: '/demo', label: 'Demo' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/pipeline-audit', label: 'Pipeline Audit' },
@@ -19,6 +20,7 @@ const navLinks = {
   ],
   pl: [
     { href: '/pl/rozwiazania', label: 'Rozwiązania' },
+    { href: '/pl/strony', label: 'Strony i sklepy' },
     { href: '/pl/demo', label: 'Demo' },
     { href: '/pl/cennik', label: 'Cennik' },
     { href: '/pl/audyt-automatyzacji', label: 'Audyt Pipeline' },

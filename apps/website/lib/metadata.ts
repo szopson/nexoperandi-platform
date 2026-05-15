@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { routeMap } from "./routes";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.ai';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud';
 
 interface PageMetadataOptions {
   title: string;

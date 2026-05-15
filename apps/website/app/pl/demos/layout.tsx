@@ -2,13 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Demo agentów AI na żywo | NexOperandi.ai",
+  title: "Demo agentów AI na żywo | NexOperandi",
   description: "Doświadcz naszych agentów automatyzacji AI w akcji. Każde demo wykorzystuje prawdziwe workflow zasilane przez n8n i zaawansowane modele AI.",
   alternates: {
-    canonical: "https://nexoperandi.ai/pl/demos",
+    canonical: "https://nexoperandi.cloud/pl/demos",
     languages: {
-      'en': 'https://nexoperandi.ai/demos',
-      'pl': 'https://nexoperandi.ai/pl/demos',
+      'en': 'https://nexoperandi.cloud/demos',
+      'pl': 'https://nexoperandi.cloud/pl/demos',
     },
   },
 };
