@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import HeroNew from "@/components/marketing/sections/HeroNew";
+import HomeJsonLd from "@/components/marketing/HomeJsonLd";
 
 // Lazy load below-fold sections for performance
 const Problem = dynamic(() => import("@/components/marketing/sections/Problem"), { ssr: true });
@@ -14,6 +15,7 @@ const ContactSection = dynamic(() => import("@/components/marketing/ContactSecti
 export default function HomePage() {
   return (
     <>
+      <HomeJsonLd />
       <HeroNew />
       <Problem />
       <Solution />

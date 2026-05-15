@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import type { Metadata } from "next";
 import { getTranslations } from "@/lib/translations";
 
@@ -6,12 +7,74 @@ export const metadata: Metadata = {
   title: "Web Design & E-commerce Development",
   description:
     "High-converting websites and online stores built for serious businesses. From clinic websites to WooCommerce stores — mobile-first, SEO-ready, measurable. From €2,500.",
+  keywords: [
+    "web design",
+    "e-commerce development",
+    "WooCommerce",
+    "Next.js websites",
+    "landing pages",
+    "high-converting websites",
+    "clinic website",
+    "mobile-first design",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://nexoperandi.cloud/web",
+    title: "Web Design & E-commerce Development | NexOperandi",
+    description:
+      "High-converting websites and online stores built for serious businesses. Mobile-first, SEO-ready, measurable. From €2,500.",
+    siteName: "NexOperandi",
+    images: [
+      {
+        url: "/og-web.png",
+        width: 1200,
+        height: 630,
+        alt: "NexOperandi — Web Design & E-commerce Development",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design & E-commerce Development | NexOperandi",
+    description:
+      "High-converting websites and online stores. Mobile-first, SEO-ready, measurable. From €2,500.",
+    images: ["/og-web.png"],
+  },
   alternates: {
     canonical: "https://nexoperandi.cloud/web",
     languages: {
       en: "https://nexoperandi.cloud/web",
       pl: "https://nexoperandi.cloud/pl/strony",
+      "x-default": "https://nexoperandi.cloud/web",
     },
+  },
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Web Design & E-commerce Development",
+  serviceType: "Web Design and E-commerce Development",
+  provider: {
+    "@type": "Organization",
+    name: "NexOperandi",
+    url: "https://nexoperandi.cloud",
+  },
+  areaServed: ["EU", "PL", "UK", "US"],
+  description:
+    "High-converting websites and online stores built for serious businesses. From clinic websites to WooCommerce stores — mobile-first, SEO-ready, measurable.",
+  url: "https://nexoperandi.cloud/web",
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "EUR",
+    price: "2500",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      priceCurrency: "EUR",
+      minPrice: "2500",
+    },
+    availability: "https://schema.org/InStock",
   },
 };
 
@@ -29,6 +92,13 @@ export default function WebPage() {
 
   return (
     <div className="min-h-screen bg-black pt-24 pb-16 text-slate-300">
+      <Script
+        id="service-jsonld"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+      >
+        {JSON.stringify(serviceJsonLd)}
+      </Script>
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 text-center mb-24">
         <div className="flex items-center justify-center gap-3 mb-6">
