@@ -6,6 +6,7 @@ import VisitorTracking from "@/components/VisitorTracking";
 import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
 import UnicornBackground from "@/components/UnicornBackground";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Contentsquare from "@/components/Contentsquare";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const csId = process.env.NEXT_PUBLIC_CONTENTSQUARE_ID;
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -117,6 +119,7 @@ export default function RootLayout({
         />
 
         {gaId && <GoogleAnalytics gaId={gaId} />}
+        {csId && <Contentsquare csId={csId} />}
       </body>
     </html>
   );
