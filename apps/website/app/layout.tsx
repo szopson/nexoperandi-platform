@@ -40,12 +40,14 @@ export const metadata: Metadata = {
     title: "NexOperandi — AI Automation Agency",
     description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days. GDPR compliant.",
     siteName: "NexOperandi",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "NexOperandi — AI Automation Agency" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "NexOperandi — AI Automation Agency",
     description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days.",
     creator: "@nexoperandi",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -63,6 +65,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://nexoperandi.cloud',
       'pl': 'https://nexoperandi.cloud/pl',
+      'x-default': 'https://nexoperandi.cloud',
     },
   },
 };

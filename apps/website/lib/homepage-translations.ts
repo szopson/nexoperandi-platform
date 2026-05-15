@@ -21,7 +21,7 @@ export const homepageTranslations = {
 
     // Section 2: Problem
     problem: {
-      headline: 'Your Pipeline Is Leaking Revenue',
+      headline: 'Manual Sales Workflows Are Leaking Revenue — AI Automation Closes the Gaps',
       stat: '67% of leads die due to slow response times.',
       statSource: 'Harvard Business Review',
       items: [
@@ -46,7 +46,7 @@ export const homepageTranslations = {
 
     // Section 3: Solution
     solution: {
-      headline: 'AI Lead-to-Contract Autopilot',
+      headline: 'AI Sales Automation: n8n Workflows + Voice Agents from Lead to Contract',
       subheadline: 'From first touch to signed contract — fully automated, fully auditable.',
       steps: [
         {
@@ -112,7 +112,7 @@ export const homepageTranslations = {
 
     // Section 4b: Demo 2 - AI Receptionist
     demo2: {
-      headline: 'AI Receptionist in Action',
+      headline: 'AI Receptionist in Action — Voice Agent Booking Appointments 24/7',
       subheadline: 'Automatic appointment booking, 24/7. Real demo.',
       ctaWatch: 'Watch Demo',
       youtubeId: '0HN1cfAi_KI',
@@ -134,7 +134,7 @@ export const homepageTranslations = {
 
     // Section 5: Pricing Overview
     pricingOverview: {
-      headline: 'Transparent Pricing',
+      headline: 'Transparent AI Automation Pricing — Setup + Monthly, Cancel Anytime',
       subheadline: 'No hidden fees. Setup + monthly. Cancel anytime.',
       promoMessage: 'Launch promo — 50% off setup, limited time!',
       tiers: [
@@ -204,7 +204,7 @@ export const homepageTranslations = {
 
     // Section 11: FAQ
     faq: {
-      headline: 'Frequently Asked Questions',
+      headline: 'AI Automation FAQ — Common Questions About Deployment, Data, and ROI',
       items: [
         {
           question: 'Is this just a chatbot?',
