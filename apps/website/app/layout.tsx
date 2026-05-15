@@ -5,6 +5,7 @@ import "./globals.css";
 import VisitorTracking from "@/components/VisitorTracking";
 import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
 import UnicornBackground from "@/components/UnicornBackground";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -70,6 +71,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -112,6 +115,8 @@ export default function RootLayout({
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="afterInteractive"
         />
+
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
