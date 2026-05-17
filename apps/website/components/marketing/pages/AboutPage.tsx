@@ -39,7 +39,7 @@ const copy = {
       { title: "GDPR compliant by default", desc: "Data residency, consent flows, retention policies — handled. We work with EU-regulated industries, so this is table stakes, not an upsell." },
     ],
     founderBio:
-      "Jakub Baranowski — Founder. Software engineer with 15+ years building production systems across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving. Founded NexOperandi in 2024 to bring that engineering discipline to AI automation for serious businesses.",
+      "Founded by a husband-and-wife engineering team, we bring 15+ years of combined experience delivering complex IT systems in demanding, real-world environments. Our work spans banking and financial platforms, cryptocurrency infrastructure, large-scale IT system integration, and software supporting autonomous driving — helping companies optimize processes, integrate systems, and improve operational efficiency and profitability. Today, AI is our long-term passion combined with strong engineering discipline: we build reliable, scalable, cost-efficient automation that grows with the business — not breaks under it. Jakub Baranowski is the public face of the team.",
     cta: "Book a free pipeline audit",
     ctaSub: "30 minutes. We map your highest-leak processes and tell you which ones AI should automate first.",
     ctaHref: "/pipeline-audit",
@@ -77,7 +77,7 @@ const copy = {
       { title: "GDPR compliant z definicji", desc: "Rezydencja danych, zgody, retencja — załatwione. Pracujemy z branżami regulowanymi w UE, więc to standard, nie upsell." },
     ],
     founderBio:
-      "Jakub Baranowski — Założyciel. Inżynier oprogramowania z 15+ latami doświadczenia w budowaniu systemów produkcyjnych w bankowości, fintechu, infrastrukturze kryptowalut, integracji systemów IT na dużą skalę i oprogramowaniu dla autonomicznej jazdy. Założył NexOperandi w 2024 by przenieść tę dyscyplinę inżynierską do automatyzacji AI dla poważnych biznesów.",
+      "Założone przez małżeński zespół inżynierów, wnosimy ponad 15 lat łącznego doświadczenia w dostarczaniu złożonych systemów IT w wymagających, rzeczywistych środowiskach. Nasza praca obejmuje platformy bankowe i finansowe, infrastrukturę kryptowalutową, integrację systemów IT na dużą skalę oraz oprogramowanie wspierające systemy jazdy autonomicznej — pomagając firmom optymalizować procesy, integrować systemy i poprawiać efektywność operacyjną oraz rentowność. Dziś AI to nasza długoterminowa pasja, połączona z silną dyscypliną inżynierską. Budujemy niezawodną, skalowalną i kosztowo efektywną automatyzację AI zaprojektowaną tak, by rosła razem z biznesem — nie łamała się pod jego ciężarem. Jakub Baranowski reprezentuje zespół publicznie.",
     cta: "Zamów bezpłatny audyt pipeline",
     ctaSub: "30 minut. Mapujemy procesy z największym wyciekiem i mówimy które z nich AI powinno zautomatyzować jako pierwsze.",
     ctaHref: "/pl/audyt-automatyzacji",
