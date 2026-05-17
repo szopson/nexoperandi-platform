@@ -7,6 +7,7 @@ import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
 import UnicornBackground from "@/components/UnicornBackground";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Contentsquare from "@/components/Contentsquare";
+import JsonLd from "@/components/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -78,16 +79,48 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const csId = process.env.NEXT_PUBLIC_CONTENTSQUARE_ID;
 
+  const founderSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://nexoperandi.cloud/#jakub-baranowski",
+    name: "Jakub Baranowski",
+    givenName: "Jakub",
+    familyName: "Baranowski",
+    jobTitle: "Founder",
+    description:
+      "Software engineer with 15+ years building production systems across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving. Founded NexOperandi in 2024 to apply that engineering discipline to AI automation for serious businesses.",
+    worksFor: { "@id": "https://nexoperandi.cloud/#organization" },
+    url: "https://nexoperandi.cloud",
+    sameAs: [
+      "https://www.linkedin.com/in/jakub-baranowski-42a01261/",
+      "https://x.com/NexOperandi",
+    ],
+    knowsAbout: [
+      "AI automation",
+      "n8n",
+      "Voice AI",
+      "Sales pipeline automation",
+      "Next.js",
+      "Banking systems",
+      "Fintech",
+      "System integration",
+    ],
+  };
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://nexoperandi.cloud/#organization",
     name: "NexOperandi",
     alternateName: "NexOperandi AI Automation Agency",
     url: "https://nexoperandi.cloud",
     logo: "https://nexoperandi.cloud/logo.webp",
+    image: "https://nexoperandi.cloud/og-image.png",
     description:
       "AI automation agency that builds n8n workflows, voice AI agents, chatbots, and high-converting websites for serious businesses. Deployments in 3–7 days.",
+    slogan: "Ideas into profits. Faster.",
     foundingDate: "2024",
+    founder: { "@id": "https://nexoperandi.cloud/#jakub-baranowski" },
     areaServed: ["EU", "PL", "UK", "US"],
     knowsAbout: [
       "AI automation",
@@ -101,23 +134,37 @@ export default function RootLayout({
       "Next.js",
       "GDPR compliance",
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer support",
-      url: "https://nexoperandi.cloud/contact",
-      availableLanguage: ["English", "Polish"],
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: "https://nexoperandi.cloud/contact",
+        availableLanguage: ["English", "Polish"],
+        areaServed: ["EU", "PL", "UK", "US"],
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: "hello@nexoperandi.cloud",
+        availableLanguage: ["English", "Polish"],
+        areaServed: ["EU", "PL", "UK", "US"],
+      },
+    ],
     sameAs: [
       "https://www.linkedin.com/company/nexoperandi",
       "https://www.youtube.com/@nexoperandi",
+      "https://x.com/NexOperandi",
     ],
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://nexoperandi.cloud/#website",
     name: "NexOperandi",
     url: "https://nexoperandi.cloud",
+    publisher: { "@id": "https://nexoperandi.cloud/#organization" },
+    inLanguage: ["en", "pl"],
   };
 
   return (
@@ -128,12 +175,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-        <Script id="org-jsonld" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(organizationSchema)}
-        </Script>
-        <Script id="website-jsonld" type="application/ld+json" strategy="beforeInteractive">
-          {JSON.stringify(websiteSchema)}
-        </Script>
+        <JsonLd id="org-jsonld" data={organizationSchema} />
+        <JsonLd id="founder-jsonld" data={founderSchema} />
+        <JsonLd id="website-jsonld" data={websiteSchema} />
 
         {/* Calendly CSS - loaded via lazyOnload script to not block render */}
         <noscript>

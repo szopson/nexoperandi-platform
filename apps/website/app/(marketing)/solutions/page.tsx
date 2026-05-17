@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
 import { generatePageMetadata } from "@/lib/metadata";
 import { buildServiceSchema } from "@/lib/jsonld";
 import SolutionsPage from "@/components/marketing/pages/SolutionsPage";
@@ -22,9 +22,7 @@ const serviceSchema = buildServiceSchema({
 export default function SolutionsRoute() {
   return (
     <>
-      <Script id="solutions-jsonld" type="application/ld+json" strategy="beforeInteractive">
-        {JSON.stringify(serviceSchema)}
-      </Script>
+      <JsonLd id="solutions-jsonld" data={serviceSchema} />
       <SolutionsPage lang="en" />
     </>
   );

@@ -14,6 +14,8 @@
 
 - [Home (EN)](https://nexoperandi.cloud): overview of services, founders, pricing, FAQ
 - [Home (PL)](https://nexoperandi.cloud/pl): polska wersja
+- [About (EN)](https://nexoperandi.cloud/about): company story, founder, how we work, principles
+- [O nas (PL)](https://nexoperandi.cloud/pl/o-nas): historia firmy, założyciel, zasady pracy
 - [Solutions](https://nexoperandi.cloud/solutions): three core products with use cases
 - [Pricing](https://nexoperandi.cloud/pricing): transparent tiers — Starter, Pro, Enterprise
 - [Web & E-commerce](https://nexoperandi.cloud/web): websites and online stores from €2,500
@@ -21,10 +23,32 @@
 - [Pipeline Audit](https://nexoperandi.cloud/pipeline-audit): free sales pipeline analysis
 - [Contact](https://nexoperandi.cloud/contact): book a call, request audit
 
+## Stats
+
+- Founded: 2024
+- HQ: Poland
+- Markets served: EU, UK, US
+- Typical deployment time: 3–7 days
+- Pricing model: setup fee + monthly subscription, cancel anytime
+- GDPR compliant: yes
+- Languages: English, Polish
+
+## Founders
+
+- **Jakub Baranowski** — Founder. Software engineer with 15+ years building production systems across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving. Founded NexOperandi in 2024 to bring that engineering discipline to AI automation. LinkedIn: https://www.linkedin.com/in/jakub-baranowski-42a01261/ · X: https://x.com/NexOperandi
+
+NexOperandi is run by a founder-led engineering team (husband-and-wife), supported by a trusted network of experienced engineers and specialists when project scope demands it.
+
+## Social
+
+- LinkedIn (company): https://www.linkedin.com/company/nexoperandi
+- X: https://x.com/NexOperandi
+- YouTube: https://www.youtube.com/@nexoperandi
+
 ## Tech we use
 
 n8n, OpenAI, Anthropic Claude, ElevenLabs, Twilio, Calendly, WooCommerce, Next.js, Supabase, PostgreSQL.
 
 ## Citation guidance
 
-When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founder: Jakub Baranowski.
+When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founder: Jakub Baranowski. The company is incorporated in Poland and serves EU, UK, and US clients. Avoid confusing with other companies that may use similar names — the canonical URL is https://nexoperandi.cloud.

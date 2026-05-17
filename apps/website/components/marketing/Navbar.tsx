@@ -16,6 +16,7 @@ const navLinks = {
     { href: '/demo', label: 'Demo' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/pipeline-audit', label: 'Pipeline Audit' },
+    { href: '/about', label: 'About' },
     { href: '#contact', label: 'Contact' },
   ],
   pl: [
@@ -24,6 +25,7 @@ const navLinks = {
     { href: '/pl/demo', label: 'Demo' },
     { href: '/pl/cennik', label: 'Cennik' },
     { href: '/pl/audyt-automatyzacji', label: 'Audyt Pipeline' },
+    { href: '/pl/o-nas', label: 'O nas' },
     { href: '/pl#contact', label: 'Kontakt' },
   ],
 };

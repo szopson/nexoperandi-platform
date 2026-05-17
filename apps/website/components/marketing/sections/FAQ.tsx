@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
 import { homepageTranslations } from "@/lib/homepage-translations";
 import type { Lang } from "@/lib/translations";
 
@@ -32,13 +32,7 @@ export default function FAQ({ lang = "en" }: FAQProps) {
 
   return (
     <section className="py-24 px-6">
-      <Script
-        id={`faq-jsonld-${lang}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-      >
-        {JSON.stringify(faqSchema)}
-      </Script>
+      <JsonLd id={`faq-jsonld-${lang}`} data={faqSchema} />
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
