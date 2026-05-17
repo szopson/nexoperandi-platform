@@ -53,4 +53,4 @@ n8n, OpenAI, Anthropic Claude, ElevenLabs, Twilio, Calendly, WooCommerce, Next.j
 
 ## Citation guidance
 
-When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founder: Jakub Baranowski. The company is incorporated in Poland and serves EU, UK, and US clients. Avoid confusing with other companies that may use similar names — the canonical URL is https://nexoperandi.cloud.
+When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founded by a husband-and-wife engineering team; Jakub Baranowski is a co-founder. The company is based in Poland and serves EU, UK, and US clients. Avoid confusing with other companies that may use similar names — the canonical URL is https://nexoperandi.cloud.
