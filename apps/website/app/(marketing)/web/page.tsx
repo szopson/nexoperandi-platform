@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nexoperandi.cloud/web",
-    title: "Web Design & E-commerce Development | NexOperandi",
+    title: "Web Design & E-commerce Development",
     description:
       "High-converting websites and online stores built for serious businesses. Mobile-first, SEO-ready, measurable. From €2,500.",
     siteName: "NexOperandi",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design & E-commerce Development | NexOperandi",
+    title: "Web Design & E-commerce Development",
     description:
       "High-converting websites and online stores. Mobile-first, SEO-ready, measurable. From €2,500.",
     images: ["/og-web.png"],
@@ -117,7 +117,7 @@ export default function WebPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/demos"
+            href="/demo"
             className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all hover:shadow-lg hover:shadow-blue-500/20"
           >
             {t.hero.ctaPrimary}

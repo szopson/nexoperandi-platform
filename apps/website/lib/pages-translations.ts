@@ -337,7 +337,7 @@ export const pagesTranslations = {
           ],
           useCases: ['Kliniki medyczne', 'Gabinety stomatologiczne', 'Kancelarie prawne', 'Salony kosmetyczne'],
           cta: 'Dowiedz się więcej',
-          ctaHref: '/pl/contact',
+          ctaHref: '/pl/kontakt',
         },
         {
           title: 'AI Content Engine',
@@ -354,7 +354,7 @@ export const pagesTranslations = {
           ],
           useCases: ['Startupy', 'Agencje marketingowe', 'E-commerce', 'Marki osobiste'],
           cta: 'Dowiedz się więcej',
-          ctaHref: '/pl/contact',
+          ctaHref: '/pl/kontakt',
         },
       ],
       faq: {
@@ -398,7 +398,7 @@ export const pagesTranslations = {
             { name: 'Własne połączenia', included: false },
           ],
           cta: 'Zacznij',
-          ctaHref: '/pl/contact?plan=starter',
+          ctaHref: '/pl/kontakt?plan=starter',
           highlighted: false,
         },
         {
@@ -443,7 +443,7 @@ export const pagesTranslations = {
             { name: 'Własne połączenia', included: true },
           ],
           cta: 'Skontaktuj się',
-          ctaHref: '/pl/contact',
+          ctaHref: '/pl/kontakt',
           highlighted: false,
         },
       ],

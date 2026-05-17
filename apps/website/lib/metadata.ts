@@ -61,6 +61,7 @@ export function generatePageMetadata({
       languages: {
         en: enUrl,
         pl: plUrl,
+        'x-default': enUrl,
       },
     },
   };

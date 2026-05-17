@@ -47,13 +47,13 @@ export default function PLWebPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/pl/demos"
+            href="/pl/demo"
             className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all hover:shadow-lg hover:shadow-blue-500/20"
           >
             {t.hero.ctaPrimary}
           </Link>
           <Link
-            href="/pl/contact"
+            href="/pl/kontakt"
             className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-6 rounded-full border border-white/15 transition-all"
           >
             {t.hero.ctaSecondary}

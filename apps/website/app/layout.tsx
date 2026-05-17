@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud'),
   title: {
-    default: "NexOperandi — AI Automation Agency | n8n, Voice AI, Workflow Automation",
+    default: "NexOperandi — AI Automation: n8n, Voice AI & Workflow",
     template: "%s | NexOperandi",
   },
   description: "We build AI automation systems that qualify leads, book appointments, and close deals — while your team focuses on what matters. Deployed in 3–7 days. GDPR compliant.",
@@ -78,6 +78,48 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const csId = process.env.NEXT_PUBLIC_CONTENTSQUARE_ID;
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "NexOperandi",
+    alternateName: "NexOperandi AI Automation Agency",
+    url: "https://nexoperandi.cloud",
+    logo: "https://nexoperandi.cloud/logo.webp",
+    description:
+      "AI automation agency that builds n8n workflows, voice AI agents, chatbots, and high-converting websites for serious businesses. Deployments in 3–7 days.",
+    foundingDate: "2024",
+    areaServed: ["EU", "PL", "UK", "US"],
+    knowsAbout: [
+      "AI automation",
+      "n8n workflow automation",
+      "Voice AI agents",
+      "Chatbots",
+      "Sales pipeline automation",
+      "Web design",
+      "E-commerce development",
+      "WooCommerce",
+      "Next.js",
+      "GDPR compliance",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: "https://nexoperandi.cloud/contact",
+      availableLanguage: ["English", "Polish"],
+    },
+    sameAs: [
+      "https://www.linkedin.com/company/nexoperandi",
+      "https://www.youtube.com/@nexoperandi",
+    ],
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "NexOperandi",
+    url: "https://nexoperandi.cloud",
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -85,6 +127,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+        <Script id="org-jsonld" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(organizationSchema)}
+        </Script>
+        <Script id="website-jsonld" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify(websiteSchema)}
+        </Script>
 
         {/* Calendly CSS - loaded via lazyOnload script to not block render */}
         <noscript>
