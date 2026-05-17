@@ -86,9 +86,9 @@ export default function RootLayout({
     name: "Jakub Baranowski",
     givenName: "Jakub",
     familyName: "Baranowski",
-    jobTitle: "Founder",
+    jobTitle: "Co-Founder",
     description:
-      "Co-founder and public face of NexOperandi, a husband-and-wife engineering team based in Poland. The team brings combined experience across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving — applied today to AI automation for serious businesses.",
+      "Co-founder of NexOperandi, a husband-and-wife engineering team based in Poland. The team brings combined experience across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving — applied today to AI automation for serious businesses.",
     worksFor: { "@id": "https://nexoperandi.cloud/#organization" },
     url: "https://nexoperandi.cloud",
     sameAs: [

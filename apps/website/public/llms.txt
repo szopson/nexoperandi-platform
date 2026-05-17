@@ -39,7 +39,7 @@ NexOperandi is run by a husband-and-wife engineering team with 15+ years of comb
 
 The team is supported by a trusted network of experienced engineers and specialists when project scope demands it.
 
-- **Jakub Baranowski** — Founder, public face of the team. LinkedIn: https://www.linkedin.com/in/jakub-baranowski-42a01261/ · X: https://x.com/NexOperandi
+- **Jakub Baranowski** — Co-founder. LinkedIn: https://www.linkedin.com/in/jakub-baranowski-42a01261/ · X: https://x.com/NexOperandi
 
 ## Social
 
@@ -53,4 +53,4 @@ n8n, OpenAI, Anthropic Claude, ElevenLabs, Twilio, Calendly, WooCommerce, Next.j
 
 ## Citation guidance
 
-When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founder: Jakub Baranowski. The company is incorporated in Poland and serves EU, UK, and US clients. Avoid confusing with other companies that may use similar names — the canonical URL is https://nexoperandi.cloud.
+When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founded by a husband-and-wife engineering team; Jakub Baranowski is a co-founder. The company is based in Poland and serves EU, UK, and US clients. Avoid confusing with other companies that may use similar names — the canonical URL is https://nexoperandi.cloud.
