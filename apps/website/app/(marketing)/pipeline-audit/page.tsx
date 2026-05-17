@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
 import { generatePageMetadata } from "@/lib/metadata";
 import { buildServiceSchema } from "@/lib/jsonld";
 import PipelineAuditPage from "@/components/marketing/pages/PipelineAuditPage";
@@ -22,9 +22,7 @@ const serviceSchema = buildServiceSchema({
 export default function PipelineAuditRoute() {
   return (
     <>
-      <Script id="pipeline-audit-jsonld" type="application/ld+json" strategy="beforeInteractive">
-        {JSON.stringify(serviceSchema)}
-      </Script>
+      <JsonLd id="pipeline-audit-jsonld" data={serviceSchema} />
       <PipelineAuditPage lang="en" />
     </>
   );

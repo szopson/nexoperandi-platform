@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
 import { generatePageMetadata } from "@/lib/metadata";
 import { buildOfferCatalogSchema } from "@/lib/jsonld";
 import PricingPage from "@/components/marketing/pages/PricingPage";
@@ -21,9 +21,7 @@ const offerCatalog = buildOfferCatalogSchema("/pl/cennik", [
 export default function PLPricingRoute() {
   return (
     <>
-      <Script id="pl-pricing-jsonld" type="application/ld+json" strategy="beforeInteractive">
-        {JSON.stringify(offerCatalog)}
-      </Script>
+      <JsonLd id="pl-pricing-jsonld" data={offerCatalog} />
       <PricingPage lang="pl" />
     </>
   );

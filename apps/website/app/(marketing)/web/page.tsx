@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Script from "next/script";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import { getTranslations } from "@/lib/translations";
 
@@ -92,13 +92,7 @@ export default function WebPage() {
 
   return (
     <div className="min-h-screen bg-black pt-24 pb-16 text-slate-300">
-      <Script
-        id="service-jsonld"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-      >
-        {JSON.stringify(serviceJsonLd)}
-      </Script>
+      <JsonLd id="service-jsonld" data={serviceJsonLd} />
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 text-center mb-24">
         <div className="flex items-center justify-center gap-3 mb-6">

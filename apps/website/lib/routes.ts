@@ -6,6 +6,7 @@ export const routeMap: Record<string, Record<'en' | 'pl', string>> = {
   '/demo': { en: '/demo', pl: '/pl/demo' },
   '/pipeline-audit': { en: '/pipeline-audit', pl: '/pl/audyt-automatyzacji' },
   '/contact': { en: '/contact', pl: '/pl/kontakt' },
+  '/about': { en: '/about', pl: '/pl/o-nas' },
 };
 
 /**
