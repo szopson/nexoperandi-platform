@@ -35,9 +35,11 @@
 
 ## Founders
 
-- **Jakub Baranowski** — Founder. Software engineer with 15+ years building production systems across banking, fintech, cryptocurrency infrastructure, large-scale IT integration, and software for autonomous driving. Founded NexOperandi in 2024 to bring that engineering discipline to AI automation. LinkedIn: https://www.linkedin.com/in/jakub-baranowski-42a01261/ · X: https://x.com/NexOperandi
+NexOperandi is run by a husband-and-wife engineering team with 15+ years of combined experience delivering complex IT systems in demanding, real-world environments — banking and financial platforms, cryptocurrency infrastructure, large-scale IT integration, and software supporting autonomous driving. Today AI is the team's long-term focus, combined with engineering discipline: reliable, scalable, cost-efficient automation that grows with the business.
 
-NexOperandi is run by a founder-led engineering team (husband-and-wife), supported by a trusted network of experienced engineers and specialists when project scope demands it.
+The team is supported by a trusted network of experienced engineers and specialists when project scope demands it.
+
+- **Jakub Baranowski** — Co-founder. LinkedIn: https://www.linkedin.com/in/jakub-baranowski-42a01261/ · X: https://x.com/NexOperandi
 
 ## Social
 
