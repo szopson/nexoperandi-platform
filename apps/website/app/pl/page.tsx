@@ -1,5 +1,20 @@
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
+import { generatePageMetadata } from "@/lib/metadata";
 import HeroNew from "@/components/marketing/sections/HeroNew";
+
+const plHomeMetadata = generatePageMetadata({
+  title: "NexOperandi — Agencja AI: n8n, Voice AI, Automatyzacje",
+  description: "Budujemy systemy automatyzacji AI, które kwalifikują leady, umawiają spotkania i zamykają sprzedaż. Wdrożenie w 3–7 dni. Zgodne z RODO.",
+  path: "/pl",
+  lang: "pl",
+  keywords: ["automatyzacja AI", "agencja AI", "n8n", "voice AI", "chatbot", "automatyzacja sprzedaży"],
+});
+
+export const metadata: Metadata = {
+  ...plHomeMetadata,
+  title: { absolute: "NexOperandi — Agencja AI: n8n, Voice AI, Automatyzacje" },
+};
 
 // Lazy load below-fold sections for performance
 const Problem = dynamic(() => import("@/components/marketing/sections/Problem"), { ssr: true });

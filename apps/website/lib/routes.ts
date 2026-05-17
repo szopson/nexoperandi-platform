@@ -4,9 +4,8 @@ export const routeMap: Record<string, Record<'en' | 'pl', string>> = {
   '/web': { en: '/web', pl: '/pl/strony' },
   '/pricing': { en: '/pricing', pl: '/pl/cennik' },
   '/demo': { en: '/demo', pl: '/pl/demo' },
-  '/demos': { en: '/demos', pl: '/pl/demos' },
   '/pipeline-audit': { en: '/pipeline-audit', pl: '/pl/audyt-automatyzacji' },
-  '/contact': { en: '/contact', pl: '/pl/contact' },
+  '/contact': { en: '/contact', pl: '/pl/kontakt' },
 };
 
 /**

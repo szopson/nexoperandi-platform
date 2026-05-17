@@ -313,7 +313,7 @@ export const homepageTranslations = {
       ctaPrimary: 'Zobacz demo na żywo →',
       ctaPrimaryHref: '/pl/strony#live-demos',
       ctaSecondary: 'Porozmawiajmy',
-      ctaSecondaryHref: '/pl/contact',
+      ctaSecondaryHref: '/pl/kontakt',
       badge: 'Od 11 000 zł',
     },
 

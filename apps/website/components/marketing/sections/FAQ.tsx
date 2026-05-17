@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 import { homepageTranslations } from "@/lib/homepage-translations";
 import type { Lang } from "@/lib/translations";
 
@@ -16,8 +17,28 @@ export default function FAQ({ lang = "en" }: FAQProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: t.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <section className="py-24 px-6">
+      <Script
+        id={`faq-jsonld-${lang}`}
+        type="application/ld+json"
+        strategy="beforeInteractive"
+      >
+        {JSON.stringify(faqSchema)}
+      </Script>
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

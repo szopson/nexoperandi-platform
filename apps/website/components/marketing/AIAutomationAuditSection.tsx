@@ -48,7 +48,7 @@ export default function AIAutomationAuditSection({ lang = 'en', className = "" }
             <p className="mt-6 text-sm text-slate-500">
               {audit?.freeCallLink || 'Prefer a quick discussion?'}{" "}
               <Link
-                href={lang === 'pl' ? '/pl/contact?service=free-architecture-call' : '/contact?service=free-architecture-call'}
+                href={lang === 'pl' ? '/pl/kontakt?service=free-architecture-call' : '/contact?service=free-architecture-call'}
                 className="text-slate-300 underline underline-offset-4 hover:text-white transition-colors"
               >
                 {audit?.freeCallLinkText || 'Book a free architecture call'} →
@@ -84,7 +84,7 @@ export default function AIAutomationAuditSection({ lang = 'en', className = "" }
 
             <div className="mt-6">
               <Link
-                href={lang === 'pl' ? '/pl/contact?service=ai-audit' : '/contact?service=ai-audit'}
+                href={lang === 'pl' ? '/pl/kontakt?service=ai-audit' : '/contact?service=ai-audit'}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-3.5 text-sm font-semibold text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
               >
                 {audit?.cta || 'Start with an Audit'}

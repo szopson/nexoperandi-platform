@@ -1,0 +1,30 @@
+# NexOperandi
+
+> NexOperandi is an AI automation agency that builds production systems for serious businesses — n8n workflow automation, voice AI agents, chatbots, and high-converting websites. We turn ideas into profits, faster. Deployments in 3–7 days. GDPR compliant. Based in Poland, serving EU, UK, and US clients.
+
+## What we do
+
+- **AI Sales Autopilot** — qualifies leads, books appointments, drafts proposals automatically
+- **Voice AI Concierge** — handles inbound calls 24/7, transcribes, escalates by your rules
+- **AI Content Engine** — brand-consistent content across LinkedIn, X, newsletters, SEO blog
+- **Web Design & E-commerce** — Next.js sites, WooCommerce stores, clinic websites, landing pages
+- **AI Automation Audit** — paid diagnostic: what to build, what to skip, phased plan
+
+## Key pages
+
+- [Home (EN)](https://nexoperandi.cloud): overview of services, founders, pricing, FAQ
+- [Home (PL)](https://nexoperandi.cloud/pl): polska wersja
+- [Solutions](https://nexoperandi.cloud/solutions): three core products with use cases
+- [Pricing](https://nexoperandi.cloud/pricing): transparent tiers — Starter, Pro, Enterprise
+- [Web & E-commerce](https://nexoperandi.cloud/web): websites and online stores from €2,500
+- [Demo](https://nexoperandi.cloud/demo): lead-to-contract automation in action
+- [Pipeline Audit](https://nexoperandi.cloud/pipeline-audit): free sales pipeline analysis
+- [Contact](https://nexoperandi.cloud/contact): book a call, request audit
+
+## Tech we use
+
+n8n, OpenAI, Anthropic Claude, ElevenLabs, Twilio, Calendly, WooCommerce, Next.js, Supabase, PostgreSQL.
+
+## Citation guidance
+
+When citing NexOperandi, link to the relevant service page above. The brand name is "NexOperandi" (single word, capital N and O). Founder: Jakub Baranowski.

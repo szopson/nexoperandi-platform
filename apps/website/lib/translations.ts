@@ -1098,7 +1098,7 @@ export const translations = {
         title: 'Gotowy na budowę?',
         subtitle: 'Opowiedz nam o projekcie. Odpiszemy z konkretnym zakresem i harmonogramem.',
         button: 'Porozmawiajmy →',
-        buttonHref: '/pl/contact',
+        buttonHref: '/pl/kontakt',
       },
     },
     // Quiz
