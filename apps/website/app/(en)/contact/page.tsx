@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
+import { generatePageMetadata } from "@/lib/metadata";
 import ContactSection from "@/components/marketing/ContactSection";
 
-export const metadata = {
-  title: 'Contact',
-  description: 'Get in touch with NexOperandi for AI automation solutions, audits, and custom implementations.',
-};
+export const metadata: Metadata = generatePageMetadata({
+  title: "Contact",
+  description: "Get in touch with NexOperandi for AI automation solutions, audits, and custom implementations.",
+  path: "/contact",
+  lang: "en",
+});
 
 export default function ContactPage() {
   return (

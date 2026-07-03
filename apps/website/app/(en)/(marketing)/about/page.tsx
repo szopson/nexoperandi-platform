@@ -6,7 +6,7 @@ import AboutPage from "@/components/marketing/pages/AboutPage";
 export const metadata: Metadata = generatePageMetadata({
   title: "About NexOperandi — AI Automation Agency",
   description:
-    "NexOperandi is an AI automation agency based in Poland, serving EU, UK, and US clients. Founded in 2024 by an engineering team with 15+ years across banking, fintech, crypto, and autonomous driving. We build n8n workflows, voice AI, and high-converting websites — deployed in 3–7 days.",
+    "AI automation agency in Poland serving EU, UK & US. Engineering team with 15+ years in banking, fintech & crypto. n8n, voice AI, websites in 3–7 days.",
   path: "/about",
   lang: "en",
   keywords: [
