@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Lang } from "@/lib/translations";
 
@@ -66,12 +65,10 @@ const footerContent = {
 };
 
 export default function Footer({ lang = 'en' }: FooterProps) {
-  const [year, setYear] = useState(2025);
+  // Computed at render time so the prerendered HTML (what crawlers see)
+  // carries the current year, not a stale hardcoded one.
+  const year = new Date().getFullYear();
   const content = footerContent[lang];
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
 
   const columns = [content.product, content.company, content.legal];
 
@@ -148,7 +145,9 @@ export default function Footer({ lang = 'en' }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="border-t border-slate-900/50 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-600">
+          {/* suppressHydrationWarning: static prerender may carry last year's
+              build-time value right after New Year; client corrects it. */}
+          <p className="text-xs text-slate-600" suppressHydrationWarning>
             © {year} NexOperandi Inc. All rights reserved.
           </p>
           <div className="flex gap-4">
