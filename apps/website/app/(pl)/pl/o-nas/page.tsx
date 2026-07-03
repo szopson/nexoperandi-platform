@@ -6,7 +6,7 @@ import AboutPage from "@/components/marketing/pages/AboutPage";
 export const metadata: Metadata = generatePageMetadata({
   title: "O nas — NexOperandi",
   description:
-    "NexOperandi to agencja automatyzacji AI z siedzibą w Polsce, obsługująca klientów w UE, Wielkiej Brytanii i USA. Założona w 2024 przez zespół inżynierski z 15+ latami doświadczenia w bankowości, fintechu, infrastrukturze kryptowalut i autonomicznej jeździe. Budujemy automatyzacje n8n, głosowe AI i wysokokonwertujące strony — wdrożenie 3–7 dni.",
+    "Agencja automatyzacji AI z Polski dla klientów z UE, UK i USA. Zespół z 15+ latami w bankowości, fintechu i krypto. n8n, głosowe AI, strony w 3–7 dni.",
   path: "/pl/o-nas",
   lang: "pl",
   keywords: [

@@ -3,7 +3,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import DemoPage from "@/components/marketing/pages/DemoPage";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Demo",
+  title: "AI Automation Demo — Sales Autopilot in Action",
   description: "Watch real AI automation workflows in action. See how our AI Sales Autopilot turns leads into signed contracts — automatically.",
   path: "/demo",
   lang: "en",
