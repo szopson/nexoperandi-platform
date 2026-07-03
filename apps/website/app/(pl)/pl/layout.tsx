@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://nexoperandi.cloud',
       'pl': 'https://nexoperandi.cloud/pl',
+      'x-default': 'https://nexoperandi.cloud',
     },
   },
 };

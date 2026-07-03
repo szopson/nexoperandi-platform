@@ -3,6 +3,21 @@ import { routeMap } from "./routes";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud';
 
+/** Shared across both root layouts (EN + PL). */
+export const SITE_METADATA_BASE = new URL(SITE_URL);
+
+export const SHARED_ROBOTS: Metadata["robots"] = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    'max-video-preview': -1,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+  },
+};
+
 interface PageMetadataOptions {
   title: string;
   description: string;

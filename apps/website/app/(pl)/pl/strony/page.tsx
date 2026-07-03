@@ -1,48 +1,13 @@
 import Link from "next/link";
-import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import { getTranslations } from "@/lib/translations";
 
 export const metadata: Metadata = {
-  title: "Web Design & E-commerce Development",
+  title: "Strony internetowe i sklepy e-commerce",
   description:
-    "High-converting websites and online stores built for serious businesses. From clinic websites to WooCommerce stores — mobile-first, SEO-ready, measurable. From €2,500.",
-  keywords: [
-    "web design",
-    "e-commerce development",
-    "WooCommerce",
-    "Next.js websites",
-    "landing pages",
-    "high-converting websites",
-    "clinic website",
-    "mobile-first design",
-  ],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://nexoperandi.cloud/web",
-    title: "Web Design & E-commerce Development",
-    description:
-      "High-converting websites and online stores built for serious businesses. Mobile-first, SEO-ready, measurable. From €2,500.",
-    siteName: "NexOperandi",
-    images: [
-      {
-        url: "/og-web.png",
-        width: 1200,
-        height: 630,
-        alt: "NexOperandi — Web Design & E-commerce Development",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Web Design & E-commerce Development",
-    description:
-      "High-converting websites and online stores. Mobile-first, SEO-ready, measurable. From €2,500.",
-    images: ["/og-web.png"],
-  },
+    "Strony i sklepy internetowe zoptymalizowane pod konwersję — mobile-first, SEO-ready, mierzalne. Od 11 000 zł.",
   alternates: {
-    canonical: "https://nexoperandi.cloud/web",
+    canonical: "https://nexoperandi.cloud/pl/strony",
     languages: {
       en: "https://nexoperandi.cloud/web",
       pl: "https://nexoperandi.cloud/pl/strony",
@@ -51,48 +16,20 @@ export const metadata: Metadata = {
   },
 };
 
-const serviceJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  name: "Web Design & E-commerce Development",
-  serviceType: "Web Design and E-commerce Development",
-  provider: {
-    "@type": "Organization",
-    name: "NexOperandi",
-    url: "https://nexoperandi.cloud",
-  },
-  areaServed: ["EU", "PL", "UK", "US"],
-  description:
-    "High-converting websites and online stores built for serious businesses. From clinic websites to WooCommerce stores — mobile-first, SEO-ready, measurable.",
-  url: "https://nexoperandi.cloud/web",
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "EUR",
-    price: "2500",
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      priceCurrency: "EUR",
-      minPrice: "2500",
-    },
-    availability: "https://schema.org/InStock",
-  },
-};
-
-export default function WebPage() {
-  const t = getTranslations("en").webPage;
+export default function PLWebPage() {
+  const t = getTranslations("pl").webPage;
   const buildCards = [
     t.whatWeBuild.ecommerce,
     t.whatWeBuild.website,
     t.whatWeBuild.landing,
   ];
   const demos = [
-    { ...t.liveDemos.ecommerce, key: "ecommerce", image: "/demos/demo-shop-preview.png" },
-    { ...t.liveDemos.dental, key: "dental", image: "/demos/demo-dental-preview.png" },
+    { ...t.liveDemos.ecommerce, key: "ecommerce", image: "/demos/demo-shop-preview.webp" },
+    { ...t.liveDemos.dental, key: "dental", image: "/demos/demo-dental-preview.webp" },
   ];
 
   return (
     <div className="min-h-screen bg-black pt-24 pb-16 text-slate-300">
-      <JsonLd id="service-jsonld" data={serviceJsonLd} />
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-6 text-center mb-24">
         <div className="flex items-center justify-center gap-3 mb-6">
@@ -111,13 +48,13 @@ export default function WebPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/demo"
+            href="/pl/demo"
             className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-6 rounded-full transition-all hover:shadow-lg hover:shadow-blue-500/20"
           >
             {t.hero.ctaPrimary}
           </Link>
           <Link
-            href="/contact"
+            href="/pl/kontakt"
             className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-6 rounded-full border border-white/15 transition-all"
           >
             {t.hero.ctaSecondary}
@@ -166,7 +103,7 @@ export default function WebPage() {
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
-                    Live Demo
+                    Demo na żywo
                   </span>
                 </div>
                 <p className="text-slate-400 text-sm mb-6 flex-1">{demo.description}</p>

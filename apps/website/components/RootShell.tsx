@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
-import "./globals.css";
+import "@/app/globals.css";
 import VisitorTracking from "@/components/VisitorTracking";
 import ChatBotToggle from "@/components/chatbot/ChatBotToggle";
-import UnicornBackground from "@/components/UnicornBackground";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Contentsquare from "@/components/Contentsquare";
 import JsonLd from "@/components/JsonLd";
@@ -23,57 +21,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nexoperandi.cloud'),
-  title: {
-    default: "NexOperandi — AI Automation: n8n, Voice AI & Workflow",
-    template: "%s | NexOperandi",
-  },
-  description: "We build AI automation systems that qualify leads, book appointments, and close deals — while your team focuses on what matters. Deployed in 3–7 days. GDPR compliant.",
-  keywords: ["AI automation", "business automation", "MVP", "content generation", "optimization", "AI agents", "n8n automation", "voice agents", "chatbot", "web design", "e-commerce development"],
-  authors: [{ name: "NexOperandi" }],
-  creator: "NexOperandi",
-  publisher: "NexOperandi",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "/",
-    title: "NexOperandi — AI Automation Agency",
-    description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days. GDPR compliant.",
-    siteName: "NexOperandi",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "NexOperandi — AI Automation Agency" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "NexOperandi — AI Automation Agency",
-    description: "AI automation systems that qualify leads, book appointments, and close deals. Deployed in 3–7 days.",
-    creator: "@nexoperandi",
-    images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  alternates: {
-    canonical: 'https://nexoperandi.cloud',
-    languages: {
-      'en': 'https://nexoperandi.cloud',
-      'pl': 'https://nexoperandi.cloud/pl',
-      'x-default': 'https://nexoperandi.cloud',
-    },
-  },
-};
-
-export default function RootLayout({
+/**
+ * Shared HTML shell for both root layouts (EN + PL).
+ * Renders <html lang> so each language section declares the correct lang,
+ * matching its hreflang alternates.
+ */
+export default function RootShell({
+  lang,
   children,
 }: Readonly<{
+  lang: "en" | "pl";
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
@@ -168,7 +125,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Preconnect to critical third-party origins */}
         <link rel="preconnect" href="https://assets.calendly.com" />
@@ -188,25 +145,14 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className={`${inter.className} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-black text-slate-300 overflow-x-hidden selection:bg-blue-500/30`} suppressHydrationWarning>
-        {/* UnicornBackground disabled temporarily - may revisit later */}
-        {/* <UnicornBackground /> */}
         <VisitorTracking />
         {children}
         <ChatBotToggle />
 
         {/* Calendly CSS - inject after page load to not block render */}
-        <Script
-          id="calendly-css"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{
-            __html: `
-              var link = document.createElement('link');
-              link.rel = 'stylesheet';
-              link.href = 'https://assets.calendly.com/assets/external/widget.css';
-              document.head.appendChild(link);
-            `,
-          }}
-        />
+        <Script id="calendly-css" strategy="lazyOnload">
+          {`var link = document.createElement('link'); link.rel = 'stylesheet'; link.href = 'https://assets.calendly.com/assets/external/widget.css'; document.head.appendChild(link);`}
+        </Script>
 
         {/* Calendly Widget Script - Load after page is interactive */}
         <Script

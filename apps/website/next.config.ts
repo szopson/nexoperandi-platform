@@ -34,6 +34,13 @@ const nextConfig: NextConfig = {
         destination: '/pl/kontakt',
         permanent: true,
       },
+      // Canonical host: redirect www → non-www (301)
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.nexoperandi.cloud' }],
+        destination: 'https://nexoperandi.cloud/:path*',
+        permanent: true,
+      },
     ];
   },
 
